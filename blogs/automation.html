@@ -1,0 +1,83 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>前端流程自动化</h1>
+      <p>如今前端工程师需要维护的代码变得极为庞大和复杂，代码维护、打包、发布等流程上浪费的时间精力也越来越多。精简流程、提高效率，是每一个前端团队都会遇到的问题。因此我们需要在前端开发过程中引入流程管理工具来提升我们的开发效率。</p>
+      <p>前端的开发过程中主要有以下流程： 编写代码->单元测试->检查语法->整合代码->生成文档->压缩代码->部署测试环境->测试->发布。</p>
+      <h2>流程管理工具 - Ant</h2>
+      <p><a href="http://ant.apache.org/" target="_blank">Ant</a> 是著名Java开源组织Apache的一个项目，是一个基于java的build工具。它可以使你通过ant脚本语言，自动你的项目拷贝到某个目录，发布项目，或者生成一些代码，执行SQL语言。总之它可以帮助你完成项目开发中除了开发代码以外的大部分辅助性工作。</p>
+      <p>虽然Ant更多的在Java开发中使用，但是我们在前端开发中也可以很方便使用Ant来管理哦我们的开发流程。</p>
+      <h2>单元测试</h2>
+      <p>单元测试可以在我们每次对代码做修改时都跑一遍测试来看看是否引入了了Bug，详见<a href="http://www.weakweb.com/articles/255.html" target="_blank">JavaScript单元测试框架介绍</a>。</p>
+      <p></p>
+      <h2>代码检查 - JSLint</h2>
+      <p>JavaScript 作为一门年轻、语法灵活多变且对格式要求相对松散的语言，代码格式的混乱和某些语言特性的不正确使用，往往使得最终交付的产品中包含许多因编码风格约定造成的未预见的行为或错误，这种习惯性的问题如果不及时指出并修改，往往会在项目的迭代过程中不断的重现，严重影响 Web 产品的稳定性与安全性。JSLint 正是 Douglas Crockford 同学为解决此类问题创建的工具，JSLint 除了能指出这些不合理的约定，还能标出结构方面的问题。虽然 JSLint 不能保证代码逻辑一定正确，但却有助于发现错误并教会开发人员一些好的编码实践。值得一提的是 JSLint 工具本身也是一段 JavaScript 代码，它是检验 JavaScript 代码质量的 JavaScript 脚本。</p>
+      <h3>使用方法</h3>
+      <p>JSLint本身是用JavaScript编写的，你可以在浏览器里调用它，也可以在各个编辑器里直接集成，比如Notepad++可以安装JSLint插件，但是以上这些方法都是手动调用的，比较麻烦。下面我们看看如何和Ant进行集成。</p>
+      <p>和Ant进行集成主要有2种方法：<a href="http://code.google.com/p/jslint4java/" target="_blank">jslint4java</a>或者通过Rhino等JS解析器方便地进行自动化代码检验。具体的使用方法请参考：<a href="http://www.ibm.com/developerworks/cn/web/1105_linlin_jslint/index.html" target="_blank">使用 JSLint 保证 JavaScript 代码质量</a></p>
+      <p>对于前端开发中来说可能使用<a href="http://code.google.com/p/jslint4java/" target="_blank">jslint4java</a>更方便一些，毕竟不用写JAVA代码，这里需要提一下的是可以使用<a href="http://grepcode.com/snapshot/repo1.maven.org/maven2/com.googlecode.jslint4java/jslint4java-ant/2.0.2" target="_blank">jslint4java-ant</a>帮助我们JSLint的Ant任务。</p>
+      <p>除了JSLint，我们也可以选择<a href="http://code.google.com/p/closure-linter/" target="_blank">Closure Linter</a>，Google开发的js代码检查工具，它能够检查代码风格，语法错误，还能够自动优化代码，功能十分强大。</p>
+      <h2>文档生成 - JSDoc 3</h2>
+      <p><a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3</a>是<a href="http://code.google.com/p/jsdoc-toolkit/"  target="_blank">JsDoc Toolkit</a>的升级版本，你可以理解它为JS版的JAVADoc。它会从源码中提取注释生成文档，注释的规范请参考:<a href="http://usejsdoc.org/" target="_blank">use JSDoc</a>，或者<a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml" target="_blank">Google JavaScript Coding Style</a>，因为谷歌的JavaScript style是基于JSDoc的。</p>
+      <p>JSDoc和Ant集成的话需要下载<a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3</a>和<a href="https://github.com/jannon/jsdoc3-ant-task" target="_blank">JSDoc3 Ant Task</a>，其中JSDoc3 Ant Task是方便你在Ant中使用JSDoc3。实际上<a href="https://github.com/jannon/jsdoc3-ant-task" target="_blank">JSDoc3 Ant Task</a>的下载包里包含了JSDoc 3和Rhino，可以直接使用。</p>
+      <h2>文件整合</h2>
+      <p>在开发阶段常常会把JavaScript文件和CSS文件分成几部分来写,比如每个人对应一个文件，这样有利于减少冲突，提高效率。当然我们还会引入大量的第三方库文件，如jQuery, jQuery UI等。但是从性能优化的角度来看，每个文件都是一个HTTP请求，尤其JavaScript是顺序加载的，会严重影响网页的加载速度。因此在代码部署时必须将多个文件合并成少数几个文件。</p>
+      <p>和Ant集成的常用工具主要有<a href="http://ant.apache.org/manual/Tasks/concat.html" target="_blank">Ant concat</a>标签以及<a href="https://github.com/nzakas/combiner" target="_blank">Combiner</a>。</p>
+      <p>因为Ant concat是Ant内置的标签，所以使用起来特别简单方便，以下是最简单的例子，将所有的js合并到all.js中去。详细用法参考<a href="http://ant.apache.org/manual/Tasks/concat.html" target="_blank">Ant concat</a>。</p>
+      <pre><code>
+        &lt;target name=&quot;concatenate&quot;&gt;
+          &lt;concat destfile=&quot;all.js&quot;&gt;
+              &lt;fileset dir=&quot;js&quot; includes=&quot;*.js&quot; /&gt;
+          &lt;/concat&gt;
+        &lt;/target&gt;
+      </code></pre>
+      <p><a href="https://github.com/nzakas/combiner" target="_blank">Combiner</a>是Zakas开发的一个文件整合工具，它通过判断文件的依赖关系将文件进行合并。详细用法参考： <a href="http://hikejun.com/blog/2009/09/28/%E6%96%87%E4%BB%B6%E6%95%B4%E5%90%88%E5%B7%A5%E5%85%B7%EF%BC%8Dcombiner/" target="_blank">文件整合工具－Combiner</a>。</p>
+      <h2>代码压缩</h2>
+      <p>开发时为了让代码具有良好的可读性，一般都加入了大量的空格和空行，类名和变量名都一般都较长，这些都导致了源代码的体积较大，增加客户端下载时间，因此部署时需要对JavaScript代码和CSS代码进行压缩处理。例如jQuery1.8.3压缩后是91KB，没有压缩则是252KB，还是非常值得去压缩的。</p>
+      <p>最常见的压缩工具<a href="http://developer.yahoo.com/yui/compressor/" target="_blank">YUICompressor</a>以及Google的<a href="https://developers.google.com/closure/compiler/" target="_blank">Closure Compiler</a>。下面是一些两者的比较：</p>
+      <ul>
+        <li>YUICompressor只执行基本压缩，主要是去除空格等，也可以执行一些比较低层次的优化，比如将var varName;改成var a;</li>
+        <li>Google Closure Compiler功能比较强大，除了基本的压缩，还可以对代码进行初级和高级的优化，比如去除dead code等，可以通过参数来控制它的压缩级别。总之它压缩出来的代码结构被彻底修改了。</li>
+        <li>YUICompressor因为对源代码优化做的比较少，所以比较可靠，不会给代码带来伤害。而Google Closure Compiler比较激进，可以取得较高的压缩率，但是可能带来伤害。</li>
+        <li>Google Closure Compiler不仅可以对代码进行压缩，还可以对代码进行合并，见上面文件整合部分。</li>
+      </ul>
+      <p>两者的详细比较见<a href="http://www.slideshare.net/lifesinger/closure-compiler-vs-yuicompressor" target="_blank">Google Closure Compiler VS YUICompressor</a></p>
+      <p>YUICompressor和Google Closure Compiler与Ant集成的教程可以参考<a href="http://www.36ria.com/4644" target="_blank">http://www.36ria.com/4644</a></p>
+      <h2>测试环境构建</h2>
+      <p>测试环境构建不是单元测试，而是构建整个系统的测试环境，例如将系统构建包复制到测试机器上等。使用Ant自带的<a href="http://ant.apache.org/manual/Tasks/ftp.html" target="_blank">ftp</a>标签，可以将本地代码复制到局域网内的ftp目录。也可使用开源工具<a href="http://www.jcraft.com/jsch/" target="_blank">JSch</a>进行SCP操作。</p>
+      <pre><code>
+        &lt;ftp server=&quot;ftp.apache.org&quot;
+           userid=&quot;anonymous&quot;
+           password=&quot;me@myorg.com&quot;&gt;
+          &lt;fileset dir=&quot;htdocs/manual&quot;/&gt;
+        &lt;/ftp&gt;
+      </code></pre>
+      <h2>自动提交代码</h2>
+      <p>很多时候需要按照一定的规则自动提交代码，比如每天定时构建，然后提交到SVN或者当Ant和CI集成时，需要Ant和SVN交互等，这时候使用Ant和SVN交互，实现自动化操作是非常方便的。</p>
+      <p>Ant和SVN交互需要插件<a href="http://subclipse.tigris.org/svnant.html" target="_blank">svnant</a>，它可以完成export, checkout, commit操作。</p>
+      <p>Ant同样是可以和Git交互的，请参考<a href="http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/" target="_blank">Ant Tasks for Git</a>。</p>
+      <p>案例参考： <a href="http://www.oschina.net/question/12_7657" target="_blank">基于 Ant 搭建敏捷开发过程中的持续集成环境</a></p>
+      <h2>参考：</h2>
+      <ul>
+        <li>
+          <a href="http://www.programmer.com.cn/5770/" target="_blank">前端开发流程自动化</a>
+        </li>
+        <li>
+          <a href="http://creynders.wordpress.com/2012/03/14/automating-javascript-builds/" target="_blank">Automating JavaScript builds</a>
+        </li>
+        <li>
+          <a href="http://www.baiduux.com/blog/2011/04/15/tangram-dev-tools/" target="_blank">tangram开发中使用的开源工具介绍</a>
+        </li>
+        <li>
+          <a href="https://github.com/borishuai/Build-JS-example" target="_blank">Build-JS-example</a>
+        </li>
+      </ul>
+    </article>
+  </body>
+</html>

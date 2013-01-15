@@ -1,0 +1,72 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>JavaScript图片尺寸小结</h1>
+      <h2>如何给图片设置宽高</h2>
+      <h3>1. 不作任何设置</h3>
+      <p>如果不对图片设置宽高，则图片的显示的宽高就是图片的真实宽高。</p>
+      <pre><code>
+        &lt;img src="hello.jpg" /&gt;
+      </code></pre>
+      <h3>2. 通过图片的宽高属性设置</h3>
+      <p>可以通过img标签或者Image对象的width和height属性来设置宽高，比如：</p>
+      <pre><code>
+        &lt;img src="hello.jpg" width="100" heigth="100" /&gt;
+      </code></pre>
+      <p>或者</p>
+      <pre><code>
+        var image = new Image();
+        image.src = 'hello.jpg';
+        image.width = 100;
+        image.height = 100;
+      </code></pre>
+      <p>这两种方法的本质是一样的，就是通过图像的宽高属性来设置，这里需要注意的是<strong>同时设置了宽高其实只是宽度在起作用，它会按照设置的宽度和真实宽度等比例放大或者缩小</strong>。所以说这种方式设置宽高图片的宽高比例是不会变的，就是图片不会变形。</p>
+      <h2>3. 通过CSS设置</h2>
+      <p>这种方法比较简单，代码如下：</p>
+      <pre><code>
+        img {
+          height: 100px;
+          width: 100px;
+        }
+      </code></pre>
+      <p>注意：这种方式设置的宽高都会起作用的，所以如果不是等比例设置会导致图片变形的，这一点是和通过属性设置是有本质区别的。如果怕图片变形还是通过属性设置吧，但是CSS设置比较方便，代码耦合性低。</p>
+      <h2>获取图片的尺寸</h2>
+      <h3>1. 获取图片的显示尺寸</h3>
+      <p>图片的显示尺寸主要通过Image对象的width和height属性来获取的。如果没有设置过尺寸则获取的尺寸和原始尺寸是一致的，如果设置过则返回的是设置过的尺寸即实际显示尺寸。</p>
+      <pre><code>
+        &lt;img id="logo" src="hello.jpg" /&gt;
+        var width = document.getElementById('logo').width;
+        var height = document.getElementById('logo').height;
+      </code></pre>
+      <h3>2. 获取图片的原始尺寸</h3>
+      <p>获取图片的原始尺寸有2种方法，第一种是使用Image对象，即要获取的图片URL赋值给一个空的Image对象的src属性，然后再去读它的width和height属性就可以了，这种方法基本上所有的浏览器都是可以用的。代码如下：</p>
+      <pre><code>
+        var image = new Image();
+        image.src = 'hello.jpg';
+        var width = image.width;
+        var height = image.height;
+      </code></pre>
+      <p>第二种方法是通过Image对象新增加的两个属性naturalWidth和naturalHeight来实现的。目前是包括IE9+， chrome, firefox等浏览器都支持该属性。</p>
+      <pre><code>
+        &lt;img id="logo" src="hello.jpg" /&gt;
+        var width = document.getElementById('logo').naturalWidth;
+        var height = document.getElementById('logo').naturalHeight;
+      </code></pre>
+      <p>在实际使用过程中可以先判断浏览器是否支持新的特性来决定使用哪种方式。</p>
+      <pre><code>
+        var image = document.getElementById('logo');
+        if (image.naturalWidth) {
+          //support the new attrubute
+        }
+      </code></pre>
+      <h2>示例代码</h2>
+      <a href="http://jsfiddle.net/borishuai/MWcEZ/" target="_blank">http://jsfiddle.net/borishuai/MWcEZ/</a>
+    </article>
+  </body>
+</html>

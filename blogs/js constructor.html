@@ -1,0 +1,66 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>JavaScript构造函数解析</h1>
+      <h2>构造函数的原理</h2>
+      <p>JavaScript语言是一门面向对象的语言，但是JavaScript中并没有类的概念的。于是JavaScript采用构造函数的方式来模拟类的效果，即我们通过函数来创建对象。这也证明了函数在JavaScript中具有非常重要的地位。举个例子：</p>
+      <pre><code>
+        var Book = function(name, price) {
+          this.name = name;
+          this.price = price;
+        }
+
+        var java = new Book('Master Java', 82);
+      </code></pre>
+      <p>当使用new关键字来调用构造函数时，执行上下文从全局变量对象(window)变成一个空的上下文，这个上下文代表了新生成的实例。因此，this关键字指向当前创建的实例</p>
+      <p>默认情况下，如果你的构造函数中没有返回任何内容，就会返回this----当前的上下文，也就是你当前创建的对象。要不然就返回任意非原始类型的值。而普通的函数如果没有明显的返回值将返回undefined。</p>
+      <h2>模拟构造函数创建对象</h2>
+      <p>其实使用new创建一个对象的过程并不神秘，我们可以使用代码来模拟如何创建一个对象：</p>
+      <pre><code>
+        var Book = function(name) {
+          this.name = name;
+        };
+
+        //正常用法
+        var java = new Book(‘Master Java’);
+        
+        //使用代码模拟，在非IE浏览器中测试，IE浏览器不支持
+        var python = {};
+        python.__proto__ = Book;
+        Book.call(python, 'Master Python');
+      </code></pre>
+      <h2>将构造函数作为普通函数调用</h2>
+      <p>实际上构造函数就是个普通的函数，可以当作普通函数调用的，例如var result = Book();，当然结果是undefined。区别在于函数中this的指向。我们重新修改一下上面的构造函数，</p>
+      <pre><code>
+        var Book = function(name, price) {
+        this.name = name;
+        this.price = price;
+        if (this == window) {
+          return 'name = ' + name + ", price = " + price;
+        }
+      }
+      </code></pre>
+      <p>这样当执行var result = Book("Java", 100)的结果是"name = Java, price = 100", 而var java = new Book("Java", 100)的结果就是创建了一个新的对象。JavaScript自带的构造函数好多就是既当普通函数又当构造函数的。比如String和Number，当String和Number作为构造函数来使用时，</p>
+      <pre><code>
+        var a = new Number(11);
+        var b = new Number(11.222);
+        var c = new String("hello");
+      </code></pre>
+      <p>当String和Number作为普通函数来使用时，他们可以用来作类型转换，即Number函数可以将其它类型转换为number类型，String函数可以将其它类型转换为字符串，</p>
+      <pre><code>
+        var a  = Number('11'); //11
+        var b = Number('hello'); //NaN
+        var c = String(11); //'11'
+        var d = String(null); //'null'
+      </code></pre>
+      <h2>总结</h2>
+      <p>当一个函数要作为构造函数使用时通常将函数名首字母大写表示这是个构造函数，同时，一定要用new去调用构造函数。另外尽量不要把构造函数做普通函数使用，因为容易产生全局变量，同时如果处理不好返回值容易对构造函数自身的功能产生影响。</p>
+    </article>
+  </body>
+</html>

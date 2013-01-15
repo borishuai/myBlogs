@@ -1,0 +1,68 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>Notepad++配合Finger Text打造快速高效的文本编辑器</h1>
+      <p><a href="https://github.com/erinata/FingerText" target="_blank">Finger Text</a>是Notepad++的一个标签代码替换和文本自动完成插件。Notepad++配合标签替换功能可以极大的提升编码速度，提高工作效率。</p>
+      <p>也许有人使用过QuickText插件，它们的功能类似，在早期尤其是Xp版本上是非常好用的，不过已经停止更新了，在Win7版本上没有办法使用，在XP上还是可以接着用的，不过已经被Notepad++从官方的插件列表里移除了。</p>
+      <h2>安装Finger Text</h2>
+      <p>因为Finger Text较高的质量，稳定的更新，已经被Notepad++加入到官方插件列表里的。因此安装非常方便，只要在Plugin->Plugin Manager->Show Plugin Manager里面选择Finger Text，然后点击安装就好了。</p>
+      <h2>安装代码片段包</h2>
+      <p>所谓的代码片段包就是替换规则，比如输入if之后替换成什么代码片段。插件提供了一个默认包，覆盖了大部分语言，比如JavaScript，HTML，CSS等。如果没有默认安装，可以手动安装，plugin > FingerText > Install Default Snippet Package。</p>
+      <h2>基本用法</h2>
+      <p>点击Plugins > FingerText > Show SnippetDock将会打开一个Finger Text的对话框，对话框的最下面是一组可用的代码替换规则。</p>
+      <p>当用户开始输入时，右边就会显示和输入内容相对应的代码片段， 比如输入 'npp'，按tab键将会替换成 'Notepad++'，如果在HTML语言里输入p，按tab键将会替换成 &lt;p&gt;&lt;/p&gt;。</p>
+      <p>要注意的是，Finger Text会根据你的输入在右边进行过滤的，比如输入 'i'，就只会显示'i'开头的，这个有助于你查找。 Finger Text还支持代码补全，比如输入'com'，点击Plugins>FingerText>Tag completion就会自动把'comment'补全，如果有多个匹配'com'，则会把第一个补全。</p>
+      <h2>代码片段范围</h2>
+      <p>Finger Text的代码片段分为两部分，&lt;GLOBAL&gt;和各个语言的代码片段，&lt;GLOBAL&gt;是所有语言都可见的，其它就是每个语言只可见该语言自己的代码片段。Notepad++会自动根据文件的扩展名来识别语言的，用户也可以自己手动设置语言来测试一下看看。HTML语言比较特殊，它会同时显示HTML，CSS，JavaScript的代码片段，因为HTML文件可以包含这些东西。</p>
+      <p>语言范围的格式一般是&lt;Lang:Cpp&gt;，而HTML，CSS，JS则是&lt;Ext:html&gt;, &lt;Ext:css&gt;, &lt;Ext:js&gt;这些规则在编辑或者添加代码片段有用，这用于区分这个代码片段是哪个语言的。 </p>
+      <h2>热点导航(Hotspots Navigation)</h2>
+      <p>所谓的热点(Hotspots)我觉得就是代码片段中可变部分，或者说用户一般需要修改的部分，比如在JS中输入if按tab键，它的结果如下：</p>
+      <pre><code>
+        if ({condition})
+        {
+          $[![]!]
+        }
+      </code></pre>
+      <p>其中{condition}和$[![]!]都是热点，刚开始光标应该是在{condition}上面，输入内容后，比如a &lt; b, 按tab键光标会跳到下一个热点，也就是$[![]!]，同时会把$[![]!]删除。</p>
+      <p>这里热点还有另外一个更重要的用法，那就是以参数的形式传入替换掉热点的值。还是以if为例，if有2个热点，如果我们输入if(a < b)按tab键，a < b将会作为第一个热点的值显示 出来，结果如下：</p>
+      <pre><code>
+        if (a < b)
+        {
+          $[![]!]
+        }
+      </code></pre>
+      <p>如果我们传入2个参数，则两个热点值都会被替换，比如if(a < b, a = 1)按回车键，结果如下：</p>
+      <pre><code>
+        if (a < b)
+        {
+          a = 1;
+        }
+      </code></pre>
+      <p>热点是允许多个同名热点存在的，比如js里的for里面有3个i都是热点，输入第一个i值，后面的都会被替换掉的，你可以理解它们其实是同一个引用。</p>
+      <p><strong>千万要记住，if和后面的()之间不能有空格，否则它们就不是同一个字符串了，貌似Finger Text只处理光标之前的那个字符串。Finger Text会在替换后的if之后加上空格的。</strong></p>
+      <h2>创建和编辑代码片段</h2>
+      <p>如果插件自带的代码片段不能满足你的需求时，则自己可以创建新的代码片段或者编辑已有的代码片段。</p>
+      <p>最简单的创建方法就是先选中需要的内容，然后点击Plugins>FingerText>Create snippet from selection进入到创建页面，需要输入3个字段： TriggerText，就是用来你的代码片段的关键字。Scope，就是你的代码片段的范围，是全局的还是特定某种语言的。Snippet Content，就是要创建的代码片段的内容了，Finger Text一般会自动把结束符 [>END<] 加上的，不要删掉。</p>
+      <p>如果你打开了Finger Text面板，面板上面也有一个'Create snippet from selection'按钮，效果是一样的，如果你没有选择内容直接点击创建按钮，就会提供一个空白的模板给你创建。</p>
+      <p>要编辑一条已有的代码片段，只要在Finger Text面板上选择该条目，然后点击'Open Snippet Editor'，或者先把Finger Text的Edit模式，然后双击该代码片段即可。</p>
+      <p>貌似删除功能目前不能用，不懂为啥。</p>
+      <h2>基本的热点编辑</h2>
+      <p>如果你不满足于创建静态的文本代码片段，那我们可以自己创建带热点的代码片段。</p>
+      <p>热点的基本语法： $[![Whatever Text]!]，其中'Whatever Text'是热点的提示，同时也可以作为热点的默认值，参见if的第一个热点。你也可以创建一个空的热点$[![]!]，空的热点的最大特点是当你把光标移动到该热点时，热点本身会被移除，你可以理解它为一个占位符，参见if的第二个热点。但是不管是不是一个空的热点，只要传值进来就可以进行替换，它们的区别只在没有传值进来时。</p>
+      <p>我们也可以创建多个同名的热点，比如像for语句需要3个相同的热点i，传值或设值只要一次就可以了。写法很简单，我们看一下js for的写法：</p>
+      <pre><code>
+        for ($[![i]!]=0;$[![i]!]<=$[![max_value]!];$[![i]!]++)
+        {
+          $[![]!]
+        }
+      </code></pre>
+      <p>其实就是$[![i]!]出现在多个地方而已。</p>
+    </article>
+  </body>
+</html>

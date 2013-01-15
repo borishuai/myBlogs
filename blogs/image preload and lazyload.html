@@ -1,0 +1,68 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>Image preload and lazyload</h1>
+      <p>图片相对于HTML，CSS，JavaScript来说都是比较大的，因此图片经常会影响到网页的加载速度，影响用户体验。如果图片过多，则浏览器则需要花大量的时间才能把所有的图片载入完毕，而对于图片信息非常重要的页面，用户不得不等待图片完全载入了才能浏览页面。因此就有人想出了预载入图片技术来提高响应速度以及延迟载入技术来解决图片过多问题。</p>
+      <h2>预载入图片(Preload)</h2>
+      <p>预载入图片主要是为了响应速度问题，比如点击下一页时能快速显示图片，因为如果在点击时才去载入图片是很慢的。其原理就是在第一个页面时就把后面可能用到的图片先载入到浏览器里来，因此缓存的关系，后面用到该图片时并不需要从新下载。下面就是常用的几种方法：</p>
+      <h3>>Image对象载入</h3>
+      <p>这种方式主要使用Image对象来实现的。document.imags数组的成员都是一个个Image对象。创建一个Image对象后给它的src属性赋值，这时浏览器就会去请求这张图片并缓存起来，但是该Image对象并没有加到dom中去，因此该图片并不会显示出来。</p>
+      <pre><code>
+        var image = new Image();
+        image.src = 'logo.jpg';
+      </code></pre>
+      <h3>CSS背景图片</h3>
+      <p>它的原理就是利用背景图片的方式要求浏览器去提前载入图片，同时把这些背景图片隐藏起来不让显示，个人觉得这种方法稍微麻烦了一些，不是很经常使用。</p>
+      <pre><code>
+        #preload-01 { background: url(http://domain.tld/image-01.png) no-repeat -9999px -9999px; }
+        #preload-02 { back// better image preloading @ http://perishablepress.com/press/2009/12/28/3-ways-preload-images-css-javascript-ajax/
+        function preloader() {
+            if (document.getElementById) {
+                document.getElementById("preload-01").style.background = "url(http://domain.tld/image-01.png) no-repeat -9999px -9999px";
+                document.getElementById("preload-02").style.background = "url(http://domain.tld/image-02.png) no-repeat -9999px -9999px";
+                document.getElementById("preload-03").style.background = "url(http://domain.tld/image-03.png) no-repeat -9999px -9999px";
+            }
+        }
+        function addLoadEvent(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = func;
+            } else {
+                window.onload = function() {
+                    if (oldonload) {
+                        oldonload();
+                    }
+                    func();
+                }
+            }
+        }
+        addLoadEvent(preloader);ground: url(http://domain.tld/image-02.png) no-repeat -9999px -9999px; }
+        #preload-03 { background: url(http://domain.tld/image-03.png) no-repeat -9999px -9999px; }
+      </code></pre>
+      <h3>使用img标签</h3>
+      <p>以上两种方法都是依赖于JavaScript的，使用img标签就可以不使用JavaScript来载入图片了，原理就是把图片的宽高设成1x1，然后把它藏起来，这样就不影响当前页面的使用了。</p>
+      <pre><code>
+        <image src="picture.jpg" width="1" height="1" border="0">
+      </code></pre>
+      <h2>延迟载入图片(lazyload)</h2>
+      <p>所谓延迟载入就是当页面上图片非常多时，浏览器只载入<strong>当前屏幕</strong>的图片，当用户拖动或滚动屏幕时去载入下一屏的图片，因为很多时候页面有很多屏，如果一次载入会很慢的。这对于购物网站或图片展示网站来说特别有用。对于移动用户来说流量那就是钱啊。</p>
+      <p>现在大家用的是一个名叫<a href="http://www.appelsiini.net/projects/lazyload" target="_blank">Lazy Load</a>的jQuery插件，它提供了一个在线的<a href="http://www.appelsiini.net/projects/lazyload/enabled.html" target="_blank">Demo</a>，用法其实很简单了，大家可以参考一下下面的教程：</p>
+      <ul>
+        <li><strong>官方教程</strong>: <a href="http://www.appelsiini.net/projects/lazyload" target="_blank">http://www.appelsiini.net/projects/lazyload</a></li>
+        <li><strong>中文教程</strong>: <a href="http://www.neoease.com/lazy-load-jquery-plugin-delay-load-image/" target="_blank">http://www.neoease.com/lazy-load-jquery-plugin-delay-load-image/</a></li>
+      </ul>
+      <h2>参考文章</h2>
+      <ul>
+        <li><a href="http://www.mediacollege.com/internet/javascript/image/preload.html" target="_blank">http://www.mediacollege.com/internet/javascript/image/preload.html</a></li>
+        <li><a href="http://perishablepress.com/3-ways-preload-images-css-javascript-ajax/" target="_blank">http://perishablepress.com/3-ways-preload-images-css-javascript-ajax/</a></li>
+        <li><a href="http://www.neoease.com/lazy-load-jquery-plugin-delay-load-image/" target="_blank">http://www.neoease.com/lazy-load-jquery-plugin-delay-load-image/</a></li>
+      </ul>
+    </article>
+  </body>
+</html>

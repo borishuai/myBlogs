@@ -1,0 +1,75 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>中小型项目中JavaScript模块化开发探讨</h1>
+      <h2>我们以前是怎么开发JavaScript代码的</h2>
+      <p>在过去由于应用复杂度不高，JavaScript之于web页面一直处于一种辅助程序的地位，甚至谈不上是一门应用开发语言。而且多数网站都是一次性应用，规模较小，相对于可维护性，开发速度更重要。大部分时候是没有专业前端开发人员的，都是做后台的人查查手册就开始干活了。</p>
+      <p>很多时候所有的JavaScript代码放在同一个文件中，所有代码耦合在一起，无法复用。所有的变量都是全局变量，可能互相覆盖。做的好的会创建一些函数，将一些公共的代码组织一下，便于复用，但是这些函数基本上也都是全局的。引入JQuery之后更明显，好多人习惯把所有的事件绑定，事件处理等代码写在一起放到一个document ready函数里。</p>
+      <p>以上这些情况我都是亲身经历过的，总结起来就是代码无法复用，可维护性差，同时代码无法测试，还有就是多人协作开发比较困难。</p>
+      <h2>什么是模块？</h2>
+      <h3>维基百科的定义：</h3>
+      <p>软件模块(Module)是一套一致而互相有紧密关连的软件组织。它分别包含了程序和数据结构两部份。现代软件开发往往利用模块作合成的单位。现代软件开发往往利用模块作合成的单位。模块是可能分开地被编写的单位。这使他们可再用和允许广泛人员同时协作、编写及研究不同的模块。</p>
+      <h2>模块化开发的优点</h2>
+      <ul>
+        <li>可以实现按需加载</li>
+        <li>多人协作开发</li>
+        <li>便于复用</li>
+        <li>可扩展性强</li>
+        <li>方便测试</li>
+      </ul>
+      <h2>JavaScript中的模块化开发</h2>
+      <p>其实现在JavaScript模块化是个很热门的东西了，主要特点是“模块化开发，按需加载“。这其中<a href="http://commonjs.org/">CommonJS</a>组织定义了<a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a>的规范用来规范浏览器端的模块定义。<a href="http://requirejs.org/">RequireJS</a>和<a href="http://seajs.org/docs/">SeaJS</a>是实现了AMD的两个优秀的框架。</p>
+      <p>对于中大型项目来讲使用模块化开发和按需加载是非常有必要的，可以选择其中的一个框架来使用，而对于中小型项目来说，我个人觉得使用这种模块开发框架就有点不必要了，但是我们仍然可以采用模块化开发的优点但不使用按需加载这个功能。我们这里主要中小型项目如何使用模块化开发方式来避免传统开发方式中的各种问题。</p>
+      <h3>JavaScript中模块的定义方式</h3>
+      <p>JavaScript中的模块主要是通过闭包来实现的，它可以很好的解决全局变量的问题，把所有相关的变量作为私有变量放在模块中，下面是一个模块的简单例子：</p>
+      <pre><code>
+        var book = function() {
+          var name = 'Master JavaScript';
+          var price = 100;
+          
+          return {
+            getName: function() {
+              return name;
+            },
+            getPrice: function() {
+              return price;
+            }
+          };
+        }();
+      </code></pre>
+      <p>下面就是一些JavaScript模块化开发过程中的一些基本要求。</p>
+      <section>
+        <h3>每个模块只完成一个独立的功能</h3>
+        <p>这是模块化开发的基本要求，模块化开发实际上就是分治法即把整个功能分成若干个小功能，当然也可以继续划分直到每个模块只做一件事为止。当然也不要分得太细，粒度太大不利于复用，而粒度太细则会使模块之间集成变得很复杂。</p>
+      </section>
+      <section>
+        <h3>每个模块有清晰的API接口</h3>
+        <p>其实这个API接口可以在模块具体功能代码之前先定义好，这就要求你在写代码前就清晰的知道这个模块要做什么，这个和先写单元测试代码后写实现代码是一个道理。同时这还要求只暴露需要的接口，其它变量和函数等都是隐藏的，外面无法访问。</p>
+      </section>
+      <section>
+        <h3>单元测试</h3>
+        <p>JavaScript开发过程中很少有人写单元测试，一方面是因为JavaScript经常和UI打交道，测试困难，另一方面是因为代码耦合，无固定接口，没有办法测试。有了模块后，就可以很方便的进行测试了。请参考<a href="http://www.weakweb.com/articles/255.html">JavaScript单元测试框架介绍</a></p>
+      </section>
+      
+      <section>
+        <h2>总结</h2>
+        <p>本文讨论的是中小型JavaScript项目中的模块化开发方法，因此并没有采用<a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a>的那套规范，而是使用了JavaScript中标准的模块模式来组织代码。同样也没有使用按需加载功能，因为对于中小型项目来说代码量不是太大，性能不是大问题。如果是大型项目采用<a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a>规范和按需加载还是非常有必要的，这样就可以加载必要的代码。</p>
+      </section>
+      <footer>
+        <h2>参考文章：</h2>
+        <ul>
+          <li><a href="http://kingzs70.sinaapp.com/2011/12/12/javascript_modulized_develop_and_requre_in_need">JavaScript模块化开发与按需加载</a></li>
+          <li><a href="http://www.cnblogs.com/snandy/archive/2012/03/07/2378432.html">拥抱模块化的JavaScript</a></li>
+          <li><a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a></li>
+        </ul>
+      </footer>
+      
+    </article>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>Web代码组织及开发方式讨论</h1>
+      <h2>为什么会有这篇文章？</h2>
+      <p>做前端开发有4年了，期间做过项目无数，从刚开始的啥也不懂，完全瞎写到现在逐渐走向正规化开发方式，。本文在此和大家分享目前的一些前端开发方面关于代码组织管理方面的一些心得。</p>
+      <h2>HTML/CSS</h2>
+      <p>对于小型多页面的网站来说，可以将所有的HMTL放在一个HTML文件里，每一个Tab页面当作它的一个DOM节点，可以使用<a href="http://jqueryui.com/tabs/" target="_blank">JQueryUI Tab</a>来实现。这种方式的优点是可以统一的载入CSS，JS等，以及有统一的header， footer，缺点是当tab页面内容过多容易造成页面缓慢。</p>
+      <p>另外一种方式就是一个页面对应一个HTML文件，优点是代码比较简洁，耦合性较低，修改不会影响到其它功能。缺点是每个文件基本上都要载入相同的JS和CSS文件，最呕心的是header和footer的处理，基本上每个文件都有相同的header和footer代码，重复代码维护比较困难。</p>
+      <p>两种方式各有各的优缺点，个人认为当规模不大时应该采用第一种方式即一个文件的模式，可以使用<a href="http://jqueryui.com/tabs/" target="_blank">JQueryUI Tab</a>将每个tab页面的内容的HTML代码片段(没有head等部分)放在不同的HTML文件中，然后通过Ajax的方式载入进去，这样就可以既使用同一个header和footer又可以把不同的页面分开，便于多人开发。当然这种方式是无法解决DOM过于庞大的问题的。否则就采用第二种方式吧。如果是后台输出的HTML结构那就果断使用第二种方式了。第一种的目录结构如下：</p>
+      <pre>
+          index.html<br />
+          pages/home.html<br />
+          pages/about.html<br />
+      </pre>
+      <p>CSS的代码组织方式请参考<a href="http://www.weakweb.com/articles/304.html">http://www.weakweb.com/articles/304.html</a></p>
+      <h2>Image组织方式</h2>
+      <p>通常在根目录创建一个image/目录用于存放网站使用的图片，这里主要是指网站上img标签所用到的图片，当然也可以根据不同的用途建不同的子目录，如car/, hourse/等，主要目的还是为了便于查找管理。而在css目录下面创建image目录用于存放css里用到的背景图片。</p>
+      <h2>JavaScript代码组织方式</h2>
+      <p>在根目录下建一个文件夹用来放JavaScript文件，比如js/</p>
+      <h3>第三方库文件</h3>
+      <p>最好在js目录下面建一个lib目录用来存放所有第三方的js文件。js/lib。以下是我认为我每个项目都应该引用的文件。</p>
+      <ul>
+        <li>
+          <h4><a href="http://www.jquery.com" target="_blank">JQuery</a>:</h4>
+          <p>JQuery胜在简单，大部分人都会使用，当然其它框架也可以，但是这类型的框架至少选用一个。</p>
+        </li>
+        <li>
+          <h4><a href="http://underscorejs.org/" target="_blank">Underscore</a>:</h4>
+          <p>这个文件提供了无数实用的功能性函数，你可以理解为它是对JQuery的不充，总之非常不错的，强烈推荐使用，这个框架也是学习js的好材料，源代码1000行左右。</p>
+        </li>
+        <li>
+          <h4><a href="http://labjs.com/" target="_blank">LABjs</a>:</h4>
+          <p>用来管理JS下载执行的一个开源模块，它可以并发下载js文件然后顺序执行，用来js文件不能同步下载的问题。同时支持动态加载外部js，强烈推荐使用。</p>
+        </li>
+        <li>
+          <h4>其它:</h4>
+          <p>现在第三方的js文件多如牛毛，选择合适的文件可以大大加快我们的工作进度，原则上是能找到现存的解决方案就不要自己写，此处把所有的第三方的文件都放入js/lib目录下面。</p>
+        </li>
+      </ul>
+      <h3>组织项目自己写的代码</h3>
+      <p>我通常把自己写的代码都放在js/根目录下面的。整个project拥有唯一的命名空间，所有的模块，函数等都是它的属性，这样可以解决命名冲突问题，同时便于管理代码。通常我会创建几个全局的文件以及为每个页面或大的功能创建一个独立的文件。</p>
+      <p>公共js文件可以是一个到多个，取决于项目的规模，如果很小就把所有的公共代码放在一个js文件里就可以了，比如common.js，否则可以按功能和用途分成多个文件，如util.js, common.js, config.js等。公共js最好由一个人统一管理，其它人如果发现里面的没有需要的功能时可以要求管理者加上。</p>
+      <p>每个页面的js可以每个页面一个文件，这对于使用jQuery代码的项目尤其有效果，同样每个页面的js文件也应该有自己独立的二级命名空间，比如global.about, global.detail等，这个文件通常这有这个页面用到的代码，而公共代码则在公共代码里，这样便于多人开发。对于大的功能点也是同样的要求，比如chart.js, map.js。这样便于代码的复用，如果大的功能点用的地方较多的话则有点类似于公共代码了。</p>
+      <p>至于代码的开发，推荐使用模块式的开发方式，既不管是大的功能还是小的功能都应该封装成一个个独立的模块，模块与模块之间通过暴露的APi进行通信，对于小项目我建议就不要使用模块的异步载入方式了(AMD)。而对于大的项目来说还是推荐使用Requirejs和seajs等模块载入管理来处理。我在项目里常用的模块开发方式如下：</p>
+      <pre><code>
+        global.book = function() {
+          var book = {
+            name: 'Master JavaScript',
+            price: 50
+          };
+          return {
+            getBook: function() {
+              return book;
+            },
+            getPrice: function() {
+              return book.price;
+            }
+          };
+        }();
+      </code></pre>
+      <h2>总结</h2>
+      <p>其实我们可以认为代码的组织管理方式也是一种模板，有新项目的时候套用模板可以快速建立起一个开发环境来，这样项目里每个人就都可以开始干活了。当然没有标准的代码组织管理方式，每个人都可以摸索出自己喜欢的方式来。</p>
+    </article>
+  </body>
+</html>
