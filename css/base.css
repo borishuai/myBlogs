@@ -29,7 +29,7 @@ build: 3167
  * x-small is for IE6/7 quirks mode.
  */
 body {
-	font:13px/1.5 arial,helvetica,clean,sans-serif;
+	font:16px/1.5 arial,helvetica,clean,sans-serif;
 	*font-size:small; /* for IE */
 	*font:x-small; /* for IE in quirks mode */
 }
@@ -146,6 +146,10 @@ footer, header, hgroup, menu, nav, section {
 	margin: 0;
 	padding: 0;
 	display : block;
+}
+
+article {
+  margin: 10px;
 }
 
 /* ************** *

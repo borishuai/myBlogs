@@ -19,7 +19,7 @@
       <p>在任意行点击左边栏或者按Ctrl+F2会出现蓝色小点，这表示添加了一个书签，点击蓝色小点或按Ctrl+F2可以取消该行书签。F2光标移动到上一个书签，Shift+F2光标移动到下一个书签。</p>
       <h2>多视图</h2>
       <p>你可以在 Notepad++ 中打开第二个编辑窗口，这样你就可以同时查看两个文档了（也可以是同一个文档）。如果它们是同一个文档的话，你就可以快速比较这两个文档，或者同时编辑文档的两个地方，而不需要滚动或通过书签来做到这点。这个对于阅读超过一屏源代码来说是非常有帮助的。</p>
-      <img src="images/notepad++/multiview.png" alt="多视图" />
+      <img src="../images/notepad++/multiview.png" alt="多视图" />
       <h2>折叠</h2>
       <p>即根据文档语言可以隐藏文档中的多行文本，特别是对像C++或者XML 这样的结构化语言很有用。文本块分成多个层次，可以折叠父层的文本块，折叠后只会显示文本块的第一行内容。如果你想快速浏览文档的内容，并跳到指定文档位置的话，就相当有用了。取消折叠文本块（展开或取消折叠）将会再次显示折叠的文本块。这对于源代码阅读也是非常有帮助的。</p>
       <ul>
@@ -32,7 +32,7 @@
       <p>用于快速跳至某一行。按Ctrl+g会弹出一个对话框，可以选择输入绝对行号跳转或者相对于当前行做偏移量跳转。</p>
       <h2>列编辑</h2>
       <p>如果要在每一行开头输入相同的文字或者加上行号等则可以考虑使用列编辑。比如把光标移至最左边，按下Alt+c，在对话框里输入要添加的内容或数字及其增加方式就可以了。它会当前行一直加到最后一行。</p>
-      <p>另外一种方式是按住ctrl+鼠标点击编辑多列的功能。现在可以按住Ctrl用鼠标左键选择多列然后输入想要的字符或者进行编辑了。比如删除每一行的行号。</p>
+      <p>另外一种方式是按住Alt+鼠标点击编辑多列的功能。现在可以按住Alt用鼠标左键选择多列然后输入想要的字符或者进行编辑了。比如删除每一行的行号。</p>
       <h2>向前回滚和向后回滚</h2>
       <p>向后回滚： Ctrl+z，向前回滚： Ctrl+y。</p>
       <h2>块匹配</h2>
@@ -48,15 +48,624 @@
       	<li><strong>删除到行首</strong>： Ctrl+Shift+BackSpace</li>
       	<li><strong>删除到行尾</strong>： Ctrl+Shift+Delete</li>
       </ul>
+      <h2>显示符号</h2>
+      <p>在视图选项卡中能找到显示符号功能，这个的作用是可以显示空格、制表键、换行等 可以方便编辑，尤其可以防止无意中加入好多不需要的空格。</p>
       <h2>总结</h2>
       <p>以上只是一些非常常用的操作，事实上Notepad++的功能是非常多的，尤其是学会使用快捷方式可以极大的加快速度。接下来可以去学习<a href="http://npp-community.tuxfamily.org/zh-hans/documentation/zh-hans/notepad" target="_blank">Notepad++ 用户手册</a>。</p>
       <p>另外Notepad++拥有很多非常强大的插件，熟练使用其中一些插件可以大幅度提高工作效率。请参考<a href="">Notepad++前端开发常用插件介绍</a></p>
+      <h2>快捷方式参考</h2>
+      
       <h2>参考文献</h2>
       <ul>
         <li><a href="http://npp-community.tuxfamily.org/zh-hans/documentation/zh-hans/notepad" target="_blank">Notepad++ 用户手册</a></li>
         <li><a href="http://shandian.biz/395.html" target="_blank">Notepad++使用教程</a></li>
         <li><a href="">Notepad++前端开发常用插件介绍</a></li>
       </ul>
+      <h2>快捷键大全</h2>
+      <table>
+	<caption>
+		<br>
+		<br>
+		<i><b>文件菜单</b></i></caption>
+	<tbody>
+		<tr>
+			<th width="30%">
+				快捷键</th>
+			<th>
+				动作</th>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-O</td>
+			<td>
+				打开文件</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-N</td>
+			<td>
+				新建文件</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-S</td>
+			<td>
+				保存文件</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-S</td>
+			<td>
+				另存为</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-S</td>
+			<td>
+				保存所有</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-P</td>
+			<td>
+				打印</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-F4</td>
+			<td>
+				退出</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Tab</td>
+			<td>
+				下一个文档 (显示所有打开的文件列表)。可以禁止此快捷键 - 参见 设置/首选项/全局.</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-Tab</td>
+			<td>
+				上一个文档 (显示所有打开的文件列表). 可以禁止此快捷键 - 同上.</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-W</td>
+			<td>
+				关闭当前文档</td>
+		</tr>
+	</tbody>
+</table>
+      <table>
+	<caption>
+		<br>
+		<br>
+		<i><b>编辑菜单</b></i></caption>
+	<tbody>
+		<tr>
+			<th width="30%">
+				快捷键</th>
+			<th>
+				动作</th>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-C</td>
+			<td>
+				拷贝</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Insert</td>
+			<td>
+				拷贝</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-T</td>
+			<td>
+				拷贝当前行</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-X</td>
+			<td>
+				剪切</td>
+		</tr>
+		<tr>
+			<td>
+				Shift-Delete</td>
+			<td>
+				剪切</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-V</td>
+			<td>
+				粘贴</td>
+		</tr>
+		<tr>
+			<td>
+				Shift-Insert</td>
+			<td>
+				粘贴</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Z</td>
+			<td>
+				撤销</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-Backspace</td>
+			<td>
+				撤销</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Y</td>
+			<td>
+				重做</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-A</td>
+			<td>
+				选择全部</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-Shift-方向键, 或者 Alt + 鼠标左键</td>
+			<td>
+				列模式选择</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl + 鼠标左键</td>
+			<td>
+				开始新的选择区域。仅在多块区域有效</td>
+		</tr>
+		<tr>
+			<td>
+				ALT-C</td>
+			<td>
+				列编辑</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-D</td>
+			<td>
+				复制当前行</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-T</td>
+			<td>
+				当前行和前一行交换</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-Up</td>
+			<td>
+				当前行或当前单个选中文本块上移</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-Down</td>
+			<td>
+				当前行或当前单个选择文本块下移</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-L</td>
+			<td>
+				删除当前行</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-I</td>
+			<td>
+				分割当前行</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-J</td>
+			<td>
+				连结行</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-G</td>
+			<td>
+				打开转到对话框</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Q</td>
+			<td>
+				行注释/取消行注释</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-Q</td>
+			<td>
+				块注释</td>
+		</tr>
+		<tr>
+			<td>
+				Tab (一行或多行被选中)</td>
+			<td>
+				插入制表符或空格 (缩进)</td>
+		</tr>
+		<tr>
+			<td>
+				Shift-Tab (一行或多行被选中)</td>
+			<td>
+				删除行首制表符或空格(取消缩进)</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-BackSpace</td>
+			<td>
+				删除到单词开头</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Delete</td>
+			<td>
+				删除到单词末尾</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-BackSpace</td>
+			<td>
+				删除到行首</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-Delete</td>
+			<td>
+				删除到行尾</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-U</td>
+			<td>
+				转换为小写</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-U</td>
+			<td>
+				转换为大写</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-B</td>
+			<td>
+				转到匹配括号处</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Space</td>
+			<td>
+				显示函数参数提示列表</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-Space</td>
+			<td>
+				显示函数提示列表</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Enter</td>
+			<td>
+				显示单词提示列表</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-R</td>
+			<td>
+				文本方向从右到走</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-L</td>
+			<td>
+				文本方向从左到右</td>
+		</tr>
+		<tr>
+			<td>
+				Enter</td>
+			<td>
+				回车插入新行或分割文本到新行</td>
+		</tr>
+		<tr>
+			<td>
+				Shift-Enter</td>
+			<td>
+				插入新行或分割文本到新行</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<caption>
+		<br>
+		<br>
+		<i><b>搜索菜单</b></i></caption>
+	<tbody>
+		<tr>
+			<th width="30%">
+				快捷键</th>
+			<th>
+				操作</th>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-F</td>
+			<td>
+				打开查找对话框</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-H</td>
+			<td>
+				打开 查找 / 替换 对话框</td>
+		</tr>
+		<tr>
+			<td>
+				F3</td>
+			<td>
+				查找下一个</td>
+		</tr>
+		<tr>
+			<td>
+				Shift-F3</td>
+			<td>
+				查找上一个</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-F</td>
+			<td>
+				在文件中查找</td>
+		</tr>
+		<tr>
+			<td>
+				F7</td>
+			<td>
+				切换到搜索结果窗口（即版本5.2之前的激活子视图）</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-F3</td>
+			<td>
+				查找 (快速) 下一个</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-Shift-F3</td>
+			<td>
+				查找 (快速) 上一个</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-F3</td>
+			<td>
+				选择并查找下一个（即版本5.6.5之前中的查找（快速）下一个）</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-F3</td>
+			<td>
+				选择并查找下一个(即版本5.6.5之前的查找 (快速) 上一个)</td>
+		</tr>
+		<tr>
+			<td>
+				F4</td>
+			<td>
+				转到下一个结果</td>
+		</tr>
+		<tr>
+			<td>
+				Shift-F4</td>
+			<td>
+				转到上一个结果</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-I</td>
+			<td>
+				增量搜索</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-<i>n</i></td>
+			<td>
+				向下跳转（到下一个样式<i>n</i>标记的文本。 <i>n</i> 从1到5, 对于默认查找样式为0</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Shift-<i>n</i></td>
+			<td>
+				向上跳转 (到上一个样式<i>n</i>标记的文本。<i>n</i> 从1到5，对于默认查找样式为0</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-F2</td>
+			<td>
+				标记/取消标记书签</td>
+		</tr>
+		<tr>
+			<td>
+				F2</td>
+			<td>
+				转到下一个书签</td>
+		</tr>
+		<tr>
+			<td>
+				Shift-F2</td>
+			<td>
+				转到上一个书签</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<caption>
+		<br>
+		<br>
+		<i><b>视图菜单</b></i></caption>
+	<tbody>
+		<tr>
+			<th width="30%">
+				快捷键</th>
+			<th>
+				动作</th>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-(Keypad-/Keypad+)</td>
+			<td>
+				或者 Ctrl + 鼠标滚轮按钮 (如果你的鼠标有这个键的话) 放大 (+ 或者 向上键) 和 缩小 (- 或者 向下键)</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Keypad/</td>
+			<td>
+				恢复视图到原始大小</td>
+		</tr>
+		<tr>
+			<td>
+				F11</td>
+			<td>
+				转到/退出全屏视图</td>
+		</tr>
+		<tr>
+			<td>
+				F12</td>
+			<td>
+				转到/退出切换快捷视图</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-F</td>
+			<td>
+				折叠当前大纲级别</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-Shift-F</td>
+			<td>
+				展开当前大纲级别</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-0</td>
+			<td>
+				折叠所有</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-(1~8)</td>
+			<td>
+				折叠大纲级别 (1~8)</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-Shift-0</td>
+			<td>
+				展开所有</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-Shift-(1~8)</td>
+			<td>
+				展开大纲级别 (1~8)</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<caption>
+		<br>
+		<br>
+		<i><b>运行菜单</b></i></caption>
+	<tbody>
+		<tr>
+			<th width="30%">
+				快捷键</th>
+			<th>
+				操作</th>
+		</tr>
+		<tr>
+			<td>
+				F5</td>
+			<td>
+				打开运行对话框</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-F1</td>
+			<td>
+				获取PHP帮助</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-F2</td>
+			<td>
+				Google 搜索</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-F3</td>
+			<td>
+				Wikipedia 搜索</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-F5</td>
+			<td>
+				打开文件(当前光标处的文件名)</td>
+		</tr>
+		<tr>
+			<td>
+				Alt-F6</td>
+			<td>
+				在新的实例中打开文件 (当前光标处的文件名)</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-Shift-R</td>
+			<td>
+				在 Chrome 中打开</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-Shift-X</td>
+			<td>
+				在 Firefox 中打开</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-Shift-I</td>
+			<td>
+				在 IE 中打开</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-Shift-F</td>
+			<td>
+				在 Safari 中打开</td>
+		</tr>
+		<tr>
+			<td>
+				Ctrl-Alt-Shift-O</td>
+			<td>
+				通过 Outlook 发送</td>
+		</tr>
+	</tbody>
+</table>
     </article>
   </body>
 </html>
