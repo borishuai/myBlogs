@@ -1,0 +1,23 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>如何在HTTPS里调用HTTP资源不出现提示框</h1>
+      <h2>什么是HTTPS？</h2>
+      <p>HTTPS（全称：Hypertext Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。 它是一个URI scheme（抽象标识符体系），句法类同http:体系。用于安全的HTTP数据传输。https:URL表明它使用了HTTP，但HTTPS存在不同于HTTP的默认端口及一个加密/身份验证层（在HTTP与TCP之间）。这个系统的最初研发由网景公司进行，提供了身份验证与加密通讯方法，现在它被广泛用于万维网上安全敏感的通讯，例如交易支付方面。</p>
+      <h2>问题描述</h2>
+      <p>浏览器默认是不允许在HTTPS里面引用HTTP资源的，一般都会弹出提示框，用户确认后才会继续加载，用户体验非常差。而且如果在一个HTTPS页面里动态的引入HTTP资源，比如引入一个js文件，会被直接block掉的。Chrome 21之后，在SSL加密页面embed非SSL的Flash会怎样呢？会被默默的屏蔽掉，只留下一句console报告。</p>
+      <h2>解决方案</h2>
+      <p>可以使用iframe的方式引入HTTP资源，比如在HTTPS里面播放优酷的视频，我们可以先在一个HTTP的页面里播放优酷视频，然后将这个页面嵌入到HTTPS页面里就可以了，另外一个典型的例子是在HTTPS页面里通过AJAX的方式请求HTTP资源，Chrome是不允许直接AJAX请求HTTP的。如果两个页面的内容都可以控制的话，当前窗口可以iframe窗口进行通信的。</p>
+      <h2>如何避免在HTTPS里面引用HTTP</h2>
+      <p>对于同时支持HTTPS和HTTP的资源，引用的时候要把引用资源的URL里的协议头去掉，例如：//www.example.com/scirpt.js，这样相当于相对路径，即浏览器会自动根据当前是HTTPS还是HTTP来给资源URL补上协议头的，可以达到无缝切换。参考： <a href="http://www.imkevinyang.com/2009/09/%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%AF%B9url%E6%97%A0%E7%BC%9D%E5%88%87%E6%8D%A2http-https.html" target="_blank">使用相对Url无缝切换HTTP-HTTPS</a></p>
+      <h2>总结</h2>
+      <p>如果是站内资源，最好是HTTP和HTTPS各一份，然后再通过相对路径的方式引用，这样就可以完美的解决掉这个问题了，比如Google首页就是2种方式都提供了。对于站外的资源如果不支持HTTPS那就只能用iframe了</p>
+    </article>
+  </body>
+</html>
