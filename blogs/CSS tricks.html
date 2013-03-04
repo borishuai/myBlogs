@@ -1,0 +1,31 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>CSS秘密花园</h1>
+      <h2>边框</h2>
+      <p>CSS2.1 规定：元素的背景是内容、内边距和边框区的背景。设置背景颜色时是没有问题的，背景色显示在边框下面，但是当使用背景图片时你会发现左边框和右边框下面并没有背景图片。这时需要把position-x和position-y设成负值，大小为border的宽度。我个人猜测原因是background-position的起始点是padding的左上角。</p>
+      <h2>背景图片</h2>
+      <h3>背景定位</h3>
+      <p>背景定位主要有三种方式：关键字，百分比和长度值。长度值比较简单，就是以元素的左上角为起点找到对应的坐标，然后从该点开始显示背景图片。</p>
+      <p>关键字和百分比的用法有点相似，比如:right, top，该关键字的意思是将图片的右上角放到元素的右上角，然后向左下方向显示图片。百分数值是同时作用于元素和图片上，例如：20%, 20%,意思是将图片的20%, 20%那个点放到元素的20%, 20%那个点上，如果图片和元素的大小一致则背景图片的左上角和元素的左上角重叠。</p>
+      <p>其实关键字的用法就是百分数值用法的一种快捷方式，left, top对应0%, 0%，certer, center则对应50%, 50%，right, bottom对应100%, 100%。</p>
+      <h2>em</h2>
+      <p>em是W3C推荐的尺寸单位，1em等于当前的字体尺寸。如果一个元素的 font-size 为 16 像素，那么对于该元素，1em 就等于 16 像素。在设置字体大小时，em 的值会相对于父元素的字体大小改变。如果父元素的字体大小为20px，则1em为20px。</p>
+      <p>浏览器中默认的文本大小是 16 像素。因此 1em 的默认尺寸是 16 像素。如果body的font-size为100%，则所有元素的默认字体大小为1em，也就是16px。</p>
+      <p>当使用em为字体大小时，em的值为父元素字体大小。而当使用em为长度单位时，即用于设置宽高时，em的值则为<em>当前字体大小</em>而不是父元素字体大小。例如父元素字体大小为20px，当前的元素的样式为:font-size: 1.5em; width: 2em，则当前元素的字体大小为30px(20 * 1.5)，宽度为60px(2 * 30)。</p>
+      <h2>font-family</h2>
+      <p>CSS 定义了 5 种通用字体系列: Serif 字体， Sans-serif 字体，Monospace 字体，Cursive 字体，Fantasy 字体。其中我们比较常用的是Serif字体和Sans-serif 字体，Serif字体通俗讲就是有衬线字体，包括 Times、Georgia 和 New Century Schoolbook，而Sans-serif 字体则是无衬线字体，包括Helvetica、Geneva、Verdana、Arial 或 Univers。个体参考： <a href="http://www.w3school.com.cn/css/css_font-family.asp" target="_blank"></a>CSS 字体系列</p>
+      <p>font-family的值可以是具体的字体，比如arial, times，也可以是字体系列，比如："serif"、"sans-serif"、"cursive"、"fantasy"、"monospace"。如果是字体系列，浏览器就会从 sans-serif 字体系列中选择一个字体（如 Helvetica），因此设置字体时强烈建议将字体系列设为最后一个值，以防止前面设置的字体不能使用。</p>
+      <h2>参考文献</h2>
+      <ul>
+      	<li></li>
+      </ul>
+    </article>
+  </body>
+</html>
