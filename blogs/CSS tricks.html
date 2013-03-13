@@ -19,12 +19,19 @@
       <p>em是W3C推荐的尺寸单位，1em等于当前的字体尺寸。如果一个元素的 font-size 为 16 像素，那么对于该元素，1em 就等于 16 像素。在设置字体大小时，em 的值会相对于父元素的字体大小改变。如果父元素的字体大小为20px，则1em为20px。</p>
       <p>浏览器中默认的文本大小是 16 像素。因此 1em 的默认尺寸是 16 像素。如果body的font-size为100%，则所有元素的默认字体大小为1em，也就是16px。</p>
       <p>当使用em为字体大小时，em的值为父元素字体大小。而当使用em为长度单位时，即用于设置宽高时，em的值则为<em>当前字体大小</em>而不是父元素字体大小。例如父元素字体大小为20px，当前的元素的样式为:font-size: 1.5em; width: 2em，则当前元素的字体大小为30px(20 * 1.5)，宽度为60px(2 * 30)。</p>
+      <h2>行高line-height</h2>
+      <p>line-height 属性设置行间的距离（行高）。在应用到一个块级元素时，它定义了该元素中基线之间的<em>最小距离而不是最大距离</em>。line-height 与 font-size 的计算值之差（在 CSS 中成为“行间距”）分为两半，分别加到一个文本行内容的顶部和底部。行内元素不可以设置高度和垂直方向的margin和padding，但是可以通过line-height来影响行内元素的布局，可以包含这些内容的最小框就是行框。</p>
+      <p>line-height 的值可以设为"normal"，"number"，"length"，"%"。"length"的值可以是15px，或者1em等，"%"的值基于当前元素字体的大小，和em单位类似。"number"的值如1, 2等，最终的行高是用这个数字乘以字体的大小。</p>
+      <p>line-height 具有继承性，就是当前元素的行高会传给全部的后代，其中"length"和"%"会直接把当前的具体值传给后代，而"number"只会把"number"本身传给后代，如1,而不会把乘以字体大小的值传给后代，后代元素拿到这个"number"之后再乘以它自己的字体大小，这样就比较灵活了，而且更合理。因此推荐使用"number"来设置行高。</p>
       <h2>font-family</h2>
       <p>CSS 定义了 5 种通用字体系列: Serif 字体， Sans-serif 字体，Monospace 字体，Cursive 字体，Fantasy 字体。其中我们比较常用的是Serif字体和Sans-serif 字体，Serif字体通俗讲就是有衬线字体，包括 Times、Georgia 和 New Century Schoolbook，而Sans-serif 字体则是无衬线字体，包括Helvetica、Geneva、Verdana、Arial 或 Univers。个体参考： <a href="http://www.w3school.com.cn/css/css_font-family.asp" target="_blank"></a>CSS 字体系列</p>
       <p>font-family的值可以是具体的字体，比如arial, times，也可以是字体系列，比如："serif"、"sans-serif"、"cursive"、"fantasy"、"monospace"。如果是字体系列，浏览器就会从 sans-serif 字体系列中选择一个字体（如 Helvetica），因此设置字体时强烈建议将字体系列设为最后一个值，以防止前面设置的字体不能使用。</p>
+      <h2>outline</h2>
+      <p>outline （轮廓）是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。它和border的区别是outline不参与布局，就是说outline不会影响元素的盒模型，至多和其它元素重叠，而border则是盒模型的一部分，很多时候设置border会影响元素的宽度。另外一个区别是outline不能单独设置某个边的outline。</p>
+      <p>outline的特性可以用于调试CSS，你可以给元素加个outline来看一下元素的大小和位置是否正确，而不会影响页面的布局。</p>
       <h2>参考文献</h2>
       <ul>
-      	<li></li>
+      	<li><a href="http://www.w3school.com.cn/css" target="_blank"></a>W3School CSS教程</li>
       </ul>
     </article>
   </body>

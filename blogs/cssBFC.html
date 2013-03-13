@@ -1,0 +1,168 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>CSS BFC和IE Haslayout介绍</h1>
+      <h2></a>BFC(Block Formatting Context)</h2>
+      <h3>1. BFC的定义</h3>
+      <p>是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。</p>
+      <p>在创建了 Block Formatting Context 的元素中，其子元素会一个接一个地放置。垂直方向上他们的起点是一个包含块的顶部，两个相邻的元素之间的垂直距离取决于 ‘margin’ 特性。在 Block Formatting Context 中相邻的块级元素的垂直边距会折叠（collapse）。</p>
+      <p>在 Block Formatting Context 中，每一个元素左外边与包含块的左边相接触（对于从右到左的格式化，右外边接触右边）， 即使存在浮动也是如此（尽管一个元素的内容区域会由于浮动而压缩），除非这个元素也创建了一个新的 Block Formatting Context 。</p>
+      <p>从上面的定义我们可以看到Document显示HTML元素的方式和BFC的定义很像，其实我们可以认为Document就是最大的一个拥有BFC的元素了。</p>
+      <h3>2. BFC到底是什么？</h3>
+      <p>当涉及到可视化布局的时候，Block Formatting Context提供了一个环境，HTML元素在这个环境中按照一定规则进行布局。一个环境中的元素不会影响到其它环境中的布局。比如浮动元素会形成BFC，浮动元素内部子元素的主要受该浮动元素影响，两个浮动元素之间是互不影响的。这里有点类似一个BFC就是一个独立的行政单位的意思。一个大的行政单位可以包含若干个小的行政单位。</p>
+      <h3>3. 怎样才能形成BFC</h3>
+      <ul>
+        <li>float的值不为none。</li>
+        <li>overflow的值不为visible。</li>
+        <li>display的值为table-cell, table-caption, inline-block中的任何一个。</li>
+        <li>position的值不为relative和static。</li>
+      </ul>
+      <h3>4. BFC的作用</h3>
+      <h4>不和浮动元素重叠</h4>
+      <p>如果一个浮动元素后面跟着一个非浮动的元素，那么就会产生一个覆盖的现象，很多自适应的两栏布局就是这么做的。比如下图的效果，参考<a href="http://jsfiddle.net/uqhgc/" target="_blank">例子</a></p>
+      <p><img src="http://img.my.csdn.net/uploads/201301/24/1359020069_1040.png" alt=""></p>
+      <pre>        &lt;div style="float:left; border: 2px solid red"&gt; 123&lt;/div&gt;
+               &lt;span style="border: 2px solid blue;display:block;overflow:hidden;*zoom:1"&gt;
+               The quick brown fox jumped over the lazy dog's back.
+               The quick brown fox jumped over the lazy dog's back.
+               The quick brown fox jumped over the lazy dog's back.
+               The quick brown fox jumped over the lazy dog's back.
+               The quick brown fox jumped over the lazy dog's back.
+              &lt;/span&gt;
+            </pre>
+      <h4>清除元素内部浮动</h4>
+      <p>只要把父元素设为BFC就可以清理子元素的浮动了，最常见的用法就是在父元素上设置overflow: hidden样式，对于IE6加上zoom:1就可以了(IE Haslayout)。</p>
+      <h4>3.嵌套元素Margin边距折叠问题的解决</h4>
+      <p>按照BFC的定义，只有同属于一个BFC时，两个元素才有可能发生垂直Margin的重叠，这个包括相邻元素，嵌套元素，只要他们之间没有阻挡(例如边框，非空内容，padding等)就会发生margin重叠。</p>
+      <p>因此要解决margin重叠问题，只要让它们不在同一个BFC就行了，但是对于两个相邻元素来说，意义不大，没有必要给它们加个外壳，但是对于嵌套元素来说就很有必要了，只要把父元素设为BFC就可以了。这样子元素的margin就不会和父元素的margin发生重叠了。</p>
+      <p></p>
+      <h2>IE HasLayout</h2>
+      <h3></a>1. hasLayout概述</h3>
+      <p>“Layout”是一个 Internet Explorer for Windows的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件、用户事件等。这种渲染特性可以通过某些 CSS 属性被不可逆转地触发。而有些 HTML 元素则默认就具有”layout”。</p>
+      <p>微软的开发者们认为元素都应该可以拥有一个”属性(property)”(这是面向对象编程中的一个概念)，于是他们便使用了 hasLayout，这种渲染特性生效时也就是将 hasLayout 设成了 true 之时。了解hasLayout将对IE的臭虫会有更多深入的体会甚至解决方案。</p>
+      <h3>2. HasLayout定义</h3>
+      <p>一个元素”得到 layout”，或者说一个元素”拥有 layout” 的时候，是指它的微软专有属性 hasLayout 为此被设为了 true 。一个”layout元素”可以是一个默认就拥有 layout 的元素或者是一个通过设置某些 CSS 属性得到 layout 的元素。</p>
+      <p>而”无layout元素”，是指 hasLayout 未被触发的元素，比如一个未设定宽高尺寸的干净 div 元素就可以做为一个”无layout祖先”。</p>
+      <p>给一个默认没有 layout 的元素赋予 layout 的方法包括设置可触发 hasLayout = true 的 CSS 属性。参考默认 layout 元素以及这些属性列表。没有办法设置 hasLayout = false ， 除非把一开始那些触发 hasLayout = true 的 CSS 属性去除或重置。</p>
+      <h3>3. Layout的由来</h3>
+      <p>不同于标准属性，也不像某些浏览器的私有 CSS 属性，layout 无法通过某一个 CSS 声明直接设定 。也就是说没有”layout属性”这么一个东西，元素要么本身自动拥有 layout，要么借助一些 CSS 声明悄悄地获得 layout。</p>
+      <p>下列元素应该是默认具有 layout 的：</p>
+      <ul>
+        <li>&lt;html&gt;, &lt;body&gt;</li>
+        <li>&lt;table&gt;, &lt;tr&gt;, &lt;th&gt;, &lt;td&gt;</li>
+        <li>&lt;img&gt;</li><li>&lt;hr&gt;</li>
+        <li>&lt;input&gt;, &lt;button&gt;, &lt;select&gt;, &lt;textarea&gt;, &lt;fieldset&gt;, &lt;legend&gt;</li>
+        <li>&lt;iframe&gt;, &lt;embed&gt;, &lt;object&gt;, &lt;applet&gt;</li><li>&lt;marquee&gt;</li>
+      </ul>
+      <p>下列 CSS 属性和取值将会让一个元素获得 layout：</p>
+      <ul>
+        <li>position: absolute<br>绝对定位元素的包含区块(containing block)就会经常在这一方面出问题。</li>
+        <li>float: left|right<br>由于 layout 元素的特性，浮动模型会有很多怪异的表现。</li>
+        <li>display: inline-block<br>当一个内联级别的元素需要 layout 的时候往往就要用到它，这也可能也是这个 CSS 属性的唯一效果–让某个元素拥有 layout。”inline-block行为”在IE中是可以实现的，但是非常与众不同： IE/Win: inline-block and hasLayout 。</li>
+        <li>width: 除 “auto” 外的任意值<br>很多人遇到 layout 相关问题发生时，一般都会先尝试用这个来修复。</li>
+        <li>height: 除 “auto” 外的任意值<br>height: 1% 就在 Holly Hack 中用到。</li>
+        <li>zoom: 除 “normal” 外的任意值<br>IE专有属性。不过 zoom: 1 可以临时用做调试。</li>
+        <li>writing-mode: tb-rl<br>MS专有属性。</li>
+      </ul>
+      <p>IE7中引入的hasLayout成员</p>
+      <ul>
+        <li>overflow: hidden|scroll|auto<br>在 IE7 中，overflow 也变成了一个 layout 触发器，这个属性在之前版本 IE 中没有触发 layout 的功能。</li>
+        <li>position: fixed</li><li>min-width: 任意值<br>就算设为0也可以让该元素获得 layout。</li>
+        <li>max-width: 除 “none” 之外的任意值</li>
+        <li>min-height: 任意值<br>即使设为0也可以让该元素的 haslayout=true</li>
+        <li>max-height: 除 “none” 之外的任意值</li>
+      </ul>
+      <h3>4. 有关内联级别元素</h3>
+      <p>对于内联元素(可以是默认即为内联的比如 span 元素，也可以是 display: inline 的元素)</p>
+      <ul>
+        <li>width 和 height 只在 IE5.x 下和 IE6 或更新版本的 quirks 模式下触发 hasLayout 。而对于 IE6，如果浏览器运行于标准兼容模式下，内联元素会忽略 width 或 height 属性，所以设置 width 或 height 不能在此种情况下令该元素具有 layout。</li>
+        <li>zoom 总是可以触发 hasLayout，但是在 IE5.0 中不支持。</li>
+      </ul>
+      <p>具有”layout” 的元素如果同时也 display: inline ，那么它的行为就和标准中所说的 inline-block 很类似了：在段落中和普通文字一样在水平方向和连续排列，受 vertical-align 影响，并且大小可以根据内容自适应调整。这也可以解释为什么单单在 IE/Win 中内联元素可以包含块级元素而少出问题，因为在别的浏览器中 display: inline 就是内联，不像 IE/Win 一旦内联元素拥有 layout 还会变成 inline-block。</p>
+      <h3>5. 重置 hasLayout</h3>
+      <p>没有办法设置 hasLayout = false， 除非把一开始那些触发hasLayout = true的CSS属性去除。</p>
+      <p>display 属性的不同：当用”inline-block”设置了 haslayout = true 时，就算在一条独立的规则中覆盖这个属性为”block”或”inline”，haslayout 这个标志位也不会被重置为 false。</p>
+      <h3>6. CSS hacks，如何触发hasLayout </h3>
+      <p>比较常用的是zoom: 1,这是微软的专有属性，可以在IE6，IE7上工作，无附作用，唯一的缺点是无法通过W3C的语法验证。所以调试的时候可以先加zoom:1试试看问题是否是hasLayout的问题，如果是换成其它对应的属性。</p>
+      <p>最常用的就是<a href="http://www.communitymx.com/content/article.cfm?page=2&amp;cid=C37E0" target="_blank">Holly Hack</a>，简单点讲就是添加height: 1%。如果它的父元素不能定高，这种方法就会自动转换为height: auto，但是hasLayout被触发了。优点就是这是标准的属性，可以通过W3C验证。</p>
+      <p>还有一种也经常用到的就是height: 0或者height: 1px，但是这种方法只能用在IE6上面，因为IE6以及更低的版本会把height作为min-heigth那样对待，所以把height设得很小对于显示没有任何影响。这种方法不能和overflow：hidden同时使用。</p>
+      <h3>7. HasLayout的影响及作用</h3>
+      <h4>清除浮动</h4>
+      <p>效果同BFC，就是自动清除它的浮动的直接子元素。</p>
+      <p>对于IE6和IE7，我发现即使浮动元素的父元素没有hasLayout，父元素的高度也是有的，可以通过js输出或者IEDeveloper查看，但是在IE8和其它浏览器里是没有高度的(值为0)。但是实际效果却是没有清除浮动的效果，即该父元素的实际高度为0，只要在后面跟个元素就可以看出来了，后面的元素会和前面的元素重叠。这点让我迷惑好大一会。</p>
+      <h4>不和浮动元素重叠</h4>
+      <p>效果同BFC。</p>
+      <h4>列表</h4>
+      <p>无论是列表本身(ol, ul) 还是单个的列表元素(li)，拥有 layout 后都会影响列表的表现。不同版本 IE 的表现又有不同。最明显的效果就体现在列表符号上(如果你的列表自定义了列表符号则不会受这个问题影响)。这些符号很可能是通过某种内部机制附到列表元素 上的(通常是附着在它们外面)。不幸的是，由于是通过“内部机制”添加的，我们无法访问它们也无法修正它们的错误表现。</p>
+      <h4>相对定位元素(r.p.) </h4>
+      <p>注意，由于 position: relative 并不触发 hasLayout，所以很多诸如内容消失或错位的渲染错误就会因此而起。这些现象可能会在刷新页面、调整窗口大小、滚动页面、选中内容等情况下出现。原 因是 IE 在据这个属性对元素做偏移处理时，却似乎忘了发出信号让其 layout 孩子元素进行“重绘”(而如果是一个layout元素，那么在其重绘事件的信号链中，这个传给其孩子的信号是会正常发出的)。所以调试的时候可以尝试给相对定位元素触发它的hasLayout。</p>
+      <h4>滤镜</h4>
+      <p>MS专有的滤镜属性 filter 是只适用于 layout 元素的。比如透明效果。</p>
+      <h4>背景原点</h4>
+      <p>MS专有的这个 hasLayout 还会影响背景的定位和扩展。比如，根据 CSS 规范，background-position : 0 0 应该指元素的“补白边缘(padding edge)”。而在 IE/Win 下，如果 hasLayout = false 则指的是“边框边缘(border edge)”，当 hasLayout=true 时指的才是补白边缘：</p>
+      <h4>嵌套元素边距折叠问题的解决</h4>
+      <p>同BFC</p>
+      <h4>相对容器中的绝对定位(主要是IE6)</h4>
+      <p>对于绝对定位元素，包含区块是由其最近的定位祖先决定的。如果其祖先都没有被定位，那么就使用初始包含区块 html。<br>
+      通常情况下我们会用 position: relative 来设定任意包含区块。这就是说，我们可以让一个绝对定位元素所参考的原点和长度等不依赖于元素的排列顺序，这可以满足诸如“内容优先”这种可访问性概念的需要，也可以给复杂的浮动布局带来方便。<br>
+      但是由于 layout 概念的存在，这种设计理念的效果在IE中就要打个问号了：因为在IE中绝对定位只有当其包含元素拥有 layout 时才会计算正确，而且绝对定位元素的百分比宽度参考也搞错了对象。这里 IE5 和 IE6 的行为不同但都有问题。IE7b2 的行为就要好很多，虽然有些小地方还是有错误。总之尽可能的让绝对元素的包含区块拥有 layout，而且尽量让其就是绝对定位元素的父级元素（也就是说这个包换元素和绝对定位元素之间没有绝对定位元素的别的祖先了）。</p>
+      <h4>块级别的链接</h4>
+      <p>hasLayout 会影响一个块级别链接的鼠标响应区域(可点击区域)。通常 hasLayout = false 时只有文字覆盖区域才能响应。而 hasLayout = true 则整个块状区域都可响应。添加了 onclick/onmouseover 等事件的任意块级元素也有同样的现象。我没能重现这个问题。</p>
+      <h4>边缘裁切</h4>
+      <p>通常而言，当一个盒子包含了诸如伸出其边缘的内容这种更复杂的结构时，这个容器就经常需要“hasLayout”来避免一些渲染错误。但使用这种常用方法又会在边界处理时左右为难，因为一个获得“layout”的元素会变成某种自封闭的盒子。内部的内容盒子会被裁切，比如使用负边距向外移动时。</p>
+      <p>被裁掉的部分当内容盒子触发了“layout”时可以再次出现，但在 IE6 中需要同时拥有 position: relative 才行。IE7 在这方面要略有改观，它不再需要额外的 position: relative 了。</p>
+      <h2>案例分析</h2>
+      <h3>1. 清除浮动</h3>
+      <p>最原始的用法&lt;div style="clear: both"&gt;&lt;/div&gt;，这种用法的缺点是添加了无意义的空白标签。</p>
+      <p>overflow: hidden, 这也是经常使用的一种方式，但事实它的原理就是对于非IE6和IE7浏览器来说产生了BFC，对于IE7浏览器来说是产生了hasLayout。但是这种方式的缺点就是如果子元素超出父元素的范围会被截取。对于IE6无效，可以用zoom:1。我刚学CSS的时候一直很好奇为什么overflow:hidden可以清理浮动。</p>
+      <p>现在最流行也最无害的一种方式就是：</p>
+      <pre>     .clearfix:after {
+              content: " ";
+              display: block;
+              clear: both;
+              height: 0;
+            }
+            .clearfix {
+              *height: 1%;
+            }
+           </pre>
+      <p>代码分析：对于非IE6和IE7等支持:after的浏览器来说，在内容的最后面添加了一个空白元素，然后把它隐藏掉，同时添加clear: both属性，达到清理浮动的目的，对于不支持:after的浏览器来说(主要就是IE6和IE7)，设置height: 1%可以触发hasLayout从而达到清理浮动的目的。</p>
+      <h3>2. 水平两栏自适应排版</h3>
+      <p>见BFC不和浮动元素重叠那一节。就是第一个元素是浮动，第二个元素要触发BFC或者hasLayout来避免被浮动元素覆盖</p>
+      <pre>       .second-item {
+               overflow: hidden;
+               *zoom: 1;//IE6
+             }
+           </pre>
+      <h3>跨浏览器的inline-block</h3>
+      <p>对于支持inline-block的浏览器来说，display: inline-block就可以了，对于不支持的浏览器(IE6和IE7)来说，实现方法是将元素设置成display: inline，同时触发它的hasLayout就可以了。</p>
+      <pre>       #item {
+               display: inline-block;
+             }
+             #item {
+               *display: inline;
+             }
+           </pre>
+      <p>这个地方需要注意的是这两条一定要分开写，不能放在同一个选择器中，否则hasLayout就会被取消，那样的话就需要zoom:1，所以如果非要写在一起的话，代码如下：</p>
+      <pre>       #item {
+               display: inline-block;
+               *display: inline;
+               *zoom: 1;
+             }
+           </pre>
+      <p><em>事实上，在IE中，只要是触发了BFC的都可以设置宽高，如果是内联元素则就是inline-block的效果了，而拥有了BFC的元素则都可以设置宽高，除了overflow:hidden;</em></p>
+      <h2>参考文献：</h2>
+      <ul>
+        <li><a href="http://w3ctech.com/p/1101" target="_blank">更加直观地了解hasLayout和BFC</a></li>
+        <li><a href="http://www.weakweb.com/articles/292.html" target="_blank">白话Block Formatting Context</a></li>
+        <li><a href="http://yiminghe.iteye.com/blog/367384" target="_blank">On having layout</a></li>
+      </ul>
+    </article>
+  </body>
+</html>

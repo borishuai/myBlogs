@@ -1,0 +1,176 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>CSS选择器笔记</h1>
+      <p>原文网址：<a href="http://www.ruanyifeng.com/blog/2009/03/css_selectors.html">http://www.ruanyifeng.com/blog/2009/03/css_selectors.html</a></p>
+      <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com">阮一峰</a></p>
+      <h2>一、基本选择器</h2>
+      <table border="1" style="width:500px;text-align:center;"><tbody><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>1.</td><td> <strong>*</strong>   </td><td>     通用元素选择器，匹配任何元素</td></tr><tr><td>2.</td><td> <strong>E</strong></td><td>        标签选择器，匹配所有使用E标签的元素</td></tr><tr><td>3.</td><td> <strong>.info</strong></td><td>        class选择器，匹配所有class属性中包含info的元素</td></tr><tr><td>4. </td><td><strong>#footer</strong> </td><td>       id选择器，匹配所有id属性等于footer的元素</td></tr></tbody></table>
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>* { margin:0; padding:0; }</p>
+
+      <p>p { font-size:2em; }</p>
+
+      <p>.info { background:#ff0; }</p>
+
+      <p>p.info { background:#ff0; }</p>
+
+      <p>p.info.error { color:#900; font-weight:bold; }</p>
+
+      <p>#info { background:#ff0; }</p>
+
+      <p>p#info { background:#ff0; }</p>
+
+      </div></blockquote>
+      <h2>二、多元素的组合选择器</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>5. </td><td>E,F</td><td> 多元素选择器，同时匹配所有E元素或F元素，E和F之间用逗号分隔</td></tr><tr><td>6. </td><td>E F</td><td> 后代元素选择器，匹配所有属于E元素后代的F元素，E和F之间用空格分隔</td></tr><tr><td>7.</td><td> E > F</td><td> 子元素选择器，匹配所有E元素的子元素F</td></tr><tr><td>8.</td><td> E + F</td><td> 毗邻元素选择器，匹配所有紧随E元素之后的同级元素F</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>div p { color:#f00; }</p>
+
+      <p>#nav li { display:inline; }</p>
+
+      <p>#nav a { font-weight:bold; }</p>
+
+      <p>div > strong { color:#f00; }</p>
+
+      <p>p + p { color:#f00; }</p>
+
+      </div></blockquote>
+      <h2>三、CSS 2.1 属性选择器</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>9. </td><td>E[att]</td><td> 匹配所有具有att属性的E元素，不考虑它的值。（注意：E在此处可以省略，比如“[cheacked]”。以下同。）</td></tr><tr><td>10.</td><td> E[att=val] </td><td>匹配所有att属性等于“val”的E元素</td></tr><tr><td>11.</td><td> E[att~=val] </td><td>匹配所有att属性具有多个空格分隔的值、其中一个值等于“val”的E元素</td></tr><tr><td>12.</td><td> E[att|=val] </td><td>匹配所有att属性具有多个连字号分隔（hyphen-separated）的值、其中一个值以“val”开头的E元素，主要用于lang属性，比如“en”、“en-us”、“en-gb”等等</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>p[title] { color:#f00; }</p>
+
+      <p>div[class=error] { color:#f00; }</p>
+
+      <p>td[headers~=col1] { color:#f00; }</p>
+
+      <p>p[lang|=en] { color:#f00; }</p>
+
+      <p>blockquote[class=quote][cite] { color:#f00; }</p>
+
+      </div></blockquote>
+      <h2>四、CSS 2.1中的伪类</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>13.</td><td> E:first-child </td><td>匹配父元素的第一个子元素</td></tr><tr><td>14.</td><td> E:link </td><td>匹配所有未被点击的链接</td></tr><tr><td>15.</td><td> E:visited </td><td>匹配所有已被点击的链接</td></tr><tr><td>16.</td><td> E:active </td><td>匹配鼠标已经其上按下、还没有释放的E元素</td></tr><tr><td>17.</td><td> E:hover </td><td>匹配鼠标悬停其上的E元素</td></tr><tr><td>18.</td><td> E:focus </td><td>匹配获得当前焦点的E元素</td></tr><tr><td>19.</td><td> E:lang(c) </td><td>匹配lang属性等于c的E元素</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>p:first-child { font-style:italic; }</p>
+
+      <p>input[type=text]:focus { color:#000; background:#ffe; }</p>
+
+      <p>input[type=text]:focus:hover { background:#fff; }</p>
+
+      <p>q:lang(sv) { quotes: "\201D" "\201D" "\2019" "\2019"; }</p>
+
+      </div></blockquote>
+      <h2>五、 CSS 2.1中的伪元素</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>20.</td><td> E:first-line</td><td>  匹配E元素的第一行</td></tr><tr><td>21. </td><td>E:first-letter</td><td> 	匹配E元素的第一个字母</td></tr><tr><td>22.</td><td> E:before</td><td> 在E元素之前插入生成的内容</td></tr><tr><td>23.</td><td> E:after</td><td> 在E元素之后插入生成的内容</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>p:first-line { font-weight:bold; color;#600; }</p>
+
+      <p>.preamble:first-letter { font-size:1.5em; font-weight:bold; }</p>
+
+      <p>.cbb:before { content:""; display:block; height:17px; width:18px; background:url(top.png) no-repeat 0 0; margin:0 0 0 -18px; }</p>
+
+      <p>a:link:after { content: " (" attr(href) ") "; }</p>
+
+      </div></blockquote>
+      <h2>六、CSS 3的同级元素通用选择器</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>24.</td><td> E ~ F </td><td>匹配任何在E元素之后的同级F元素</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>p ~ ul { background:#ff0; }</p>
+
+      </div></blockquote>
+      <h2>七、CSS 3 属性选择器</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>25.</td><td> E[att^=”val”] </td><td>属性att的值以"val"开头的元素</td></tr><tr><td>26.</td><td> E[att$=”val”] </td><td>属性att的值以"val"结尾的元素</td></tr><tr><td>27.</td><td> E[att*=”val”] </td><td>属性att的值包含"val"字符串的元素</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>div[id^="nav"] { background:#ff0; }</p>
+
+      </div></blockquote>
+      <h2>八、CSS 3中与用户界面有关的伪类</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>28.</td><td> E:enabled </td><td> 	匹配表单中激活的元素</td></tr><tr><td>29.</td><td> E:disabled</td><td> 	匹配表单中禁用的元素</td></tr><tr><td>30.</td><td> E:checked</td><td>  	匹配表单中被选中的radio（单选框）或checkbox（复选框）元素</td></tr><tr><td>31.</td><td> E::selection </td><td>匹配用户当前选中的元素</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>input[type="text"]:disabled { background:#ddd; }</p>
+
+      </div></blockquote>
+      <h2>九、CSS 3中的结构性伪类</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>32. </td><td>E:root  </td><td>匹配文档的根元素，对于HTML文档，就是HTML元素</td></tr><tr><td>33.</td><td> E:nth-child(n)</td><td> 	匹配其父元素的第n个子元素，第一个编号为1</td></tr><tr><td>34.</td><td> E:nth-last-child(n) </td><td>匹配其父元素的倒数第n个子元素，第一个编号为1</td></tr><tr><td>35.</td><td> E:nth-of-type(n) </td><td>与:nth-child()作用类似，但是仅匹配使用同种标签的元素</td></tr><tr><td>36. </td><td>E:nth-last-of-type(n)</td><td> 与:nth-last-child() 作用类似，但是仅匹配使用同种标签的元素</td></tr><tr><td>37.</td><td> E:last-child</td><td> 匹配父元素的最后一个子元素，等同于:nth-last-child(1)</td></tr><tr><td>38.</td><td> E:first-of-type</td><td> 匹配父元素下使用同种标签的第一个子元素，等同于:nth-of-type(1)</td></tr><tr><td>39.</td><td> E:last-of-type </td><td>匹配父元素下使用同种标签的最后一个子元素，等同于:nth-last-of-type(1)</td></tr><tr><td>40.</td><td> E:only-child</td><td> 匹配父元素下仅有的一个子元素，等同于:first-child:last-child或 :nth-child(1):nth-last-child(1)</td></tr><tr><td>41.</td><td> E:only-of-type</td><td> 匹配父元素下使用同种标签的唯一一个子元素，等同于:first-of-type:last-of-type或 :nth-of-type(1):nth-last-of-type(1)</td></tr><tr><td>42. </td><td>E:empty</td><td> 匹配一个不包含任何子元素的元素，注意，文本节点也被看作子元素</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>p:nth-child(3) { color:#f00; }</p>
+
+      <p>p:nth-child(odd) { color:#f00; }</p>
+
+      <p>p:nth-child(even) { color:#f00; }</p>
+
+      <p>p:nth-child(3n+0) { color:#f00; }</p>
+
+      <p>p:nth-child(3n) { color:#f00; }</p>
+
+      <p>tr:nth-child(2n+11) { background:#ff0; }</p>
+
+      <p>tr:nth-last-child(2) { background:#ff0; }</p>
+
+      <p>p:last-child { background:#ff0; }</p>
+
+      <p>p:only-child { background:#ff0; }</p>
+
+      <p>p:empty { background:#ff0; }</p>
+
+      </div></blockquote>
+      <h2>十、CSS 3的反选伪类</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>43.</td><td> E:not(s) </td><td>匹配不符合当前选择器的任何元素</td></tr></table>
+
+      <p>实例：</p>
+
+      <blockquote><div>
+
+      <p>:not(p) { border:1px solid #ccc; }</p>
+
+      </div></blockquote>
+      <h2>十一、CSS 3中的 :target 伪类</h2>
+      <table border="1" style="width:500px;text-align:center;"><tr><td>序号</td><td>选择器</td><td>含义</td></tr><tr><td>44.</td><td> E:target</td><td>	匹配文档中特定"id"点击后的效果</td></tr></table>
+
+      <p>请参看HTML DOG上关于该选择器的<a href="http://htmldog.com/articles/suckerfish/target/" target="_blank">详细解释</a>和<a href="http://htmldog.com/articles/suckerfish/target/example/" target="_blank">实例</a>。</p>
+    </article>
+  </body>
+</html>
