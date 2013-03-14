@@ -1,0 +1,51 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>Repaint and Reflow</h1>
+      <h2>1. Repaint</h2>
+      <p>repaint(重绘)是在一个元素的外观被改变，但没有改变布局的情况下发生，如改变visibility、outline、前景色。当repaint发生时，浏览器会验证DOM树上的所有其它结点的visibility属性。</p>
+      <h2>2. Reflow</h2>
+      <p>如果变化涉及元素布局 (如 width), 浏览器则抛弃原有属性, 重新计算并把结果传递给 render 以重新描绘页面元素, 此过程称为 reflow。reflow(回流)是导致DOM脚本执行低效的关键因素之一。页面上任何一个结点触发reflow，都会导致它的子结点及祖先结点重新渲染。</p>
+      <p>以下操作会引起reflow:</p>
+      <ul>
+        <li>改变窗囗大小</li>
+        <li>改变文字大小</li>
+        <li>添加/删除样式表</li>
+        <li>内容的改变，如用户在输入框中敲字</li>
+        <li>激活伪类，如:hover</li>
+        <li>操作class属性</li>
+        <li>脚本操作DOM</li>
+        <li>计算offsetWidth和offsetHeight</li>
+        <li>设置style属性</li>
+      </ul>
+      <p>Reflow是不可避免的，只能将reflow对性能的影响减小到最小，以下是一些建议：</p>
+      <ul>
+        <li>尽可能限制reflow的影响范围。有时 reflow 页面中的一个元素会 reflow 它的父元素（译注：这里是复数）以及所有子元素。</li>
+        <li>通过设置style属性改变结点样式的话，每设置一次都会导致一次reflow。所以最好通过设置class的方式。</li>
+        <li>实现元素的动画，它的position属性应当设为fixed或absolute，这样不会影响其它元素的布局。</li>
+        <li>权衡速度的平滑。比如实现一个动画，以1个像素为单位移动这样最平滑，但reflow就会过于频繁，CPU很快就会被完全占用。如果以3个像素为单位移动就会好很多。</li>
+        <li>不要用tables布局的另一个原因就是tables中某个元素一旦触发reflow就会导致table里所有的其它元素reflow。在适合用table的场合，可以设置table-layout为auto或fixed，这样可以让table一行一行的渲染，这种做法也是为了限制reflow的影响范围。</li>
+        <li>很多情况下都会触发reflow，如果css里有expression，每次都会重新计算一遍。</li>
+        <li>避免在document上直接进行频繁的DOM操作，如果确实需要可以采用off-document的方式进行
+          <ul>
+            <li>先将元素从document中删除，完成修改后再把元素放回原来的位置</li>
+            <li>将元素的display设置为”none”，完成修改后再把display修改为原来的值</li>
+            <li>如果需要创建多个DOM节点，可以使用DocumentFragment创建完后一次性的加入</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>参考文档</h2>
+      <ul>
+      	<li><a href="https://developers.google.com/speed/articles/reflow" target="_blank">Minimizing browser reflow</a></li>
+      	<li><a href="http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/" target="_blank">Rendering: repaint, reflow/relayout, restyle</a></li>
+      	<li><a href="http://www.blueidea.com/tech/web/2011/8365.asp" target="_blank">页面重构应注意的repaint和reflow</a></li>
+      </ul>
+    </article>
+  </body>
+</html>
