@@ -10,10 +10,10 @@
       <h1>如何成为前端开发高手</h1>
       <h2>前端简介</h2>
       <p>Web前端开发工程师是一个很新的职业，在国内乃至国际上真正开始受到重视的时间不超过5年。Web前端开发是从网页制作演变而来的，名称上有很明显的时代特征。随着人们对用户体验的要求越来越高，前端开发的技术难度越来越大，Web前端开发工程师这一职业终于从设计和制作不分的局面中独立出来。</p>
-      <p>早期的前端其实就是Table布局，后来发展到所谓的Div + CSS网站重构，再到现在的让人眼花缭乱的各种各样的新技术，Web前端技术发展是非常快速的，因此选择了前端这个行业就意味着不停的学习吧。让我们先看看目录吧。</p>
-      <img src="web_structure.jpg" alt="前端开发知识结构" />
+      <p>早期的前端其实就是Table布局，后来发展到所谓的Div + CSS网站重构，再到现在的让人眼花缭乱的各种各样的新技术，Web前端技术发展是非常快速的，因此选择了前端这个行业就意味着不停的学习吧。让我们先看看张克军绘制的前端知识体系结构：</p>
+      <img src="../images/web_structure.jpg" alt="前端开发知识结构" />
       <p>前端开发的核心是HTML + CSS + JavaScript。本质上它们构成一个MVC框架，即HTML作为信息模型（Model），CSS控制样式（View），JavaScript负责调度数据和实现某种展现逻辑（Controller）。</p>
-      <img src="f2e_combine.png" alt="前端的核心"/>
+      <img src="../images/f2e_combine.png" alt="前端的核心" />
       <h2>HTML</h2>
       <h3>1. 标签的分类</h3>
       <h4>1. 标签表示一个元素</h4>
@@ -72,7 +72,7 @@
       <h3>浏览器兼容性</h3>
       <p>绝大部分情况下我们需要考虑浏览器的兼容性，目前正在使用的浏览器版本非常多，IE6, IE7, IE8, IE9, IE10, Chrome, Firefox, Safari。</p>
       <h3>IE HasLayout和Block Format Content</h3>
-      <p>IE HasLayout是一个 Internet Explorer for Windows的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件、用户事件等。这种渲染特性可以通过某些 CSS 属性被不可逆转地触发。而有些 HTML 元素则默认就具有”layout”。目前只有IE6和IE7有这个概率。BFC是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。这个其实和浏览器的兼容性有关，因为绝大部分的兼容性问题都是它们引起的。参考：<a href="http://www.weakweb.com/articles/327.html" target="_blank">CSS BFC和IE Haslayout介绍</a></p>
+      <p>IE HasLayout是一个 Internet Explorer for Windows的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件、用户事件等。这种渲染特性可以通过某些 CSS 属性被不可逆转地触发。而有些 HTML 元素则默认就具有”layout”。目前只有IE6和IE7有这个概率。BFC是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。这个其实和浏览器的兼容性有关，因为绝大部分的兼容性问题都是它们引起的。参考：<a href="http://blog.csdn.net/borishuai/article/details/8127758" target="_blank">CSS BFC和IE Haslayout介绍</a></p>
       <h3>CSS Framework</h3>
       <p>CSS框架是一系列CSS文件的集合体，包含了基本的元素重置，页面排版、网格布局、表单样式、通用规则等代码块,用于简化web前端开发的工作，提高工作效率。目前常见框架有：</p>
       <ul>
@@ -95,7 +95,7 @@
         <li>文字阴影</li>
       </ul>
       <h3>CSS性能优化</h3>
-      <p>CSS 代码是控制页面显示样式与效果的最直接“工具”，但是在性能调优时他们通常被 Web 开发工程师所忽略，而事实上不规范的 CSS 会对页面渲染的效率有严重影响，尤其是对于结构复杂的 Web 2.0 页面，这种影响更是不可磨灭。所以，写出规范的、高性能的 CSS 代码会极大的提高应用程序的效率。</p>
+      <p>CSS 代码是控制页面显示样式与效果的最直接“工具”，但是在性能调优时他们通常被 Web 开发工程师所忽略，而事实上不规范的 CSS 会对页面渲染的效率有严重影响，尤其是对于结构复杂的 Web 2.0 页面，这种影响更是不可磨灭。所以，写出规范的、高性能的 CSS 代码会极大的提高应用程序的效率。参考<a href="http://blog.csdn.net/borishuai/article/details/8671929" target="_blank">CSS性能优化探讨</a></p>
       <h3>LESS和SASS</h3>
       <p><a href="http://lesscss.org/" target="_blank">LESS</a>和<a href="http://sass-lang.com/" target="_blank">SASS</a>都是 CSS 预处理器，用来为 CSS 增加一些编程的的特性，无需考虑浏览器的兼容性问题，例如你可以在 CSS 中使用变量、简单的程序逻辑、函数等等在编程语言中的一些基本技巧，可以让你的 CSS 更见简洁，适应性更强，代码更直观等诸多好处。</p>
       <p><a href="http://sass-lang.com/" target="_blank">SASS</a>基于Ruby开发。<a href="http://lesscss.org/" target="_blank">LESS</a>既可以在客户端运行，也可以借助Node.js或者Rhino在服务端运行。</p>
@@ -256,7 +256,7 @@
       <ul>
         <li>Github是一个优秀的代码托管网站，我们可以在上创建我们个人的项目，同时也是学习的好地方，我们可以关注其它优秀的项目。JSFiddle是一个web开发人员的练习场，一个可以在很多方面应用的工具。我们可以用他来在线编辑一些HTML,CSS,javascript片段。你编辑的代码可以与其他人分享，或嵌入你的博客等</li>
         <li>阅读优秀的开源代码</li>
-        <li>参加前端聚会</li>
+        <li>参加<a href="http://blog.csdn.net/borishuai/article/details/8529507">前端聚会</a></li>
         <li>关注技术发展趋势，了解最新的行业技术，可以通过订阅知名博客，阅读技术新闻获取</li>
         <li>写博客/记笔记，可以进行知识积累。博客可以自己买空间或者各大知名博客网站。笔记的话比如evernote，有道笔记等。</li>
       </ul>
