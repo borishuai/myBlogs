@@ -1,0 +1,40 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>HTML语义和前端架构</h1>
+	    <h2>关于语义学</h2>
+      <p>语义学是研究符号和意义之间的关系以及它们表示的内容。在语言学中，则主要是研究符号（例如单词，短语肯声音）在语言中所表达的意义。而在前端开发时，语义学则更多的关注HTML元素，属性以及属性的值所表达的含义。而这些规范的语义可以帮助开发人员更好的理解网站上的信息。但是即使是以非常好正式的形式来规范这些语义，程序员仍然会去修改这些语义。</p>
+      <h2>各种HTML语义之间的区别</h2>
+      <p>书写语义化的HTML的原则是现代专业的前端开发基本原则之一。绝大部分的语义是和已经存在的内容或期盼的内容的本性息息相关的(例如：h1元素，lang属性，type属性的值为email)。</p>
+      <p>但是，不是所有的语义化都需要基于内容驱动的。类名是不可能没有语义的。不管使用什么名字，它们总是有特定的意思和目的的。类名的语义化可以不同于HTML元素。我们可以利用大家公认的语义化的元素，特定的HTML属性，微数据等从而来不要把这些本地网站或某些具体应用的语义化的目的搞混，通常是包含在属性中的值，例如class属性。</p>
+      <p>尽管<a href="http://dev.w3.org/html5/spec/global-attributes.html#classes" target="_blank">HTML5规范中关于class部分</a>不停的重复所谓的最佳实践：</p>
+      <blockquote cite="http://dev.w3.org/html5/spec/global-attributes.html#classes"><p>并没有额外的规定开发人员如何使用类属性，但是鼓励开发人员使用描述内容的本质和属性的类而不是如何展示内容的类。</p></blockquote>
+      <p>并没有天生的原因去这样做。事实上，当你工作于大项目或应用时，这种方法往往会成为一种阻碍。</p>
+      <ul>
+      	<li>内容层的语义化已经由HTML元素和其它属性提供了。</li>
+      	<li>类名仅仅提供一点甚至没用的语义化信息给机器或者访问用户。unless it is part of a small set of agreed upon (and machine readable) names – Microformats.</li>
+      	<li>类名的主要作用是为CSS和JavaScript提供钩子。如果你不需要为你的页面增加展示或者行为，那么你通常不需要在你的HTML里增加类。</li>
+      	<li>类名应该能够传递有用的信息给开发者。当你阅读一个DOM片断时，类名应该能有助于你理解它在干嘛，尤其是在多人开发团队中前端开发并不是唯一接触HTML代码的人。</li>
+      </ul>
+      <p>以下面非常简单的代码为例：</p>
+      <pre class="prettyprint">
+        <code>
+          <span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"news"</span><span class="tag">&gt;</span><span class="pln">
+          </span><span class="tag">&lt;h2&gt;</span><span class="pln">News</span><span class="tag">&lt;/h2&gt;</span><span class="pln">
+          [news content]
+        </span><span class="tag">&lt;/div&gt;</span>
+        </code>
+      </pre>
+      <p>除了很明显的可以从内容看出的，类名本身并没有告诉你任何有用的信息。它没有告诉你任何并于组件架构和结构，并且它不能用于不是新闻的内容。把类名语义化和内容的本质紧紧的绑定在一起将会限制架构的扩展性以及复用性。例如其它开发人员无法将这些类名应用到其它地方。(译者注：这有点像类名和内容紧密耦合，一方改动将会影响到另一方，比如内容不是新闻了，则news这个类名也就不太合适了。)</p>
+      <h2>内容无关的类名</h2>
+      <p>一种替代的方法是从设计的结构和功能中获得类名。<strong>最便于复用的组件是那些拥有的类名和内容分离的。</strong></p>
+      <p></p>
+    </article>
+  </body>
+</html>
