@@ -1,0 +1,32 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>Cookie总结</h1>
+      <h2>Domain</h2>
+      <p>Cookie的domain属性就是为了让浏览器根据页面请求路径的domain值，获取匹配的cookie，并把这些cookie发送给服务器。匹配规则如下：如果Cookie的domain为abc.com，则域名为abc.com, hello.abc.com, abcd.abc.com，即该域名以及该域名的子域名都可以访问。而如果cookie的domain为hello.abc.com上，则abc.com不可以访问该域名，只有hello.abc.com以及它的子域名可以访问。因此可以说cookie的domain访问权限是向下继承的，即子域名可以访问父域名的cookie而父域名不可以访问子域名的cookie。当然其它域名如autodesk.com等跨域名访问更是不可以的。</p>
+      <p>Cookie的设置权限同cookie的访问权限差不多，例如hello.abc.com可以将cookie的domain设为hello.abc.com或abc.com而不可以设置到它的子值域名如aaa.hello.abc.com。通常SSO就是将cookie的domain设为最顶级的域名，如autodesk.com，这样所有autodesk的子域名就都可以获取该cookie了。</p>
+      <h2>Path</h2>
+      <p>Path和Domain是两种最常见的限定cookie访问范围的手段，domain是以域名的方式，而path则是以目录的方式，因为很多时候，一个目录下有多个站点而又没办法设子域名时，通常就以目录的方式组织访问多站点，例如company.com/hr,  company.com/job，因为概念上和domain很相似，因此访问/设置的限定也差不多：company.com/hr可以将cookie的path设置为company.com/, company/hr,而不可以设为company.com/hr/career或company.com/inside。</p>
+      <h2>Expires – 过期时间</h2>
+      <p>指定cookie的生命期。具体是值是过期日期。如果想让cookie的存在期限超过当前浏览器会话时间，就必须使用这个属性。当过了到期日期时，浏览器就可以删除cookie文件，没有任何影响。其实可以根据过期时间的设定方式把cookie分成两类： 硬盘cookie，是指在你设置了cookie的Expires属性，此时cookie将保存到你的硬盘上，关闭浏览器不会删除cookie，只有等cookie过期后才会被删除； 内存cookie，是指没有设在cookie的Expires的属性，此时cookie将停留在客户端的内存中，关闭浏览器后cookie将被删除，因此这种cookie的生命周期取决于浏览器的打开时间。</p>
+      <h2>删除Cookie</h2>
+      <p>没有直接的方法去删除cookie，如果要删除cookie，只需要将cookie的生命周期改成过去时间，浏览器会把过期的cookie删除掉。</p>
+      <h2>Secure</h2>
+      <p>指定cookie的值通过网络如何在用户和WEB服务器之间传递。这个属性的值或者是“secure”，或者为空。缺省情况下，该属性为空，也就是使用不安全的HTTP连接传递数据。如果一个 cookie 标记为secure，那么，它与WEB服务器之间就通过HTTPS或者其它安全协议传递数据。不过，设置了secure属性不代表其他人不能看到你机器本地保存的cookie。换句话说，把cookie设置为secure，只保证cookie与WEB服务器之间的数据传输过程加密，而保存在本地的cookie文件并不加密。如果想让本地cookie也加密，得自己加密数据。</p>
+      <h2>HttpOnly</h2>
+      <p>HttpOnly表示cookie只允许Http请求读取该cookie值，Javascript无法读取和修改该cookie值，这对于依赖cookie验证的网站来说安全性得到加强。</p>
+      <h2>参考文档</h2>
+      <ul>
+      	<li><a href="http://www.stevesouders.com/blog/2009/03/10/performance-impact-of-css-selectors/" target="_blank">Performance Impact of CSS Selectors</a></li>
+      	<li><a href="https://developer.mozilla.org/en-US/docs/CSS/Writing_Efficient_CSS" target="_blank">Writing efficient CSS</a></li>
+      	<li><a href="https://developers.google.com/speed/docs/best-practices/rendering" target="_blank">Optimize browser rendering</a></li>
+      </ul>
+    </article>
+  </body>
+</html>
