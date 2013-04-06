@@ -76,6 +76,14 @@
       &lt;/nav&gt;
 		</code>
 	  </pre>
+    <h3>JavaScript专用类</h3>
+    <p>使用一定形式的JavaScript专用类可以减少由于样式或结构的改动从而影响应用它上面的JavaScript行为。我找到一种有帮助的方法是为JavaScript钩子使用特定的类 - <em>js-*</em> - 并且不在它们上面应用任何样式。</p>
+    <pre>
+	    <code>
+        &lt;a href=&quot;/login&quot; class=&quot;btn btn-primary js-login&quot;&gt;&lt;/a&gt;
+		  </code>
+	  </pre>
+    <p>这样你就可以减少因为样式或结构的改变从而无意中影响了必须的JavaScript行为和复杂的功能。</p>
     </article>
   </body>
 </html>
