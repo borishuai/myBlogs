@@ -37,6 +37,45 @@
       <p>我们宁愿使层与层之间的联系变得简洁明了，也不要类名和内容紧密的耦合在一起。这样做不会导致类名失去语义化，而只是意味着类名的语义化不是来源于内容而已。我们也不要害怕添加额外的HTML元素，如果它们能够帮助创造稳定的、灵活的、可重用的组件。这样做不会使HTML失去语义化，而只是意味着你使用的HTML元素超过了需要标记内容的最低标准。</p>
       <h2>前端架构</h2>
       <p>一个组件/模板/面向对象的架构的目标是开发一组有限的模块可以用于一系列不同类型的内容。大型应用中类名语义化重要的事情是它们由实用主义和它们的主要目的所驱动 - 提供有意义的、可扩展的、可复用的展示/行为钩子给<em>开发人员</em>使用。</p>
+	  <h3>可重用和便于组合的组件</h3>
+	  <p>可扩展的HTML/CSS必须依赖于HTML里的类来创建可重用的类。一个灵活的和可重用的组件应该是既不依赖于特定的DOM结构，也不依赖于特定的HTML元素类型。它应该方便的加入到各种类型的容器中并且易于对其增加样式。如果需要，可以增加额外的HTML元素(相对于那些用于标记内容的HTML元素)来使组件更加稳定。一个非常好的例子是<a href="http://www.stubbornella.org/" target="_blank">Nicole Sullivan</a> 的<a href="http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/"  target="_blank">media object</a>.</p>
+	  <p>组件可以方便的用于组合得益于尽量使用类而避免使用<a href="http://www.w3.org/TR/CSS2/selector.html#type-selectors" target="_blank">类型选择器</a>。接下来的例子展示了<em>btn</em>组件和<em>ullist</em>组件的无法进行简单的组合。这里的问题在于<em>.btn</em>的权重要小于<em>.uilist a</em>(它会所有共亨的属性)，并且<em>ullist</em>组件要求链接作为子结点(译者注：这违反了优秀组件不依赖于DOM结构的原则)。</p>
+	  <pre>
+	    <code>
+        .btn { /* styles */ }
+        .uilist { /* styles */ }
+        .uilist a { /* styles */ }
+		  </code>
+	  </pre>
+    
+    <pre>
+	    <code>
+      &lt;nav class=&quot;uilist&quot;&gt;
+        &lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;About&lt;/a&gt;
+        &lt;a class=&quot;btn&quot; href=&quot;#&quot;&gt;Login&lt;/a&gt;
+      &lt;/nav&gt;
+		</code>
+	  </pre>
+    <p>一种可以使<em>uilist</em>组件很方便的和其它组件组合的改进方案是通过类来给子元素加样式。尽管这有助于降低CSS规则的权重，但是最主要的好处在于它可以将样式应用到任何类型的子元素上。</p>
+    <pre>
+	    <code>
+        .btn { /* styles */ }
+        .uilist { /* styles */ }
+        &lt;strong&gt;.uilist-item { /* styles */ }&lt;/strong&gt;
+		  </code>
+	  </pre>
+     <pre>
+	    <code>
+      &lt;nav class=&quot;uilist&quot;&gt;
+        &lt;a class=&quot;uilist-item&quot; href=&quot;#&quot;&gt;Home&lt;/a&gt;
+        &lt;a class=&quot;uilist-item&quot; href=&quot;#&quot;&gt;About&lt;/a&gt;
+        &lt;span class=&quot;uilist-item&quot;&gt;
+            &lt;a class=&quot;btn&quot; href=&quot;#&quot;&gt;Login&lt;/a&gt;
+        &lt;/span&gt;
+      &lt;/nav&gt;
+		</code>
+	  </pre>
     </article>
   </body>
 </html>
