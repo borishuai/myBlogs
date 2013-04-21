@@ -84,6 +84,42 @@
 		  </code>
 	  </pre>
     <p>这样你就可以减少因为样式或结构的改变从而无意中影响了必须的JavaScript行为和复杂的功能。</p>
+    <h3>组件修改工具</h3>
+    <p>组件经常会有部分样式和基础组件不同的地方，例如背景或者边框。有两种主要的模式可以用来创建这些变化的部分。我称之为"单类模式"和"多类模式"。</p>
+    <h4>单类模式</h4>
+    <pre>
+	    <code>
+        .btn, .btn-primary { /* button template styles */ }
+        .btn-primary { /* styles specific to save button */ }
+        &lt;button class=&quot;btn&quot;&gt;Default&lt;/button&gt;
+        &lt;button class=&quot;btn-primary&quot;&gt;Login&lt;/button&gt;
+		  </code>
+	  </pre>
+    <h4>多类模式</h4>
+    <pre>
+	    <code>
+        .btn { /* button template styles */ }
+        .btn-primary { /* styles specific to primary button */ }
+        &lt;button class=&quot;btn&quot;&gt;Default&lt;/button&gt;
+        &lt;button class=&quot;btn btn-primary&quot;&gt;Login&lt;/button&gt;
+		  </code>
+	  </pre>
+    <p>如果你使用CSS预处理器，你将会使用Saas的@extend功能来减少使用单例模式的维护工作。但是尽管预处理器有这些好处，我还是喜欢使用多类模式和在HTML里增加修改的类。</p>
+    <p>我已经发现这是一种可以处理大规模应用的模式。例如，我们以<strong>btn</strong>模块为基础增加5个类型的Button，以及3个不同大小的Button。使用多类模式你最后需要9个类来满足我们的需求，而使用单类模式最后则需要24个类。</p>
+    <p>It is also easier to make contextual tweaks to a component, if absolutely necessary. 你也许想去对出现在其它组件中的任何<strong>btn</strong>组件作些细微的调整。</p>
+    <pre>
+	    <code>
+        /* "multi-class" adjustment */
+        .thing .btn { /* adjustments */ }
+
+        /* "single-class" adjustment */
+        .thing .btn,
+        .thing .btn-primary,
+        .thing .btn-danger,
+        .thing .btn-etc { /* adjustments */ }
+		  </code>
+	  </pre>
+    <p>多类模式意味着你只需要一个组件内的选择器就可以定位任何组件内的<strong>btn</strong>系列的元素。而单类模式则意味着你需要为每个类型的button都增加一个选择器，并且调整选择器当一个新的button类型被创建时。</p>
     </article>
   </body>
 </html>
