@@ -2,12 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/base.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css">
   </head>
   
   <body>
-    <article>
-      <h1>CSS架构</h1>
+    <article class="container zh">
+      <h1  class="text-center">CSS架构</h1>
       <div class="con news_content">
 				<p>对于想踏入前端开发的工程师来说，通晓CSS（Cascading Style Sheets）则是最基本的要求。而擅长CSS的Web开发人员不仅可以从视觉上复制实物原型，还可以用代码进行完美的呈现。无需使用表格、尽可能少的使用图片。如果你是个名副其实的高手，你可以快速把最新和最伟大的技术应用到你的项目中，比如媒体查询、过渡、滤镜、转换等。虽然这些都是一个真正的CSS高手所具备的，但CSS很少被人单独拿出来讨论，或者用它去评估某个人的技能。</p>
 <p>有趣的是，我们很少这样去评价其他语言。Rails开发人员并不会因为其代码比较规范，就认为他是一名优秀的开发人员。这仅仅是个基准。当然，他的代码得必须规范。另外，还需集合其他方面考虑，比如代码是否可读？是否容易修改或扩展……</p>
@@ -29,19 +29,38 @@
 <p>下面的这些例子虽然都可以很好的执行，但却会给你带来很多烦恼，尽管我们的意图和愿望都是美好的，但是这些开发模式会让你头疼。</p>
 <p>几乎在每个网站上，都会有一个特定的视觉元素看起来与其他页面是完全一样的，然而只有一个页面除外。当面对这样一种情况时，几乎每个新手CSS开发人员（甚至是经验丰富的）都会以同样的方式来修改。你会为这个特殊的地方找到一些唯一的祖先元素（或者自己创建），然后再写一个新规则去操作。</p>
 <h3>基于父组件来修改组件</h3>
-<pre><ol class="dp-css"><li class="alt"><span><span>.widget&nbsp;{ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span><span class="keyword">background</span><span>:&nbsp;yellow; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span><span class="keyword">border</span><span>:&nbsp;</span><span class="value">1px</span><span>&nbsp;</span><span class="value">solid</span><span>&nbsp;</span><span class="value">black</span><span>; &nbsp;</span></li><li><span>&nbsp;&nbsp;</span><span class="keyword">color</span><span>:&nbsp;</span><span class="value">black</span><span>; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span><span class="keyword">width</span><span>:&nbsp;</span><span class="value">50%</span><span>; &nbsp;</span></li><li><span>} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span class="value">#sideba</span><span>r&nbsp;.widget&nbsp;{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span><span class="keyword">width</span><span>:&nbsp;</span><span class="value">200px</span><span>; &nbsp;</span></li><li><span>} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>body.homepage&nbsp;.widget&nbsp;{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span><span class="keyword">background</span><span>:&nbsp;</span><span class="value">white</span><span>; &nbsp;</span></li><li><span>}&nbsp;</span></li></ol></pre>
+<pre>
+  .widget {
+    background: yellow;
+    border: 1px solid black;
+    color: black;
+    width: 50%;
+  }
+
+  #sidebar .widget {
+    width: 200px;
+  }
+
+  body.homepage .widget {
+    background: white;
+  }
+</pre>
 <p>初看，这绝对是段无害的代码，但让我们来看看它是否达到了我们所设置的目标。</p>
 <p>首先，widget在上面例子里是不可预测的。当开发人员创建了若干个这种 widget 时，他会预期这些 widget 拥有相同的显示方式，然而当她在 sidebar 和 homepage 里使用 widget 时，它们看起来是不一样的，尽管它们拥有完全一样的结构。</p>
 <p>另外，它也是不可重用或不可扩展的。当 homepage 的 widget 要求和其它地方的 widget 拥有一样的显示方式会发生什么呢？不得不去增加新的规则来修改它。</p>
 <p>最后，它也比较难以维护。一旦这个widget需要重新设计，那么你不得不修改好多地方的CSS样式，而且不像上面的例子，产生这些反模式的CSS规则分散在各处，难以查找。</p>
 <p>想象一下，如果这段代码是使用其他语言编写的，它基本就是一个类定义，然后在代码的另一部分使用该类定义并做出扩展。这直接违反了软件开发的开放/闭合（open/close）原则。</p>
-<blockquote style="border-left: #ddd 4px solid; padding-bottom: 10px; line-height: 25px; margin: 20px 10px 20px 30px; padding-left: 10px; padding-right: 10px; color: #555; padding-top: 10px">
+<blockquote>
 <p>软件实体（类，模块，函数等）应对扩展开放，对修改闭合。</p>
 </blockquote>
 <h3>过于复杂的选择器</h3>
 <p>偶尔，会有些文章介绍CSS选择器对整个网站的展示起着非常重要的作用，并且宣称无需使用任何类选择器或者ID选择器就能够对整个网站进行样式化。</p>
 <p>但伴随着越深入的开发，我越会远离这种复杂的选择器。一个选择器越复杂，与HTML就越耦合。依靠HTML标签和组合器可以保持HTML代码干干净净，但却让CSS更加的凌乱。</p>
-<pre><ol class="dp-css"><li class="alt"><span><span class="value">#main</span><span>-nav&nbsp;ul&nbsp;li&nbsp;ul&nbsp;li&nbsp;div&nbsp;{&nbsp;} &nbsp;</span></span></li><li><span class="value">#conten</span><span>t&nbsp;article&nbsp;h</span><span class="value">1:</span><span>first-child&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span class="value">#sideba</span><span>r&nbsp;&gt;&nbsp;div&nbsp;&gt;&nbsp;h</span><span class="value">3</span><span>&nbsp;+&nbsp;p&nbsp;{&nbsp;}&nbsp;</span></li></ol></pre>
+<pre>
+  #main-nav ul li ul li div { }
+  #content article h1:first-child { }
+  #sidebar > div > h3 + p { }
+</pre>
 <p>对上面代码进行简单的理解。第一个可能是对下拉菜单进行样式化；第二个想说明文章的主标题应该与其他页面的H1元素不同；最后一个表示在第一段的侧边栏区域添加一些额外的空间。</p>
 <p>如果这个HTML是永远不变的，那就无可说之处，但这根本毫不现实。过于复杂的选择器会让人印象深刻，它可以让HTML去除展现用的钩子(hooks)，但对于实现良好的CSS架构目标却毫无用处。</p>
 <p>上面提到的例子根本没有办法进行复用。既然这些选择器指向结构中非常特殊的地方，其它拥有不同HTML结构的组件如何复用这引起样式？例如第一个选择器（下来菜单）例子，如果一个外观非常相似的下拉列表需要用在不同的页面上，并且它不是#main-nav的子元素，那么你只有重新创建整个样式。</p>
@@ -50,14 +69,38 @@
 <p>在大的应用中，你必须做出取舍和折衷。复杂选择器的脆弱性仅仅能使你的HTML代码保持整洁。</p>
 <h3>过于通用的类名</h3>
 <p>当创建可重用的设计组件时，使用组件的类名作为子元素选择器的前辍是很常见的用法。例如：</p>
-<pre><ol class="dp-css"><li class="alt"><span><span>&lt;div&nbsp;class=</span><span class="string">"widget"</span><span>&gt; &nbsp;</span></span></li><li><span>&nbsp;&nbsp;&lt;h</span><span class="value">3</span><span>&nbsp;class=</span><span class="string">"title"</span><span>&gt;...&lt;/h</span><span class="value">3</span><span>&gt; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&lt;div&nbsp;class=</span><span class="string">"contents"</span><span>&gt; &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet,&nbsp;consectetur&nbsp;adipiscing&nbsp;elit. &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;In&nbsp;condimentum&nbsp;justo&nbsp;et&nbsp;est&nbsp;dapibus&nbsp;sit&nbsp;amet&nbsp;euismod&nbsp;ligula&nbsp;ornare. &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Vivamus&nbsp;elementum&nbsp;accumsan&nbsp;dignissim. &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;class=</span><span class="string">"action"</span><span>&gt;Click&nbsp;Me!&lt;/button&gt; &nbsp;</span></li><li><span>&nbsp;&nbsp;&lt;/div&gt; &nbsp;</span></li><li class="alt"><span>&lt;/div&gt;&nbsp;</span></li></ol></pre>
-<pre><ol class="dp-css"><li class="alt"><span><span>.widget&nbsp;{} &nbsp;</span></span></li><li><span>.widget&nbsp;.title&nbsp;{} &nbsp;</span></li><li class="alt"><span>.widget&nbsp;.contents&nbsp;{} &nbsp;</span></li><li><span>.widget&nbsp;.action&nbsp;{}&nbsp;</span></li></ol></pre>
+<pre>
+  &lt;div class=&quot;widget&quot;&gt;
+    &lt;h3 class=&quot;title&quot;&gt;...&lt;/h3&gt;
+    &lt;div class=&quot;contents&quot;&gt;
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      In condimentum justo et est dapibus sit amet euismod ligula ornare.
+      Vivamus elementum accumsan dignissim.
+      &lt;button class=&quot;action&quot;&gt;Click Me!&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</pre>
+<pre>
+  .widget {}
+  .widget .title {}
+  .widget .contents {}
+  .widget .action {}
+</pre>
 <p>像.title、.contents、.action这些子元素类选择器可以被安全地进行样式命名，无需担心这些样式会蔓延到拥有相同类名的其他元素中。这是千真万确的。但它并没有办法阻止其它地方拥有相同类名的样式会蔓延到这个组件上来。</p>
 <p>在一些大型项目上，像.title这样的名称很有可能会被用在另外一个页面甚至本页面。如果这样的情况发生，那么 widget 的标题就会和预期的不一样。</p>
 <p>过于通用的类选择器名称会导致许多不可预测的CSS样式发生。</p>
 <h3>一个规则做太多事</h3>
 <p>有时，你要在网站的左上角区域20px的地方做一个可视化组件。</p>
-<pre><ol class="dp-css"><li class="alt"><span><span>.widget&nbsp;{ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span><span class="keyword">position</span><span>:&nbsp;</span><span class="value">absolute</span><span>; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;top:&nbsp;</span><span class="value">20px</span><span>; &nbsp;</span></li><li><span>&nbsp;&nbsp;left:&nbsp;</span><span class="value">20px</span><span>; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span><span class="keyword">background-color</span><span>:&nbsp;</span><span class="value">red</span><span>; &nbsp;</span></li><li><span>&nbsp;&nbsp;</span><span class="keyword">font-size</span><span>:&nbsp;</span><span class="value">1.5em</span><span>; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span><span class="keyword">text-transform</span><span>:&nbsp;</span><span class="value">uppercase</span><span>; &nbsp;</span></li><li><span>}&nbsp;</span></li></ol></pre>
+<pre>
+  .widget {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: red;
+    font-size: 1.5em;
+    text-transform: uppercase;
+  }
+</pre>
 <p>下面，你需要在网站的其他区域使用该组件，那么上面的CSS是不会工作的，因为它在不同的环境里是不可重用的。</p>
 <p>问题的关键是你让.widget这个选择器做的事情太多。你把它的外观和感觉方面进行了样式和位置以及布局方面的样式定义在同一个规则里。外观和感觉可以重用，而位置和布局是不可以的。有时候，把它们整合起来使用反而会大打折扣。</p>
 <p>虽然这些看起来并无害处，但它最终会使一些缺乏经验的CSS程序员来说选择复制和粘贴。如果一个新的团队成员需要一个特定组件，比如.infobox，他们通常会先尝试使用这个类。但如果该信息框没有按照期望的那样显示，因为它没有在需要的位置正确显示出来。这时，你认为他们会怎么做？以我的经验来看，绝大部分开发人员不会把规则分解成几个可复用的部分，相反，他们会简单地把这些代码复制粘贴到每个需要的地方。产生一些不必要的重复代码。</p>
@@ -79,7 +122,13 @@
 <p>针对上面的种种错误，我进行了很好地总结，并且根据自身经验提出了一些建议，希望它们能帮助您更好地实现良好的CSS架构目标。</p>
 <h3>专注</h3>
 <p>确保选择器对一些元素不进行无关样式的最好方法是不给它们机会。例如像#main-nav ul li ul li div这样的选择器可能很容易地应用于不想要的元素上。另一方面，像.subnav这样的选择器就不会有任何机会应用到其它元素上。把类选择器直接应用于你想要的元素上是保持元素的可预测性的最好的方式。</p>
-<pre><ol class="dp-css"><li class="alt"><span><span class="comment">/*&nbsp;Grenade&nbsp;*/</span><span>&nbsp;</span></span></li><li><span class="value">#main</span><span>-nav&nbsp;ul&nbsp;li&nbsp;ul&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span class="comment">/*&nbsp;Sniper&nbsp;Rifle&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>.subnav&nbsp;{&nbsp;}&nbsp;</span></li></ol></pre>
+<pre>
+  /* Grenade */
+  #main-nav ul li ul { }
+
+  /* Sniper Rifle */
+  .subnav { }
+</pre>
 <p>上面给出了两个例子，想像第一个像一个手榴弹，第二个像一个狙击步枪。手榴弹也许今天可以很好的工作，但是永远不知道什么时候一个无辜的平民会走进爆炸半径。</p>
 <h3>模块化</h3>
 <p>一个组织结构良好的组件层可以帮助解决HTML架构与CSS那种松散的耦合性。此外，CSS组件本身应该是模块化的。组件应该知道如何进行样式和更好地工作，但是不应该对布局、定位以及它们与周围元素的关系做太多的假设。</p>
@@ -87,11 +136,27 @@
 <p>布局和位置应当由一个单独的布局类或者单独的容器元素构成（请记住，有效地把内容与展示进行分离通常就是把内容与容器进行分离）。</p>
 <h3>给类使用命名空间</h3>
 <p>我们已经检查出为什么父选择器不能在封闭和防止交叉样式污染上面发挥100%的功效。一个更好的解决方案就是在类上应用命名空间。如果一个元素是可视化组件的一员，那么该元素的每个子元素的类都应该使用基于该组件类名作为命名空间。</p>
-<pre><ol class="dp-css"><li class="alt"><span><span class="comment">/*&nbsp;High&nbsp;risk&nbsp;of&nbsp;style&nbsp;cross-contamination&nbsp;*/</span><span>&nbsp;</span></span></li><li><span>.widget&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span>.widget&nbsp;.title&nbsp;{&nbsp;} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span class="comment">/*&nbsp;Low&nbsp;risk&nbsp;of&nbsp;style&nbsp;cross-contamination&nbsp;*/</span><span>&nbsp;</span></li><li><span>.widget&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span>.widget-title&nbsp;{&nbsp;}&nbsp;</span></li></ol></pre>
+<pre>
+  /* High risk of style cross-contamination */
+  .widget { }
+  .widget .title { }
+
+  /* Low risk of style cross-contamination */
+  .widget { }
+  .widget-title { }
+</pre>
 <p>给类进行命名空间可以保持组件独立性和模块化。它可以把现有类冲突降至最小并且减少了给子元素添加样式的权重。</p>
 <h3>创建修饰符类来扩展组件</h3>
 <p>当一个现有组件需要在一个特定的环境中有所不同时，可以创建一个修饰符类（modifier class）来扩展它。</p>
-<pre><ol class="dp-css"><li class="alt"><span><span class="comment">/*&nbsp;Bad&nbsp;*/</span><span>&nbsp;</span></span></li><li><span>.widget&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span class="value">#sideba</span><span>r&nbsp;.widget&nbsp;{&nbsp;} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span class="comment">/*&nbsp;Good&nbsp;*/</span><span>&nbsp;</span></li><li><span>.widget&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span>.widget-sidebar&nbsp;{&nbsp;}&nbsp;</span></li></ol></pre>
+<pre>
+  /* Bad */
+  .widget { }
+  #sidebar .widget { }
+
+  /* Good */
+  .widget { }
+  .widget-sidebar { }
+</pre>
 <p>我们已经看到了基于父元素对组件进行修改的缺点，需要重申：一个修饰符类可以在任何地方使用。基于位置的覆盖只能被用在一个特定的位置，而修饰符类则可以根据需要被多次使用。最后，修饰符类可以在HTML中把开发者的真实意图清晰的表达出来。而基于位置的类，在另一方面，当开发者只看HTML代码时它是完全不可见的，大大的增加了被忽略的可能性。</p>
 <h3>把CSS组织成逻辑结构</h3>
 <p><a target="_blank" href="http://snook.ca/">Jonathan Snook</a>在其非常优秀的《<a target="_blank" href="http://smacss.com/">SMACSS</a>》书中提到，CSS可以被分成四个不同的类：基础（base）、布局（layout）、模块（modules）和状态（state）。基础包括了复位规则和元素缺省值；布局是对站点范围内的元素进行定位以及像网格系统那样作为一种通用布局助手；模块即是可重用的视觉元素；状态是可以通过JavaScript进行开启或关闭的样式。</p>
@@ -108,14 +173,60 @@
 <h3>有逻辑的命名类</h3>
 <p>大多数写CSS的人喜欢使用连字符来分隔名词，但连字符并不足以区分不同类型之间的类。</p>
 <p><a target="_blank" href="http://nicolasgallagher.com/">Nicolas Gallagher</a>最近针对遇到的问题写了一个<a target="_blank" href="http://nicolasgallagher.com/about-html-semantics-front-end-architecture/">解决方案</a>，并且取得了巨大的成功（略有改动），为了说明命名约定，可以考虑以下格式：</p>
-<pre><ol class="dp-css"><li class="alt"><span><span class="comment">/*&nbsp;A&nbsp;component&nbsp;*/</span><span>&nbsp;</span></span></li><li><span>.button-group&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span class="comment">/*&nbsp;A&nbsp;component&nbsp;modifier&nbsp;(modifying&nbsp;.button)&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>.button-primary&nbsp;{&nbsp;} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span class="comment">/*&nbsp;A&nbsp;component&nbsp;sub-object&nbsp;(lives&nbsp;within&nbsp;.button)&nbsp;*/</span><span>&nbsp;</span></li><li><span>.button-</span><span class="value">icon</span><span>&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span class="comment">/*&nbsp;Is&nbsp;this&nbsp;a&nbsp;component&nbsp;class&nbsp;or&nbsp;a&nbsp;layout&nbsp;class?&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>.header&nbsp;{&nbsp;}&nbsp;</span></li></ol></pre>
+<pre>
+  /* A component */
+  .button-group { }
+
+  /* A component modifier (modifying .button) */
+  .button-primary { }
+
+  /* A component sub-object (lives within .button) */
+  .button-icon { }
+
+  /* Is this a component class or a layout class? */
+  .header { }
+</pre>
 <p>从上述类中很难发现它们应用到什么类型的规则上。这不但会增加开发中的混乱，而且连自动测试CSS和HTML也变的很难。一个结构化的命名约定应该是初看就能够知道其类名与其他类之间的关系，并且知道它出现在HTML中的位置——使命名更加简单和容易测试。</p>
-<pre><ol class="dp-css"><li class="alt"><span><span class="comment">/*&nbsp;Templates&nbsp;Rules&nbsp;(using&nbsp;Sass&nbsp;placeholders)&nbsp;*/</span><span>&nbsp;</span></span></li><li><span>%template-name &nbsp;</span></li><li class="alt"><span>%template-name--modifier-name &nbsp;</span></li><li><span>%template-name__sub-object &nbsp;</span></li><li class="alt"><span>%template-name__sub-object--modifier-name &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span class="comment">/*&nbsp;Component&nbsp;Rules&nbsp;*/</span><span>&nbsp;</span></li><li><span>.component-name &nbsp;</span></li><li class="alt"><span>.component-name--modifier-name &nbsp;</span></li><li><span>.component-name__sub-object &nbsp;</span></li><li class="alt"><span>.component-name__sub-object--modifier-name &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span class="comment">/*&nbsp;Layout&nbsp;Rules&nbsp;*/</span><span>&nbsp;</span></li><li><span>.l-layout-method &nbsp;</span></li><li class="alt"><span>.grid &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span class="comment">/*&nbsp;State&nbsp;Rules&nbsp;*/</span><span>&nbsp;</span></li><li><span>.is-state-type &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span class="comment">/*&nbsp;Non-styled&nbsp;JavaScript&nbsp;Hooks&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>.js-action-name&nbsp;</span></li></ol></pre>
+<pre>
+  /* Templates Rules (using Sass placeholders) */
+  %template-name
+  %template-name--modifier-name
+  %template-name__sub-object
+  %template-name__sub-object--modifier-name
+
+  /* Component Rules */
+  .component-name
+  .component-name--modifier-name
+  .component-name__sub-object
+  .component-name__sub-object--modifier-name
+
+  /* Layout Rules */
+  .l-layout-method
+  .grid
+
+  /* State Rules */
+  .is-state-type
+
+  /* Non-styled JavaScript Hooks */
+  .js-action-name
+</pre>
 <p>重做第一个例子：</p>
-<pre><ol class="dp-css"><li class="alt"><span><span class="comment">/*&nbsp;A&nbsp;component&nbsp;*/</span><span>&nbsp;</span></span></li><li><span>.button-group&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span class="comment">/*&nbsp;A&nbsp;component&nbsp;modifier&nbsp;(modifying&nbsp;.button)&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>.button--primary&nbsp;{&nbsp;} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span class="comment">/*&nbsp;A&nbsp;component&nbsp;sub-object&nbsp;(lives&nbsp;within&nbsp;.button)&nbsp;*/</span><span>&nbsp;</span></li><li><span>.button__icon&nbsp;{&nbsp;} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span class="comment">/*&nbsp;A&nbsp;layout&nbsp;class&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>.l-header&nbsp;{&nbsp;}&nbsp;</span></li></ol></pre>
+<pre>
+  /* A component */
+  .button-group { }
+
+  /* A component modifier (modifying .button) */
+  .button--primary { }
+
+  /* A component sub-object (lives within .button) */
+  .button__icon { }
+
+  /* A layout class */
+  .l-header { }
+</pre>
 <h2>工具</h2>
 <p>维护一个高效且组织良好的CSS架构是非常困难的，尤其是在大型团队中。下面向大家推荐几款很好的工具来帮你管理网站CSS架构。</p>
-<p><strong>CSS Preprocessor </strong></p>
+<h3>CSS Preprocessor </h3>
 <p>CSS预处理器采用PHP5编写，有预处理器的常见功能，可以帮你快速编写CSS。另外有些号称“功能”的预处理器实际上并不会对CSS架构产生良好作用。下面我提供一个列表，在使用时一定要避免：</p>
 <ul>
     <li>切勿纯粹为了组织代码来嵌套规则。只有当输出你真正想要的CSS时才可以。</li>
@@ -125,24 +236,53 @@
 </ul>
 <p><a target="_blank" href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#extend">@extend</a>和<a target="_blank" href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#placeholder_selectors_">%placeholder</a>是预处理器里面非常好的两个功能。它们可以帮你轻松管理CSS抽象并且无需添加bloat和大量的基类到CSS和HTML里，否则将会很难管理。</p>
 <p>当你初次使用@extend时，常会与修饰符类一起使用，例如：</p>
-<pre><ol class="dp-css"><li class="alt"><span><span>.button&nbsp;{ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span><span class="comment">/*&nbsp;button&nbsp;styles&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span class="comment">/*&nbsp;Bad&nbsp;*/</span><span>&nbsp;</span></li><li><span>.button--primary&nbsp;{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;@extend&nbsp;.button; &nbsp;</span></li><li><span>&nbsp;&nbsp;</span><span class="comment">/*&nbsp;modification&nbsp;styles&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>}&nbsp;</span></li></ol></pre>
+<pre>
+  .button {
+    /* button styles */
+  }
+
+  /* Bad */
+  .button--primary {
+    @extend .button;
+    /* modification styles */
+  }
+</pre>
 <p>这样做会让你在HTML中失去继承链。很难使用JavaScript选择所有的按钮实例。</p>
 <p>作为一般规则，很少去扩展UI组件或者在知道类型后做些什么。这是区分模板和组件的一种方式，模板无需参与到应用程序的逻辑，并且可以使用预处理器进行安全扩展。</p>
 <p>下面是一个引用上面的模式例子：</p>
-<pre><ol class="dp-css"><li class="alt"><span><span>.modal&nbsp;{ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;@extend&nbsp;%dialog; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;@extend&nbsp;%drop-shadow; &nbsp;</span></li><li><span>&nbsp;&nbsp;@extend&nbsp;%statically-centered; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span><span class="comment">/*&nbsp;other&nbsp;modal&nbsp;styles&nbsp;*/</span><span>&nbsp;</span></li><li><span>} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>.modal__close&nbsp;{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;@extend&nbsp;%dialog__close; &nbsp;</span></li><li><span>&nbsp;&nbsp;</span><span class="comment">/*&nbsp;other&nbsp;close&nbsp;button&nbsp;styles&nbsp;*/</span><span>&nbsp;</span></li><li class="alt"><span>} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>.modal__header&nbsp;{ &nbsp;</span></li><li><span>&nbsp;&nbsp;@extend&nbsp;%background-gradient; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span><span class="comment">/*&nbsp;other&nbsp;modal&nbsp;header&nbsp;styles&nbsp;*/</span><span>&nbsp;</span></li><li><span>}&nbsp;</span></li></ol></pre>
-<p><strong>CSS Lint</strong></p>
+<pre>
+  .modal {
+    @extend %dialog;
+    @extend %drop-shadow;
+    @extend %statically-centered;
+    /* other modal styles */
+  }
+
+  .modal__close {
+    @extend %dialog__close;
+    /* other close button styles */
+  }
+
+  .modal__header {
+    @extend %background-gradient;
+    /* other modal header styles */
+  }
+</pre>
+<h3>CSS Lint</h3>
 <p><a target="_blank" href="http://csslint.net/">CSS Lint</a>是由<a target="_blank" href="http://www.stubbornella.org/">Nicole Sullivan</a>和<a target="_blank" href="http://www.nczonline.net/">Nicholas Zakas</a>编写的一款代码质量检测工具，帮助CSS开发人员写出更好的代码。他们的网站上是这样介绍CSS Lint的：</p>
-<p><strong>CSS Lint是一个用来帮你找出CSS代码中问题的工具，它可做基本的语法检查以及使用一套预设的规则来检查代码中的问题，规则是可以扩展的。</strong></p>
+<blockquote>
+  <p>CSS Lint points out problems with your CSS code. It does basic syntax checking as well as applying a set of rules to the code that look for problematic patterns or signs of inefficiency. The [rules] are all pluggable, so you can easily write your own or omit ones you don’t want.</p>
+</blockquote>
 <p>使用CSS Lint建议：</p>
-<ol>
+<ul>
     <li>不要在选择器中出现ID。</li>
     <li>在多部分规则中，不要使用非语义（non-semantic）类型选择器，例如DIV、SPAN等。</li>
     <li>在一个选择器中使用的连接符（combinator）不要超过2个。</li>
     <li>任何类名都不要以“js-”开始。</li>
     <li>如果在非“I-”前缀规则里经常使用布局和定位应给予警告</li>
     <li>如果一个类定义后被重新定义成子类，也应给予警告。</li>
-</ol>
-<h2>总结<h2>
+</ul>
+<h2>总结</h2>
 <p>CSS不仅仅是视觉设计，也不要因为你编写CSS就随便抛弃编程的最佳实践。像OOP、DRY、打开/闭合、与内容分离等这些规则应该应用到CSS里面。</p>
 <p>无论你如何组织代码，都要确保方法真正帮助到你，并且使你的开发更加容易和可长期维护。</p>
 <p>来自：<a target="_blank" href="http://engineering.appfolio.com/2012/11/16/css-architecture/">Appfolio Engineering Technical Blog</a></p>				
