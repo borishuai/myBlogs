@@ -9,16 +9,16 @@
     <article class="container">
       <h1>HTML语义和前端架构</h1>
 	    <h2>关于语义学</h2>
-      <p>语义学是研究符号和意义之间的关系以及它们表示的内容。在语言学中，则主要是研究符号（例如单词，短语肯声音）在语言中所表达的意义。而在前端开发时，语义学则更多的关注HTML元素，属性以及属性的值所表达的含义。而这些规范的语义可以帮助开发人员更好的理解网站上的信息。但是即使是以非常好正式的形式来规范这些语义，程序员仍然会去修改这些语义。</p>
+      <p>语义学是研究符号和意义之间的关系以及它们表示的内容。在语言学中，则主要是研究符号（例如单词，短语或者语音）在语言中所表达的意义。而在前端开发时，语义学则更多的关注HTML元素，属性以及它的值所表达的含义。而这些规范的语义可以帮助开发人员更好的理解网站上的信息。但是即使是以非常正式的形式来规范这些语义，程序员仍然会去修改这些语义。</p>
       <h2>各种HTML语义之间的区别</h2>
-      <p>书写语义化的HTML的原则是现代专业的前端开发基本原则之一。绝大部分的语义是和已经存在的内容或期盼的内容的本性息息相关的(例如：h1元素，lang属性，type属性的值为email)。</p>
+      <p>书写语义化的HTML是现代专业的前端开发基本原则之一。绝大部分的语义是和已经存在的内容或期盼的内容的本性息息相关的(例如：h1元素，lang属性，type属性的值为email)。</p>
       <p>但是，不是所有的语义化都需要基于内容驱动的。类名是不可能没有语义的。不管使用什么名字，它们总是有特定的意思和目的的。类名的语义化可以不同于HTML元素。我们可以利用大家公认的语义化的元素，特定的HTML属性，微数据等从而来不要把这些本地网站或某些具体应用的语义化的目的搞混，通常是包含在属性中的值，例如class属性。</p>
       <p>尽管<a href="http://dev.w3.org/html5/spec/global-attributes.html#classes" target="_blank">HTML5规范中关于class部分</a>不停的重复所谓的最佳实践：</p>
       <blockquote cite="http://dev.w3.org/html5/spec/global-attributes.html#classes"><p>并没有额外的规定开发人员如何使用类属性，但是鼓励开发人员使用描述内容的本质和属性的类而不是如何展示内容的类。</p></blockquote>
       <p>并没有天生的原因去这样做。事实上，当你工作于大项目或应用时，这种方法往往会成为一种阻碍。</p>
       <ul>
       	<li>内容层的语义化已经由HTML元素和其它属性提供了。</li>
-      	<li>类名仅仅提供一点甚至没用的语义化信息给机器或者访问用户。unless it is part of a small set of agreed upon (and machine readable) names – Microformats.</li>
+      	<li>类名仅仅提供一点甚至没用的语义化信息给机器或者访问用户，除非是微格式.</li>
       	<li>类名的主要作用是为CSS和JavaScript提供钩子。如果你不需要为你的页面增加展示或者行为，那么你通常不需要在你的HTML里增加类。</li>
       	<li>类名应该能够传递有用的信息给开发者。当你阅读一个DOM片断时，类名应该能有助于你理解它在干嘛，尤其是在多人开发团队中前端开发并不是唯一接触HTML代码的人。</li>
       </ul>
@@ -31,113 +31,97 @@
 </pre>
       <p>除了很明显的可以从内容看出的，类名本身并没有告诉你任何有用的信息。它没有告诉你任何并于组件架构和结构，并且它不能用于不是新闻的内容。把类名语义化和内容的本质紧紧的绑定在一起将会限制架构的扩展性以及复用性。例如其它开发人员无法将这些类名应用到其它地方。(译者注：这有点像类名和内容紧密耦合，一方改动将会影响到另一方，比如内容不是新闻了，则news这个类名也就不太合适了。)</p>
       <h2>内容无关的类名</h2>
-      <p>一种替代的方法是从设计的结构和功能中获得类名。<strong>最便于复用的组件是那些拥有的类名和内容分离的。</strong></p>
+      <p>一种替代的方法是从设计的结构和功能中获得类名。<strong>最便于复用的组件是那些类名独立于内容的组件。</strong></p>
       <p>我们宁愿使层与层之间的联系变得简洁明了，也不要类名和内容紧密的耦合在一起。这样做不会导致类名失去语义化，而只是意味着类名的语义化不是来源于内容而已。我们也不要害怕添加额外的HTML元素，如果它们能够帮助创造稳定的、灵活的、可重用的组件。这样做不会使HTML失去语义化，而只是意味着你使用的HTML元素超过了需要标记内容的最低标准。</p>
       <h2>前端架构</h2>
       <p>一个组件/模板/面向对象的架构的目标是开发一组有限的模块可以用于一系列不同类型的内容。大型应用中类名语义化重要的事情是它们由实用主义和它们的主要目的所驱动 - 提供有意义的、可扩展的、可复用的展示/行为钩子给<em>开发人员</em>使用。</p>
       <h3>可重用和便于组合的组件</h3>
-      <p>可扩展的HTML/CSS必须依赖于HTML里的类来创建可重用的类。一个灵活的和可重用的组件应该是既不依赖于特定的DOM结构，也不依赖于特定的HTML元素类型。它应该方便的加入到各种类型的容器中并且易于对其增加样式。如果需要，可以增加额外的HTML元素(相对于那些用于标记内容的HTML元素)来使组件更加稳定。一个非常好的例子是<a href="http://www.stubbornella.org/" target="_blank">Nicole Sullivan</a> 的<a href="http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/"  target="_blank">media object</a>.</p>
+      <p>可扩展的HTML/CSS必须依赖于HTML里的类来创建可重用的组件。一个灵活的和可重用的组件应该是既不依赖于特定的DOM结构，也不依赖于特定的HTML元素类型。它应该方便的加入到各种类型的容器中并且易于对其增加样式。如果需要，可以增加额外的HTML元素(相对于那些用于标记内容的HTML元素)来使组件更加稳定。一个非常好的例子是<a href="http://www.stubbornella.org/" target="_blank">Nicole Sullivan</a> 的<a href="http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/"  target="_blank">media object</a>.</p>
       <p>组件可以方便的用于组合得益于尽量使用类而避免使用<a href="http://www.w3.org/TR/CSS2/selector.html#type-selectors" target="_blank">类型选择器</a>。接下来的例子展示了<em>btn</em>组件和<em>ullist</em>组件的无法进行简单的组合。这里的问题在于<em>.btn</em>的权重要小于<em>.uilist a</em>(它会所有共亨的属性)，并且<em>ullist</em>组件要求链接作为子结点(译者注：这违反了优秀组件不依赖于DOM结构的原则)。</p>
-      <pre>
-        <code>
-          .btn { /* styles */ }
-          .uilist { /* styles */ }
-          .uilist a { /* styles */ }
-        </code>
-      </pre>
+<pre>
+.btn { /* styles */ }
+.uilist { /* styles */ }
+.uilist a { /* styles */ }
+</pre>
       
-      <pre>
-        <code>
-        &lt;nav class=&quot;uilist&quot;&gt;
-          &lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;
-          &lt;a href=&quot;#&quot;&gt;About&lt;/a&gt;
-          &lt;a class=&quot;btn&quot; href=&quot;#&quot;&gt;Login&lt;/a&gt;
-        &lt;/nav&gt;
-      </code>
-      </pre>
+<pre>
+&lt;nav class=&quot;uilist&quot;&gt;
+  &lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;
+  &lt;a href=&quot;#&quot;&gt;About&lt;/a&gt;
+  &lt;a class=&quot;btn&quot; href=&quot;#&quot;&gt;Login&lt;/a&gt;
+&lt;/nav&gt;
+</pre>
       <p>一种可以使<em>uilist</em>组件很方便的和其它组件组合的改进方案是通过类来给子元素加样式。尽管这有助于降低CSS规则的权重，但是最主要的好处在于它可以将样式应用到任何类型的子元素上。</p>
-      <pre>
-        <code>
-          .btn { /* styles */ }
-          .uilist { /* styles */ }
-          .uilist-item { /* styles */ }
-        </code>
-      </pre>
-       <pre>
-        <code>
-        &lt;nav class=&quot;uilist&quot;&gt;
-          &lt;a class=&quot;uilist-item&quot; href=&quot;#&quot;&gt;Home&lt;/a&gt;
-          &lt;a class=&quot;uilist-item&quot; href=&quot;#&quot;&gt;About&lt;/a&gt;
-          &lt;span class=&quot;uilist-item&quot;&gt;
-              &lt;a class=&quot;btn&quot; href=&quot;#&quot;&gt;Login&lt;/a&gt;
-          &lt;/span&gt;
-        &lt;/nav&gt;
-      </code>
-      </pre>
+<pre>
+.btn { /* styles */ }
+.uilist { /* styles */ }
+.uilist-item { /* styles */ }
+</pre>
+<pre>
+&lt;nav class=&quot;uilist&quot;&gt;
+  &lt;a class=&quot;uilist-item&quot; href=&quot;#&quot;&gt;Home&lt;/a&gt;
+  &lt;a class=&quot;uilist-item&quot; href=&quot;#&quot;&gt;About&lt;/a&gt;
+  &lt;span class=&quot;uilist-item&quot;&gt;
+      &lt;a class=&quot;btn&quot; href=&quot;#&quot;&gt;Login&lt;/a&gt;
+  &lt;/span&gt;
+&lt;/nav&gt;
+</pre>
       <h3>JavaScript专用类</h3>
       <p>使用一定形式的JavaScript专用类可以减少由于样式或结构的改动从而影响应用它上面的JavaScript行为。我找到一种有帮助的方法是为JavaScript钩子使用特定的类 - <em>js-*</em> - 并且不在它们上面应用任何样式。</p>
-      <pre>
-        <code>
-          &lt;a href=&quot;/login&quot; class=&quot;btn btn-primary js-login&quot;&gt;&lt;/a&gt;
-        </code>
-      </pre>
+<pre>
+&lt;a href=&quot;/login&quot; class=&quot;btn btn-primary js-login&quot;&gt;&lt;/a&gt;
+</pre>
       <p>这样你就可以减少因为样式或结构的改变从而无意中影响了必须的JavaScript行为和复杂的功能。</p>
       <h3>组件修饰符(modifiers)</h3>
       <p>组件经常会有部分样式和基础组件不同的地方，例如背景或者边框。有两种主要的模式可以用来创建这些变化的部分。我称之为"单类模式"和"多类模式"。</p>
       <h4>单类模式</h4>
-      <pre>
-        <code>
-          .btn, .btn-primary { /* button template styles */ }
-          .btn-primary { /* styles specific to save button */ }
-          &lt;button class=&quot;btn&quot;&gt;Default&lt;/button&gt;
-          &lt;button class=&quot;btn-primary&quot;&gt;Login&lt;/button&gt;
-        </code>
-      </pre>
+<pre>
+  .btn, .btn-primary { /* button template styles */ }
+  .btn-primary { /* styles specific to save button */ }
+  &lt;button class=&quot;btn&quot;&gt;Default&lt;/button&gt;
+  &lt;button class=&quot;btn-primary&quot;&gt;Login&lt;/button&gt;
+</pre>
       <h4>多类模式</h4>
-      <pre>
-        <code>
-          .btn { /* button template styles */ }
-          .btn-primary { /* styles specific to primary button */ }
-          &lt;button class=&quot;btn&quot;&gt;Default&lt;/button&gt;
-          &lt;button class=&quot;btn btn-primary&quot;&gt;Login&lt;/button&gt;
-        </code>
-      </pre>
+<pre>
+.btn { /* button template styles */ }
+.btn-primary { /* styles specific to primary button */ }
+&lt;button class=&quot;btn&quot;&gt;Default&lt;/button&gt;
+&lt;button class=&quot;btn btn-primary&quot;&gt;Login&lt;/button&gt;
+</pre>
       <p>如果你使用CSS预处理器，你将会使用Saas的@extend功能来减少使用单例模式的维护工作。但是尽管预处理器有这些好处，我还是喜欢使用多类模式和在HTML里增加修改的类。</p>
       <p>我已经发现这是一种可以处理大规模应用的模式。例如，我们以<strong>btn</strong>模块为基础增加5个类型的Button，以及3个不同大小的Button。使用多类模式你最后需要9个类来满足我们的需求，而使用单类模式最后则需要24个类。</p>
       <p>It is also easier to make contextual tweaks to a component, if absolutely necessary. 你也许想去对出现在其它组件中的任何<strong>btn</strong>组件作些细微的调整。</p>
-      <pre>
-        <code>
-          /* "multi-class" adjustment */
-          .thing .btn { /* adjustments */ }
+<pre>
+  /* "multi-class" adjustment */
+  .thing .btn { /* adjustments */ }
 
-          /* "single-class" adjustment */
-          .thing .btn,
-          .thing .btn-primary,
-          .thing .btn-danger,
-          .thing .btn-etc { /* adjustments */ }
-        </code>
-      </pre>
+  /* "single-class" adjustment */
+  .thing .btn,
+  .thing .btn-primary,
+  .thing .btn-danger,
+  .thing .btn-etc { /* adjustments */ }
+</pre>
       <p>多类模式意味着你只需要一个组件内的选择器就可以定位任何组件内的<strong>btn</strong>系列的元素。而单类模式则意味着你需要为每个类型的button都增加一个选择器，并且调整选择器当一个新的button类型被创建时。</p>
       <h2>结构化类名</h2>
       <p>当创建组件以及基于它们的主题(themes)时，一些类用于组件的边界，还有一些类用于组件修饰符(modifiers)，另外一些则用于关联一组DOM节点和一个非常好大的抽象的展现层组件。</p>
       <p>去推断<em>btn</em>(组件)，<em>btn-primary</em>(修饰符)，<em>btn-group</em>(组件)和<em>btn-group-item</em>(组件，子对象)它们之间的关系是很困难的，因为它们的名称在表面上无法看出它们的目的。它们没有一致的命名模式。</p>
       <p>在过去一年，我一直在<a href="https://gist.github.com/necolas/1309546" target="_blank">实验命名规则</a>，它可以帮我更快地理解DOM片断里节点之间的展示关系，而不是通过在HTML, CSS, JS文件间来回切换把网站的架构拼凑在一起。这个模式是受到<a href="http://bem.github.com/bem-method/html/all.en.html">BEM system</a>命名方法的影响和启发，但是采用了更便于浏览查看的形式。</p>
-      <pre><code>
-        t-template-name
-        t-template-name--modifier-name
-        t-template-name__sub-object
-        t-template-name__sub-object--modifier-name
+<pre>
+t-template-name
+t-template-name--modifier-name
+t-template-name__sub-object
+t-template-name__sub-object--modifier-name
 
-        component-name
-        component-name--modifier-name
-        component-name__sub-object
-        component-name__sub-object--modifier-name
+component-name
+component-name--modifier-name
+component-name__sub-object
+component-name__sub-object--modifier-name
 
-        is-state-type
+is-state-type
 
-        js-action-name
-        js-component-type
-       </code></pre>
+js-action-name
+js-component-type
+</pre>
        <p><small>我把其中一些结构当作抽象的“模板”，其它作为更独特的组件(它们通常是基于模板)，但是这些独特性不是总是需要的。这仅仅是我目前发现的有用的命名规则。它可以采用任何形式。但它的好处在于移除了那些模棱两可的类名，例如那些仅仅依靠连接符(-)，下划线(_)或者驼峰命名方式。</small></p>
     </article>
   </body>
