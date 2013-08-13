@@ -10,7 +10,7 @@
       <h1>jQuery Animation实现CSS3动画</h1>
       <p>jQuery Animation的工作原理是通过将元素的CSS样式从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。只有数字值可创建动画（比如 "margin:30px"）。字符串值无法创建动画（比如 "background-color:red"）。详细用法请参考<a href="http://www.w3school.com.cn/jquery/effect_animate.asp" target="_blank">jQuery 效果 - animate() 方法</a>和<a href="http://api.jquery.com/animate/" target="_blank">官方教程。</a></p>
       <p>像CSS3好多效果因为不是数值的，所以是没有办法直接通过animate()方法实现的。如translate(), rotate(), scale(), skew(), matrix(), rotateX(), rotateY()等方法，这些方法的一个特点就是它们的值是字符和数字混合在一起的。因此我们是不可以直接用animate()方法来动态地修改它们的值来实现动画的效果。</p>
-      <p>如果我们自己用JavaScript实现CSS3动画，那么我们只能自已通过setInterval()方法来实现，实现起来比较复杂。其实animate()方法就是基于setInterval()方法进行工作的。animate()方法的第二种用法有个step参数规定动画的每一步完成之后要执行的函数。我们可以用使用一个不影响元素效果显著的CSS值来触发animate()方法，然后在step回调函数中修改我们想要修改的值，这样就可以间接地实现动画了。请看transform例子:</p>
+      <p>如果我们自己用JavaScript实现CSS3动画，那么我们只能自已通过setInterval()方法来实现，实现起来比较复杂。其实animate()方法就是基于setInterval()方法进行工作的。animate()方法的第二种用法有个step参数规定动画的每一步要执行的函数。我们可以用使用一个不影响元素效果显著的CSS值来触发animate()方法，然后在step回调函数中修改我们想要修改的值，这样就可以间接地实现动画了。请看transform例子:</p>
       <pre>
         &lt;div id=&quot;box&quot;&gt;&lt;/div&gt;
         
@@ -31,7 +31,7 @@
          duration:'slow'
        },'linear');
       </pre>
-      <p>这里使用text-indent属性来触发动画，是因为我们这里没有文字，所以使用text-indent而不会影响到元素的样式效果。然后使用animate()方法产生的节奏来实现动画。以此类推，我们就可以实现很多效果了。具体例子请参考<a href="http://jsfiddle.net/vScyu/" target="_blank">这里</a></p>
+      <p>这里使用text-indent属性来触发动画，是因为我们这里没有文字，所以使用text-indent而不会影响到元素的样式效果，这里也可以用font-size等。然后使用animate()方法产生的节奏来实现动画。以此类推，我们就可以实现很多效果了。具体例子请参考<a href="http://jsfiddle.net/vScyu/" target="_blank">这里</a></p>
       <h2>参考文档</h2>
       <ul>
       	<li><a href="http://www.w3school.com.cn/jquery/effect_animate.asp" target="_blank">jQuery 效果 - animate() 方法</a></li>
