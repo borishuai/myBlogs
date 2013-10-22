@@ -1,0 +1,94 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>在YII中使用RequireJS</h1>
+      <p>RequireJS 是一个非常小巧的 JavaScript 模块载入框架，是 <a href="http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition" target="_blank">AMD</a> 规范最好的实现者之一。而YII则是目前最热门的PHP MVC框架了，下面主要分享如何在<a href="http://www.yiiframework.com/" target="_blank">YII</a>中使用RequireJS</p>
+      <h2>使用registerScriptFile 引入RequireJS</h2>
+      <p>在action代码里通过registerScriptFile加载所有的JS代码，代码如下：</p>
+      <pre>
+        <code>
+//deploy js directory of require modules and return a reference to location
+$js = Yii::app()->assetManager->publish(
+  Yii::getPathOfAlias('application.components.js.requireModules')
+);
+
+//加载其它代码
+Yii::app()->clientScript->registerScript( 'requiredScript', 'require.config({
+baseUrl: "' . $js . '",
+waitSeconds: 15
+});
+require( ["module1","module2"],
+ function() {
+    //start doing things once modules have loaded
+ }
+);', CClientScript::POS_END );
+      </code>
+      </pre>
+      <p>以上的代码还可以进一步优化，那就是将配置代码放到一下公共的JS文件里，然后载入该公共文件，这种方法不好的地方是似乎没有办法使用RequireJS 的data-main属性。</p>
+      <h2>在模板文件里载入RequireJS</h2>
+      <p>YII中的Views模板文件其实就是一个HTML文件，所以我们就可以像在普通HTML文件里一样使用RequireJS。</p>
+      <pre><code>
+&lt;script data-main=&quot;scripts/main&quot; src=&quot;scripts/require.js&quot;&gt;&lt;/script&gt;
+      </code></pre>
+      <p>如果要在RequireJS里引入非AMD的模块，如<a href="http://documentcloud.github.com/underscore/" target="_blank">underscore</a>, jQuery 插件等，则需要用到RequireJS的shim配置，而通过Shim进行配置的模块在所有的调用之前进行配置，所以我们通过将RequireJS的配置代码放在main.js中。但是通常每个页面都有自己的代码要执行，所以我们在data-main边上加个非标准的属性data-start，它的值就是当前页面里需要执行的模块。</p>
+      <pre><code>
+&lt;script data-main=&quot;scripts/main&quot;data-start=&quot;scripts/page1,scripts/common&quot; src=&quot;scripts/require.js&quot;&gt;&lt;/script&gt;
+      </code></pre>
+      <p>然后我们在main.js里遍历该属性，取得模块列表，分别用require方法载入进来。例如我们项目里的每个模块都有个init方法，所以我们就遍历调用所有模块的init方法。</p>
+      <p>这里再强调一下：data-start是我们自定义的属性，用来表示该页面需要初始化的模块，你可以使用任何名称。它的值是一个字符串，多个模块使用逗号隔开，然后在代码中把它解析成一个数组。</p>
+      <pre><code>
+  // load module for each page
+  var startModules = $("script[data-main][data-start]").attr("data-start").split(',');
+
+  _.each(startModules, function (module) {
+    require([module], function(moduleObj) {
+      if (moduleObj && moduleObj.init) {
+        moduleObj.init();
+      }
+    });
+    
+  });
+      </code></pre>
+      <p>下面是完整的main.js里代码示例：</p>
+      <pre><code>
+  requirejs.config({
+    "baseUrl": "js/lib",
+    "paths": {
+      "app": "../app"
+    },
+    "shim": {
+        "jquery.alpha": ["jquery"],
+        "jquery.beta": ["jquery"]
+    }
+});
+
+// load module for each page
+var startModules = $("script[data-main][data-start]").attr("data-start").split(',');
+
+_.each(startModules, function (module) {
+  require([module], function(moduleObj) {
+    if (moduleObj && moduleObj.init) {
+      moduleObj.init();
+    }
+  });
+  
+});
+      </code></pre>
+      <p>其实以上的用法不限于YII，几乎可以在任何项目中使用。</p>
+      <h2>参考文献</h2>
+      <ul>
+        <li><a href="http://requirejs.org/docs/api.html" target="_blank">REQUIREJS API</a>
+        <li><a href="https://github.com/requirejs" target="_blank">REQUIREJS Examples in Github</a>
+        <li><a href="https://github.com/requirejs/example-multipage-shim" target="_blank">example-multipage-shim</a>
+        <li><a href="http://www.ibm.com/developerworks/cn/web/1209_shiwei_requirejs/" target="_blank">使用 RequireJS 优化 Web 应用前端</a>
+        <li><a href="http://www.cnblogs.com/snandy/archive/2012/06/04/2532997.html" target="_blank">如何配置RequireJS</a>
+      </ul>
+    </article>
+  </body>
+</html>
