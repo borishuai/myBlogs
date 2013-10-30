@@ -7,7 +7,8 @@
   
   <body>
     <article>
-      <h1>CSS秘密花园</h1>
+      <h1>CSS语言精粹</h1>
+      <p>本文主要是对CSS中一些比较重要的高级部分作了一些整理，这些内容也许不是经常使用，但是都很强大。本文将长期更新。</p>
       <h2>边框</h2>
       <p>CSS2.1 规定：元素的背景是内容、内边距和边框区的背景。设置背景颜色时是没有问题的，背景色显示在边框下面，但是当使用背景图片时你会发现左边框和右边框下面并没有背景图片。这时需要把position-x和position-y设成负值，大小为border的宽度。我个人猜测原因是background-position的起始点是padding的左上角。</p>
       <h2>背景图片</h2>
@@ -29,9 +30,25 @@
       <h2>outline</h2>
       <p>outline （轮廓）是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。它和border的区别是outline不参与布局，就是说outline不会影响元素的盒模型，至多和其它元素重叠，而border则是盒模型的一部分，很多时候设置border会影响元素的宽度。另外一个区别是outline不能单独设置某个边的outline。</p>
       <p>outline的特性可以用于调试CSS，你可以给元素加个outline来看一下元素的大小和位置是否正确，而不会影响页面的布局。</p>
+      <h2>box-sizing</h2>
+      <p>W3C标准的盒模型是元素的宽高是由内容的宽高加上Padding和Border的值决定的，就是对一个元素设定Padding和Border不会影响元素内容的宽高。而IE6以下的浏览器包括怪异模式(Quirks Mode)下的所有IE浏览器的盒模型为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制，就是说给元素设定width: 100px，则100px包括了内容的宽度，Padding和Border，如果Padding和Border的值改变，则元素内容的宽度也会改变，因为它们的总和始终是100px。</p>
+      <p>早几年的前端开发人员估计都被这个差异性折磨过，我也曾经痛恨这个问题。但是IE的这种做法也有方便的地方，所以在CSS3中引入了box-sizing属性，它的一个值是border-box，即可实现IE5的那种盒模型。我们举个例子来说明IE这种模型的用途。</p>
+      <p>场景是一个100px固定宽度的元素，需要一个背景色，内容离边框有10个px。如果是用W3C标准盒模型，代码如下：</p>
+      <pre>
+        height: 80px;
+        padding: 10px 0;
+      </pre>
+      <p>下面的是CSS3的box-sizing: border-box的代码：</p>
+      <pre>
+        box-sizing: border-box;
+        height: 100px;
+        padding: 10px 0;
+      </pre>
+      <p>W3C标准盒模型需要根据Padding和Border的值来计算内容的高度，并且一旦Pading和Border的值被修改，height的值必须跟着一起修改，这在开发阶段尤其麻烦。而box-sizing: border-box盒模型下，则不用考虑这些问题，只要设个高度为100px就行了，浏览器会自动根据元素的Padding和Border来对动态调整元素的内容的高度。<a href="http://jsfiddle.net/LLuj3/" target="_blank">示例代码</a></p>
+      <p>box-sizing的另外一个值是content-box，这个就是W3C标准的盒模型，这个值也是box-sizing的默认值。box-sizing是CSS3引入的一个样式，但是因为IE8就开始支持了，所以如果不考虑IE6和IE7的话就可以放心使用了。如果还不清楚请参考：<a href="http://www.w3cplus.com/content/css3-box-sizing" target="_blank">CSS3 Box-sizing</a>。</p>
       <h2>参考文献</h2>
       <ul>
-      	<li><a href="http://www.w3school.com.cn/css" target="_blank"></a>W3School CSS教程</li>
+      	<li><a href="http://www.w3school.com.cn/css" target="_blank">W3School CSS教程</a></li>
       </ul>
     </article>
   </body>
