@@ -1,0 +1,189 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>响应式设计介绍</h1>
+      <p>2013年，智能机上网时间已经超过PC机了，并且这种趋势是不可逆的，因为现在人们的时间</p>
+      <h2>什么是响应式设计</h2>
+      <p></p>
+      <h2>移动优先</h2>
+      <ul>
+      	<li>
+          <strong>手机在爆炸式增长</strong>
+          <p>移动设备的数量和质量都在急速增长，随着数量的激增，越来越多的人们开始只使用移动设备来访问互联网。</p>
+        </li>
+        <li>
+          <strong>手机迫使你专注</strong>
+          <p>优先为手机设计可以迫使你专注于弄清楚哪些内容是最重要的，因为这些设备大都只有一个很小的屏幕，这就意味着你能往里面填充内容的空间很有限。这样你就只能把那些对于用户来说最为重要的内容放在首页。</p>
+        </li>
+        <li>
+          <strong>手机延伸了你的能力</strong>
+          <p>现在的智能机功能越来越强，例如我的Nexus 4是四核，2G内存，大有超越PC机的节奏。除此之外，智能机还有好多PC机所没有的功能，如可以调用地理定位功能来优化体验，可以根据人们持握它们的方向来改变布局，并且好多设备拥有多点触摸接口。这些功能极大的丰富了人们的用户体验。</p>
+          <p>此外移动设备上也开始加装越来越多的传感器，虽然目前还有传感器是不能从浏览器中访问到的，但是你要放眼未来，你可以考虑一下如何利用这些传感器来创建出更好的体验。</p>
+        </li>
+      </ul>
+      <p><a href="http://www.lukew.com/ff/entry.asp?933" target="_blank">英文原文</a></p>
+      <h2>media type & media query</h2>
+      <p>media type(媒体类型)是css 2中的一个非常有用的属性，通过media type我们可以对不同的设备指定特定的样式，从而实现更丰富的界面。media query(媒体查询)是对media type的一种增强，是CSS 3的重要内容之一。随着移动互联网的发展，media query开始得到大家的重视。</p>
+      <h3>media type</h3>
+      <p>让我们先了解一下media type，其实这个大家会比较熟悉一点，我们通常会用到的media type会是all 和screen，然后是print，一些网站会专门通过print类型为页面的打印格式提供更友好的界面。
+其实，media type有很多种：</p>
+      <table class="dataintable">
+        <tbody><tr>
+          <th>值</th>
+          <th>描述</th>
+        </tr>
+        <tr>
+          <td>screen</td>
+          <td>针对不分页的计算机屏幕。</td>
+        </tr>
+        <tr>
+          <td>tty</td>
+          <td>针对使用等宽字符网格的媒介（比如打字机、终端或其他具有有限显示能力的设备）。</td>
+        </tr>
+        <tr>
+          <td>tv</td>
+          <td>针对 TV 类型的设备。</td>
+        </tr>
+        <tr>
+          <td>projection</td>
+          <td>针对投影机。</td>
+        </tr>
+        <tr>
+          <td>handheld</td>
+          <td>针对手持设备。</td>
+        </tr>
+        <tr>
+          <td>print</td>
+          <td>针对打印预览模式的页面和文档。</td>
+        </tr>
+        <tr>
+          <td>braille</td>
+          <td>针对盲人用点字法触觉反馈装置。</td>
+        </tr>
+        <tr>
+          <td>aural</td>
+          <td>针对语音合成。</td>
+        </tr>
+        <tr>
+          <td>all</td>
+          <td>针对所有设备或装置。</td>
+        </tr>
+      </tbody></table>
+      <h3>Media Query</h3>
+      <p>Media Query是CSS3 对Media Type的增强版，其实可以将Media Query看成Media Type(判断条件)+CSS(符合条件的样式规则)，常用的特性w3c共列出来13种。具体的可以参阅：Media features 。</p>
+      <p>详细请参考<a href="http://www.qianduan.net/media-type-and-media-query.html" target="_blank">media type与media query</a></p>
+      <table>
+        <thead>
+          <tr>
+            <th>属性</th>
+            <th>值</th>
+            <th>Min/Max</th>
+            <th>描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>color</td>
+            <td>整数</td>
+            <td>yes</td>
+            <td>每种色彩的字节数</td>
+          </tr>
+          <tr>
+            <td>color-index</td>
+            <td>整数</td>
+            <td>yes</td>
+            <td>色彩表中的色彩数</td>
+          </tr>
+          <tr>
+            <td>device-aspect-ratio</td>
+            <td>整数/整数</td>
+            <td>yes</td>
+            <td>宽高比例</td>
+          </tr>
+          <tr>
+            <td>device-height</td>
+            <td>length</td>
+            <td>yes</td>
+            <td>设备屏幕的输出高度</td>
+          </tr>
+          <tr>
+            <td>device-width</td>
+            <td>length</td>
+            <td>yes</td>
+            <td>设备屏幕的输出宽度</td>
+          </tr>
+          <tr>
+            <td>grid</td>
+            <td>整数</td>
+            <td>no</td>
+            <td>是否是基于格栅的设备</td>
+          </tr>
+          <tr>
+            <td>height</td>
+            <td>length</td>
+            <td>yes</td>
+            <td>渲染界面的高度</td>
+          </tr>
+          <tr>
+            <td>monochrome</td>
+            <td>整数</td>
+            <td>yes</td>
+            <td>单色帧缓冲器中每像素字节</td>
+          </tr>
+          <tr>
+            <td>resolution</td>
+            <td>分辨率(“dpi/dpcm”)</td>
+            <td>yes</td>
+            <td>分辨率</td>
+          </tr>
+          <tr>
+            <td>scan</td>
+            <td>Progressive    interlaced</td>
+            <td>no</td>
+            <td>tv媒体类型的扫描方式</td>
+          </tr>
+          <tr>
+            <td>width</td>
+            <td>length</td>
+            <td>yes</td>
+            <td>渲染界面的宽度</td>
+          </tr>
+          <tr>
+            <td>orientation</td>
+            <td>Portrait/landscape</td>
+            <td>no</td>
+            <td>横屏或竖屏</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>手机浏览器的尺寸问题，viewport</h2>
+      <p>当你用iPhone访问一个没有面向移动设备优化过的网站时(最好选取960px宽度的网站)，你会发现iPhone上面刚好可以把整个页面显示出来，但是页面被缩小了非常多，字体非常小。这其实是Sarari默认把自己当成980px宽度来处理的，而所有iPhone(竖屏)的真实宽度为320px，事实上几乎所有的移动设备都有类似的情况，iPhone的请参考<a href="http://www.kylejlarson.com/blog/2012/iphone-5-web-design/" target="_blank">iPhone 5 Display Size and Web Design Tips</a>。这就牵扯到Viewport的概念了。</p>
+      <p>Viewport是浏览器的可视区域，也是浏览器的宽度，在PC上面问题比较简单，宽度是多少就多少，但是在移动设备上，浏览器尝试去把整个页面都显示出来，所以就会Viewport值不准确的情况，例如上面提到的Safari从iPhone那里获取到宽度是980px(浏览器只能从系统那里获取宽度)，所以我们要做第一件事就是要浏览器用真实的宽度去解析页面，代码如下：</p>
+      <pre><code>
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+      </code></pre>
+      <p>"width=device-width"表示浏览器用它自己真实的宽度，如iPhone上面就是320px，initial-scale=1.0表示默认不进行缩放。关于Viewport更多请参考：<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag?redirectlocale=en-US&redirectslug=Mobile%2FViewport_meta_tag" target="_blank">Using the viewport meta tag to control layout on mobile browsers</a></p>
+      <p>补充一下：设备像素不等于CSS像素，例如用户放大页面300%，CSS像素也跟着放大300%，但设备像素肯定不会有变化。很多设备为了保证良好浏览效果，通常会告诉浏览器一个假的分辨率，例如iPhone5s的设备分辨率是640x1136，但是却告诉浏览器它的分辨率是320x568(网站要加width=device-width，否则是980宽度)，否则真的以640x1136在那点屏幕上进行浏览页面肯定要近视了。</p>
+      <h2>确定断点</h2>
+      <p>传统的确定断点的方案是使用一些固定的宽度进行划分，如320px(iPhone)，768px(iPad)，960px或1024px(传统PC浏览器)，这种方案的好处是很好照顾到了当前主流的设备，但是技术发展实现是太快了，各种不同分辨率的设备层出不穷，很难保证未来能很好的支持各种设备。</p>
+      <p>另外一种确定断点的方法是根据内容进行设置断点以及设置多少个断点，这样有助于将布局和分辨率进行解耦，同时可以尽可能多的支持各种分辨率的设备。一种具体做法是将浏览器的宽度缩小到300px，然后逐步拉大浏览器的宽度，观察页面的变化，用来确定在何处设置断点。</p>
+      <h2>设计原则,渐近增强</h2>
+      <h2>图片处理</h2>
+      <h2>HTML5 Supports</h2>
+      <h2>进阶：font-size, 带宽，高度，高清屏</h2>
+      <h2>调试工具</h2>
+      <h2>IE支持，respond.js, ie.css</h2>
+      
+      <h2>参考文献</h2>
+      <ul>
+      	<li><a href="http://www.w3school.com.cn/css" target="_blank">W3School CSS教程</a></li>
+      </ul>
+    </article>
+  </body>
+</html>
