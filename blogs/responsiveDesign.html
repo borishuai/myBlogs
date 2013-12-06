@@ -16,7 +16,7 @@
       </blockquote>
       <h2>移动优先</h2>
       <ul>
-      	<li>
+        <li>
           <strong>手机在爆炸式增长</strong>
           <p>移动设备的数量和质量都在急速增长，随着数量的激增，越来越多的人们开始只使用移动设备来访问互联网。</p>
         </li>
@@ -165,6 +165,7 @@
           </tr>
         </tbody>
       </table>
+      <p>更多Media Query请参考：<a href="http://www.w3cplus.com/content/css3-media-queries" target="_blank">CSS3 Media Queries</a></p>
       <h2>Viewport</h2>
       <p>当你用iPhone访问一个没有面向移动设备优化过的网站时(最好选取960px宽度的网站)，你会发现iPhone上面刚好可以把整个页面显示出来，但是页面被缩小了非常多，字体非常小。这其实是Sarari默认把自己当成980px宽度来处理的，而所有iPhone(竖屏)的真实宽度为320px，事实上几乎所有的移动设备都有类似的情况，iPhone的请参考<a href="http://www.kylejlarson.com/blog/2012/iphone-5-web-design/" target="_blank">iPhone 5 Display Size and Web Design Tips</a>。这就牵扯到Viewport的概念了。</p>
       <p>Viewport是浏览器的可视区域，也是浏览器的宽度，在PC上面问题比较简单，宽度是多少就多少，但是在移动设备上，浏览器尝试去把整个页面都显示出来，所以就会Viewport值不准确的情况，例如上面提到的Safari从iPhone那里获取到宽度是980px(浏览器只能从系统那里获取宽度)，所以我们要做第一件事就是要浏览器用真实的宽度去解析页面，代码如下：</p>
@@ -225,11 +226,11 @@
           <strong>使用HTML5技术</strong>
           <p>移动设备上的浏览器一般对HTML5支持得比较好，所以可以考虑使用HTML5的一些功能来增强移动设备的用户体验。</p>
           <ul>
-          	<li>语音输入</li>
-          	<li>触摸功能</li>
-          	<li>手势</li>
-          	<li>GPS定位</li>
-          	<li>智能输入框，如Email, URL, Telephone，移动设备会为它们显示不同的键盘。</li>
+            <li>语音输入</li>
+            <li>触摸功能</li>
+            <li>手势</li>
+            <li>GPS定位</li>
+            <li>智能输入框，如Email, URL, Telephone，移动设备会为它们显示不同的键盘。</li>
           </ul>
         </li>
         <li>
@@ -237,22 +238,23 @@
           <p>我们可以从navigator.connection中获得设备的网络类型，比如2G, 3G等，然后根据不同的带宽显示不同的图片，比如低带宽的设备显示低分辨率的图片及保证它们有较快的响应速度。关于navigator.connection可以参考<a href="https://dvcs.w3.org/hg/dap/raw-file/tip/network-api/Overview.html#widl-NetworkInformation-connection" target="_blank">Network Information API</a></p>
         </li>
       </ul>
-      <h2>HTML5 Supports进阶：font-size, 带宽，高度，高清屏</h2>
+      <h2>更多挑战</h2>
+      <p>这几年各种新的设备层出不穷，如可穿戴设备的流行逐渐兴起，如智能手表，智能眼镜等，这些设备的特点是屏幕非常小。另外以智能电视为代表的超大屏幕的设备也越来越流行起来。所有这些都给Web设计开发人员带来巨大的挑战，当然将来会出现更多的各种神奇的设备。</p>
       <h2>调试工具</h2>
       <ul>
-      	<li>
+        <li>
           <strong>Adobe Edge Reflow</strong>
           <p>Adobe Edge Reflow可以用于响应式设计的可视化创作，提高通过HTML5和CSS3技术在不同设备上所进行的网页开发效率,，Reflow的主要功能是通过在设计的过程中将所有的“断点”“模块”进行可视化的展示，让开发者可以在工具中一边进行间距的调试，一边测试展示效果。</p>
         </li>
-      	<li>
+        <li>
           <strong>Chrome 开发者工具</strong>
           <p>Chrome浏览器可以模拟各种设备的User Agent，Device metrics，Device Orientation，Touch Event，Override Geolocationt等，可以很方便的在Chrome上面模拟手机上面的各种行为与效果，方便的进行开发测试。可以按F12，然后点击右下角的Setting，接着点击Overrides就可以进行设置。</p>
         </li>
-      	<li>
+        <li>
           <strong>Responsivator</strong>
           <p>这是一个在线测试响应式设计页面的工具，它提供了很多不同的尺寸屏幕的展示效果，你只需要提供一个url，就可以看到你的网站在不同的屏幕下的显示效果。</p>
         </li>
-      	<li>
+        <li>
           <strong>Responsive Test</strong>
           <p>这也是一个在线的响应式测试工具，和Responsivator不同的地方在于，它只有一个窗口，但是你可以任意的修改它的尺寸，也可以对屏幕进行旋转，它同时自带了一些常用设备的模板，方便测试。</p>
         </li>
@@ -260,12 +262,57 @@
       <h2>IE支持，respond.js, ie.css</h2>
       <p>IE9+才开始支持Media Query，要想低版本的IE支持Media Query，需要借助JS的支持，<a class="urlextern" target="_blank" title="https://github.com/scottjehl/Respond" href="https://github.com/scottjehl/Respond">respond.js</a>和<a target="_blank" title="https://code.google.com/p/css3-mediaqueries-js/" href="https://code.google.com/p/css3-mediaqueries-js/">css3-mediaqueries-js</a>。</p>
       <p><a target="_blank" title="https://github.com/scottjehl/Respond" href="https://github.com/scottjehl/Respond">respond.js</a>压缩后1k，只实现了media query中最常用的min-width max-width的兼容，所以性能非常好，而<a target="_blank" title="https://code.google.com/p/css3-mediaqueries-js/" href="https://code.google.com/p/css3-mediaqueries-js/">css3-mediaqueries-js</a>基本实现了所有css3规范中的media query特性的兼容，所以导致压缩有16k，测试反馈其性能远低于respond.js。其实大部分情况下只会用到max-width和min-width，因此这时Respondjs无疑是首选。详细请参考<a href="http://ux.etao.com/posts/686" target="_blank">media query ie8- 兼容实现总结</a></p>
+      <h2>缺点</h2>
+      <p>上面说了好多响应式设计的优点，但是响应式设计不是银弹，下面说说它不适合的场合及缺点。</p>
+      <ul>
+        <li>
+          <strong>加载需要一定的时间</strong>
+          <p>虽然，它不是一个大问题，在响应式设计中，需要下载一些看起来并不必要的HTML/CSS。除此之外，图片并没有根据设备调整到合适大小，而这正是导致加载时间加倍的原因。</p>
+        </li>
+        <li>
+          <strong>优化搜索引擎</strong>
+          <p>对于响应式Web设计，为搜索引擎确定关键字不是一件容易的事。因为相比一般桌面用户，移动用户多采用不同的关键字，修改标题及其他事项都比较困难。</p>
+        </li>
+        <li>
+          <strong>时间花费</strong>
+          <p>开发响应式网站是一项耗时的工作。如果你计划把一个现有网站转化成响应式网站，可能耗时更多。如果你想要一个响应式网站，最好从草图开始重新设计。</p>
+        </li>
+        <li>
+          <strong>布局难以控制</strong>
+          <p>响应式Web设计的布局主要是液态的，这也正是设计者对设计样式不好控制的原因。而且眼下正是设计者提前展示各种“复制品”的时候。设计者试图针对移动和桌面布局分别显示线框和设计原型。只有等到这两种布局均得到提高后，响应式Web设计策略才能真正实现。</p>
+        </li>
+      </ul>
+      <img class="text-center" src="../images/responsive/devices.jpg" alt="Devices" />
+      <h2>响应式设计的替代方案</h2>
+      <p></p>
+      <ul>
+        <li>
+          <strong>加载需要一定的时间</strong>
+          <p>虽然，它不是一个大问题，在响应式设计中，需要下载一些看起来并不必要的HTML/CSS。除此之外，图片并没有根据设备调整到合适大小，而这正是导致加载时间加倍的原因。</p>
+        </li>
+        <li>
+          <strong>优化搜索引擎</strong>
+          <p>对于响应式Web设计，为搜索引擎确定关键字不是一件容易的事。因为相比一般桌面用户，移动用户多采用不同的关键字，修改标题及其他事项都比较困难。</p>
+        </li>
+        <li>
+          <strong>时间花费</strong>
+          <p>开发响应式网站是一项耗时的工作。如果你计划把一个现有网站转化成响应式网站，可能耗时更多。如果你想要一个响应式网站，最好从草图开始重新设计。</p>
+        </li>
+        <li>
+          <strong>布局难以控制</strong>
+          <p>响应式Web设计的布局主要是液态的，这也正是设计者对设计样式不好控制的原因。而且眼下正是设计者提前展示各种“复制品”的时候。设计者试图针对移动和桌面布局分别显示线框和设计原型。只有等到这两种布局均得到提高后，响应式Web设计策略才能真正实现。</p>
+        </li>
+      </ul>
       <h2>参考文献</h2>
       <ul>
-      	<li><a href="http://ux.etao.com/posts/686" target="_blank">media query ie8- 兼容实现总结</a></li>
-      	<li><a href="http://mutian.info/tech/1386" target="_blank">Retina 屏幕下，网页图片的显示兼容</a></li>
-      	<li><a href="http://www.w3cplus.com/css/the-mobile-web-css-image-replacement-for-retina-display-devices.html" target="_blank">移动Web——CSS为Retina屏幕替换图片</a></li>
-      	<li><a href="https://dvcs.w3.org/hg/dap/raw-file/tip/network-api/Overview.html#widl-NetworkInformation-connection" target="_blank">Network Information API</a></li>
+        <li><a href="http://www.w3cplus.com/content/css3-media-queries" target="_blank">CSS3 Media Queries</a></li>
+        <li><a href="http://ux.etao.com/posts/686" target="_blank">media query ie8- 兼容实现总结</a></li>
+        <li><a href="http://www.kylejlarson.com/blog/2012/iphone-5-web-design/" target="_blank">iPhone 5 Display Size and Web Design Tips</a></li>
+        <li><a href="http://mutian.info/tech/1386" target="_blank">Retina 屏幕下，网页图片的显示兼容</a></li>
+        <li><a href="http://www.w3cplus.com/css/the-mobile-web-css-image-replacement-for-retina-display-devices.html" target="_blank">移动Web——CSS为Retina屏幕替换图片</a></li>
+        <li><a href="https://dvcs.w3.org/hg/dap/raw-file/tip/network-api/Overview.html#widl-NetworkInformation-connection" target="_blank">Network Information API</a></li>
+        <li><a href="http://www.w3cplus.com/css/towards-retina-web.html" target="_blank">走向视网膜（Retina）的Web时代</a></li>
+        <li><a href="http://www.csdn.net/article/2012-06-28/2806980" target="_blank">响应式Web设计：最佳指南</a></li>
       </ul>
     </article>
   </body>
