@@ -1,0 +1,34 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>Mobile Web开发实践</h1>
+      <p>移动设备的快速发展给用户带来了很大的便利。用户使用Android、iPhone和其它移动设备很容易接入互联网。移动设备对网页的性能要求比较高，下面就说说Mobile Web开发的一些心得。</p>
+      
+      <h2>Viewport</h2>
+      <p>当你用iPhone访问一个没有面向移动设备优化过的网站时(最好选取960px宽度的网站)，你会发现iPhone上面刚好可以把整个页面显示出来，但是页面被缩小了非常多，字体非常小。这其实是Sarari默认把自己当成980px宽度来处理的，而所有iPhone(竖屏)的真实宽度为320px，事实上几乎所有的移动设备都有类似的情况，iPhone的请参考<a target="_blank" href="http://www.kylejlarson.com/blog/2012/iphone-5-web-design/">iPhone 5 Display Size and Web Design Tips</a>。这就牵扯到Viewport的概念了。</p>
+      <p>Viewport是浏览器的可视区域，也是浏览器的宽度，在PC上面问题比较简单，宽度是多少就多少，但是在移动设备上，浏览器尝试去把整个页面都显示出来，所以就会Viewport值不准确的情况，例如上面提到的Safari从iPhone那里获取到宽度是980px(浏览器只能从系统那里获取宽度)，所以我们要做第一件事就是要浏览器用真实的宽度去解析页面，代码如下：</p>
+      <pre><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></pre>
+      <p>"width=device-width"表示浏览器用它自己真实的宽度，如iPhone上面就是320px，initial-scale=1.0表示默认不进行缩放。关于Viewport更多请参考：<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag?redirectlocale=en-US&amp;redirectslug=Mobile%2FViewport_meta_tag">Using the viewport meta tag to control layout on mobile browsers</a></p>
+      <p>补充一下：设备像素不等于CSS像素，例如用户放大页面300%，CSS像素也跟着放大300%，但设备像素肯定不会有变化。很多设备为了保证良好浏览效果，通常会告诉浏览器一个假的分辨率，例如iPhone5s的设备分辨率是640x1136，但是却告诉浏览器它的分辨率是320x568(网站要加width=device-width，否则是980宽度)，否则真的以640x1136在那点屏幕上进行浏览页面肯定要近视了。</p>
+      
+      <h2>响应式设计</h2>
+      <p>移动设备的分辨率多种多样，这就要求我们要在所有设备上都能很好的展示，而响应式设计就是非常好的解决方案。<a href="http://www.getbootstrap.com/" target="_blank">BootStrap</a>等框架都号称移动优先，当然缺点是文件比较大，如果网站比较简单的话可以自己用百分比写写就可以了。更多响应式设计请参考：<a href="http://blog.csdn.net/borishuai/article/details/18358741" target="_blank">响应式设计介绍</a></p>
+      
+      <h2>图片精度</h2>
+      <h2>性能相关</h2>
+      <ul>
+        <li>Zepto.js</li>
+        <li>Lazy load</li>
+        <li></li>
+        <li></li>
+      </ul>
+      <h2></h2>
+    </article>
+  </body>
+</html>

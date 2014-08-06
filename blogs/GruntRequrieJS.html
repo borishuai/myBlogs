@@ -1,0 +1,58 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>基于GruntJS的RequireJS的性能优化及自动化处理</h1>
+      <h2>Topics</h2>
+      <ol>
+        <li>模块化开发/CommonJS/AMD简介</li>
+        <li>RequireJS简介</li>
+        <li>RequireJS官方的利用r.js进行文件合并(不包含shim以及包含shim)</li>
+        <li>利用GruntJS来作自动化处理</li>
+        <li>使用almond.js进行性能的高级优化</li>
+        <li>如何处理开发调试与自动化之间的冲突（即代码即方便作自动化处理又不影响平时的开发调试）</li>
+      </ol>
+      <h2>模块化开发/CommonJS/AMD简介</h2>
+      <p>随着网站逐渐变成"互联网应用程序"，嵌入网页的Javascript代码越来越庞大，越来越复杂。网页越来越像桌面程序，需要一个团队分工协作、进度管理、单元测试等等......开发者不得不使用软件工程的方法，管理网页的业务逻辑。</p>
+      <p>Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。</p>
+      <p>模块化开发其实主要解决了几个问题。</p>
+      <ul>
+        <li>命名冲突</li>
+        <li>模块的按需加载</li>
+        <li>模块复用</li>
+        <li>可测试性</li>
+      </ul>
+      <p>目前，通行的Javascript模块规范共有两种：CommonJS和AMD。我主要介绍AMD，但是要先从CommonJS讲起。</p>
+      <h3>CommonJS</h3>
+      <p>CommonJS是个社团，主要由服务器端JavaScript运行库（server-side JavaScript runtimes）编写者组成，他们致力于将模块的公开及访问标准化的工作。值得注意的是，他们提议的模块系统并非标准，因为它不是出自制定 JavaScript标准的同一社团，所以它更像是服务器端JavaScript运行库编写者彼此之间的非正式约定。</p>
+      <p>CommonJS主要是为服务器端JavaScript运行库设计的，而且由于有几个属性使得它们难以在浏览器中组织客户端代码。</p>
+      <p>CommonJS对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于"假死"状态。</p>
+      <h3>异步模块定义（Asynchronous Module Definition）</h3>
+      <p>AMD是"Asynchronous Module Definition"的缩写，意思就是"异步模块定义"。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。</p>
+      <h2>RequireJS简介</h2>
+      <p>see <a href="http://blog.csdn.net/kevinwon1985/article/details/8012193">http://blog.csdn.net/kevinwon1985/article/details/8012193</a></p>
+      <p>see <a href="http://www.cnblogs.com/snandy/archive/2012/06/04/2532997.html">RequieJS Config</a></p>
+      <h2>Basic Optimization</h2>
+      <p>在生产环境中将所有的JavaScript文件分离，这是一个不好的做法。这会导致很多次请求(requests)，即使这个些文件都很小，也会浪费很多时间。 可以通过合并这些脚本文件，以减少请求的次数达到节省加载时间的目的。</p>
+      <p>RequireJS Optimizer有很多用处。它不仅能够优化单个JavaScript或单个CSS文件，它还可以优化整个项目或只是其中的一部分，甚至多页应用程序(multi-page application)。它还可以使用不同的缩小引擎(minification engines)或者干脆什么都不用(no minification at all)，等等。</p>
+      <h2>RequireJS in GruntJS</h2>
+      <h2>Advanced Optimization</h2>
+      <p>什么情况下需要使用almond呢？假设你手头有个基于requirejs的小项目，所有业务代码加起来就几十K（压缩后可能更小）.出于性能优化的考虑，你可能在想：如果能够去掉requirejs的依赖就好了，毕竟，gzip后的requirejs还有大概20k（2.1.6版本）</p>
+      <p>almond就是为了这个目的而诞生的，开发过程，你可以照常使用requirejs来管理你的依赖，而到了打包上线阶段，替换成almond就行了。gzip后的almond只有大约1k，优化幅度相当大。</p>
+      <p>并且整个页面的请求数从2个降至1个了。同时我们可以结合filerev + usemin来做缓存管理了。</p>
+      
+      
+      <h2>参考文献</h2>
+      <ul>
+      	<li><a href="https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)" target="_blank">AMD </a></li>
+      	<li><a href="http://www.oschina.net/translate/optimize-requirejs-projects" target="_blank">优化 RequireJS 项目（合并与压缩）</a></li>
+      	<li><a href="http://levi.cg.am/archives/3450" target="_blank">requirejs：杏仁的优化(almond)</a></li>
+      </ul>
+    </article>
+  </body>
+</html>

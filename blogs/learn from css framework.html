@@ -1,0 +1,128 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>可以从CSS框架中借鉴到什么</h1>
+      <img width="630" height="360" src="http://isux.tencent.com/wp-content/uploads/2013/10/20131016200856927.jpg" class="attachment-large wp-post-image" alt="css_framework">
+      <div class="entry">
+          <p>现在很多人会使用 CSS&nbsp;框架进行快速建站。<br>
+那 CSS&nbsp;框架是什么呢，它通常是一些 CSS&nbsp;文件的集合，这些文件包括基本布局、表单样式、网格、简单组件、以及样式重置。使用 CSS&nbsp;框架大大降低工作成本进行快速建站。<br>
+当然对于一些大型的项目，可能会很难照搬某些框架直接使用的，因为直接使用会带来一些限制或者冗余的问题。<br>
+但在 CSS&nbsp;框架已经日趋成熟的今天，在我们设计项目架构、规范的时候，现时市面上一些优秀的框架也可以给我们提供很多可借鉴的地方。</p>
+<p>本文主要从几个方面讨论 CSS&nbsp;框架可以对我们项目的借鉴点：<br>
+1. 目录组织<br>
+2. CSS&nbsp;规范<br>
+3. 图形<br>
+4. 应用方式<br>
+5. 小建议</p>
+<p><span id="more-10537"></span></p>
+<h1>1. 目录组织</h1>
+<p>在目录组织的分析上我们参考了 Bootstrap , Blueprint , Yui , Yaml 四个框架的组织方式</p>
+<p><a target="_blank" href="http://isux.tencent.com/wp-content/uploads/2013/10/20131015210145631.png"><img class="alignnone size-full wp-image-10589" alt="1" src="http://isux.tencent.com/wp-content/uploads/2013/10/20131015210145631.png" width="590" height="1300"></a></p>
+<p align="left">当使用一个框架时，我们一般会把所需框架本身的样式链到页面中，然后在它的基础上进行修改。所以框架本身所带的样式可以理解为基础样式。即我们平时所说的全局样式+组件样式。</p>
+<p><a target="_blank" href="http://isux.tencent.com/wp-content/uploads/2013/10/20131015175052563.png"><img class="alignnone size-full wp-image-10556" alt="2" src="http://isux.tencent.com/wp-content/uploads/2013/10/20131015175052563.png" width="591" height="239"></a></p>
+<p align="left">可以看到，在目录架构上4个框架基本都是遵循基本样式+用户定义扩展样式的常规方式进行组织。</p>
+<p align="left">然而，如果按 Bootstrap 做法的话，可能会出现把不常用组件样式也包含在全局样式中一并引入，如果把组件也写在全局 CSS&nbsp;中，最好确保该组件出现频率较高才引入，避免不必要的带宽浪费。</p>
+<p align="left"><strong>关于 hack：</strong><br>
+对于针对低版本浏览器所写的 hack，对它的处理方式，Blueprint 和 Yaml 都是使用单独引入 hack 文件的形式进行处理，笔者也尝试过这样的做法。<br>
+个人觉得这种方式的好处是可以避免给高级浏览器带来冗余代码，而且通过条件判断引入 CSS&nbsp;也不会给高级浏览器带来额外的请求。</p>
+<p align="left">这种方式比较适用于，高低级浏览器本来就刻意设计成有较大差别的情况下，即 hack 比较多的时候才使用。不然就为了十来行 hack 而多引入一个文件的话似乎也不太可取。</p>
+<h1>2. CSS&nbsp;规范</h1>
+<h2>a. 前缀</h2>
+<p align="left">框架中公用模块都有前缀，分别有以下3个思想：<br>
+1. Yaml , Yui ：无论如何都是统一的标识开头，再加上改模块名称。<br>
+2. Bootstrap：直接模块名称，这方式需要定义关键字。公用模块是 button 都以 btn – 开头， image 则以 img- 开头。<br>
+3. Nec ：单字母开头来标识组件。</p>
+<p align="left"><a target="_blank" href="http://isux.tencent.com/wp-content/uploads/2013/10/20131015181252118.png"><img alt="3" src="http://isux.tencent.com/wp-content/uploads/2013/10/20131015181252118.png" width="496" height="134"></a></p>
+<p align="left">一般来说应用一个框架，我们先引入框架的样式，再在之上覆盖上自己的样式，所以可以把框架看作是我们的基础CSS。</p>
+<p align="left">我们可以借鉴框架的前缀规范来规划我们的基础 CSS&nbsp;前缀，根据自己的项目实际情况采取不同的方案。</p>
+<h2>b. 类的划分</h2>
+<p align="left">类的划分方式在框架中主要有2种标准，分别为：以【组件为粒度】，和以【属性为粒度】。</p>
+<p align="left">1. <strong>组件为粒度</strong>：把组件的所有样式封装在一个类名中，调用类名即可使用该组件。<br>
+2. <strong>属性为粒度</strong>：需要属性的时候，调用对应类名拼装。</p>
+<p align="left"><a target="_blank" href="http://isux.tencent.com/wp-content/uploads/2013/10/20131015183427649.png"><img alt="4" src="http://isux.tencent.com/wp-content/uploads/2013/10/20131015183427649.png" width="582" height="104"></a></p>
+<p align="left">在我们日常项目中，以属性对类名进行划分比较少见，因为一直遵循的都是“结构、样式、行为”分离的原则，力求降低三者的耦合度。</p>
+<p align="left">然而以这种方式划分在一些特定情况下也不是完全不可取。</p>
+<p align="left">例如对于一些元素的隐藏，如果没提供相关的类名的话，在js开发阶段开发就会直接内联 style 在对应的元素上（这将会触发 repaint/reflow），所以更好的方式是和js开发约定一个类名触发显示/隐藏的动作，在这种情况下，给 display: none 划分一个特定的类名，供给开发调用就会显得很实用了。</p>
+<p align="left">所以，更重要的是我们对所在的实际情况进行分析，并给出最佳的解决方案。</p>
+<h2>c. 组件类名组合方式</h2>
+<p align="left">组件的样式，基本都是 基础类名+扩展类名 的套路来进行组合的变化。</p>
+<p align="left">但在选择符方面可以有3种方式， 目前最多框架使用的是：多类选择，通过修改 html 的类名组合，实现还原。</p>
+<p align="left">以按钮样式的实现为例：<br>
+<a target="_blank" href="http://isux.tencent.com/wp-content/uploads/2013/10/20131015193742291.png"><img class="alignnone size-full wp-image-10574" alt="5" src="http://isux.tencent.com/wp-content/uploads/2013/10/20131015193742291.png" width="591" height="167"></a></p>
+<p>这里采用常规的组合方式，不再赘述。</p>
+<h2>d. 高级 CSS&nbsp;选择器</h2>
+<p align="left">在对 Bootstrap 进行分析的过程中，发现 Bootstrap 定义了一系列的icon，这些 icon 的类名全部都是以 icon- 为前缀。</p>
+<p align="left">而在 CSS&nbsp;中，Bootstrap 用到了子串匹配属性选择器。</p>
+<p align="left"><em>[class^="icon-"]</em></p>
+<p align="left">使用这个的好处是，对于 icon 类的标签，我们再也不需要对其加一个对于 icon 的公用类名，只需要类名是以 icon- 开头就可以匹配所有 icon ，省了一个类名。</p>
+<p align="left">使用这种方式可以降低一定的成本，但是只在 IE7+ 浏览器才适用，如果要使用该类选择器的话请考虑是否需要兼容 IE6。<br>
+虽然 IE6 不支持，但是高级 CSS&nbsp;选择器的确十分吸引，并且可用于移动端，所以特此提一下。</p>
+<h1>3. 图形</h1>
+<p align="left">在参考的 CSS&nbsp;框架中，它们会提供一些简单的图形元素， 但是实现的方式也有彼此不同之处。</p>
+<p align="left">但是共同点是，现今较新的框架，对于一些简单的效果，都会使用 CSS3 实现一些简单的渐变，对低版本 IE 进行优雅降级。</p>
+<p align="left"><a target="_blank" href="http://isux.tencent.com/wp-content/uploads/2013/10/20131015202527468.png"><img class="alignnone size-full wp-image-10579" alt="6" src="http://isux.tencent.com/wp-content/uploads/2013/10/20131015202527468.png" width="590" height="361"></a></p>
+<h1>4. 应用方式</h1>
+<p align="left">在参考实例是怎样使用这些框架的方式上，基本和我们平时项目使用方式一致。</p>
+<p align="left">在应用方式上，一般有两种方式。</p>
+<p align="left">1. 对于以组件为粒度的样式：<br>
+按照 <span style="text-decoration: underline;">组件的 html 结构</span> 来拼合自己的页面模块，再辅助添加 <span style="text-decoration: underline;">自定义的类名</span> 来控制其个性化定义。</p>
+<p>2. 对于以属性为粒度的样式：<br>
+按所需要的样式对应类名进行拼接。</p>
+<p align="left">下面可以看几个简单的例子：</p>
+<p align="left">1. 以组件为粒度：<br>
+对于组件的覆盖，采取常规的自定义类名覆盖样式，此处不再赘述。</p>
+<p align="left">2. 以属性为粒度：<br>
+<a target="_blank" href="http://isux.tencent.com/wp-content/uploads/2013/10/20131016180458109.png"><img class="alignnone size-full wp-image-10638" alt="7" src="http://isux.tencent.com/wp-content/uploads/2013/10/20131016180458109.png" width="590" height="171"></a></p>
+<p align="left">可以看到，若需要样式是属性以粒度，即把对应类名调入即可，但是在实际项目中，这种方式由于灵活度不够，并且没有做到结构与样式分离，实际项目中比较少见这种用法。</p>
+<p align="left">而对于功能性的动作，例如显示/隐藏元素，可以灵活使用这种方式，把所需样式写到一个特定类名中供给js调用，避免直接写入 style 导致 reflow/repaint。</p>
+<h1>5. 小建议</h1>
+<h2>对于目录组织：</h2>
+<h3>目录组织——</h3>
+<p align="left">可以考虑结合 Bootstrap 与 Yaml/Blueprint 的思想。</p>
+<p align="left">a .把常用的基础样式压缩合成一个文件。<br>
+b. 把不必现组件样式抽离成单独 CSS，按需加载。</p>
+<p align="left">【优化点】<br>
+减少了单个 global_min 文件的大小。</p>
+<p align="left">【权衡点】<br>
+需要考虑由此可能导致的请求数过多问题。</p>
+<h3>hack——</h3>
+<p align="left">根据实际情况，可考虑把针对 IE6 的 hack 文件单独分出来。</p>
+<p align="left">【优化点】<br>
+便于对低级浏览器的大型差异化处理，并且减少对于高级浏览器的冗余代码。</p>
+<h2>对于 CSS&nbsp;规范：</h2>
+<h3>CSS&nbsp;前缀——</h3>
+<p align="left">可考虑尝试 Nec 的方式，约定 “单字母_xxx”为公用样式的标识，取消单一的公用前缀，通过以不同字母作为顶级前缀，对公用模块进行划分。</p>
+<p align="left">【优化点】<br>
+减免了“公用前缀_组件前缀_组件名”的多级前缀，通过以类名格式作为标识，代替了原来公用前缀的作用。</p>
+<p align="left">【权衡点】<br>
+仍需按项目实际情况考虑。</p>
+<h3>类的划分——</h3>
+<p align="left">可考虑约定统一几个功能性的类名（以属性为粒度的类名），例如元素隐藏的类名，供给js调用。</p>
+<p align="left">【优化点】<br>
+减免让开发直接写 style 内联 CSS，造成页面的 reflow/repaint。</p>
+<h3>高级 CSS&nbsp;选择器——</h3>
+<p align="left">在对移动端页面进行重构时可以考虑使用更高级的 CSS&nbsp;选择器。<br>
+例： [class^=”icon”]，:first-child，:nth-child(n)….</p>
+<p align="left">【优化点】<br>
+相比于传统的方法，节省类名。</p>
+<h2>对于图形：</h2>
+<p align="left">考虑与设计师约定，视觉效果在可接受范围内，部分效果使用 CSS3 实现，对低级浏览器实现优雅降级。</p>
+<p align="left">【优化点】<br>
+大量减少图片的使用，节省带宽以及请求数。</p>
+<h1>最后</h1>
+<p>随着新技术的不断涌现，越来越多优秀的 CSS&nbsp;框架出现在我们的眼前，这里分析覆盖面有限，未能一一进行对比并深入探索，如有不足之处，敬请大家多多指正交流。</p>
+          <div class="clear"></div>
+          <div class="mod-entry-copyright">
+            <span class="entry_link">转自：腾讯ISUX (<a href="http://isux.tencent.com/css-framework.html" title="可以从CSS框架中借鉴到什么">http://isux.tencent.com/css-framework.html</a>)</span>
+            </p>
+          </div>
+                  </div>
+    </article>
+  </body>
+</html>
