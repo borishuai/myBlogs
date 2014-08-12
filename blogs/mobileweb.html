@@ -21,14 +21,40 @@
       <p>移动设备的分辨率多种多样，这就要求我们要在所有设备上都能很好的展示，而响应式设计就是非常好的解决方案。<a href="http://www.getbootstrap.com/" target="_blank">BootStrap</a>等框架都号称移动优先，当然缺点是文件比较大，如果网站比较简单的话可以自己用百分比写写就可以了。更多响应式设计请参考：<a href="http://blog.csdn.net/borishuai/article/details/18358741" target="_blank">响应式设计介绍</a></p>
       
       <h2>图片精度</h2>
+      <p>现在新的手机配置都比较高，绝大部分手机的像素比例（devicePixeRatio）都超过1，iPhone的Retina屏幕的像素比例为2，Nexus5的像素比例为3。像素比例高的屏幕必须要有高清的图片，这样显示效果才好，比如iPhone5s的竖屏宽度为320px，但是只有使用640px宽度的图片才能完美显示。我们的开发经验是图片以iPhone5s为标准进行处理，就是在iPhone5s上面必须是高清显示，其它广大Anroid设备上自适应处理。可以参考：<a target="_blank" href="http://www.w3cplus.com/css/the-mobile-web-css-image-replacement-for-retina-display-devices.html">移动Web——CSS为Retina屏幕替换图片</a></p>
       <h2>性能相关</h2>
       <ul>
-        <li>Zepto.js</li>
-        <li>Lazy load</li>
-        <li></li>
-        <li></li>
+        <li>
+          <h3>Zepto.js</h3>
+          <p>jQuery非常强大，但是它的体积比较大，即使是2.x的压缩版也有82KB。ZeptoJS号称迷你版jQuery，兼容大部分的jQuery API，它的大小只有24KB，因为它只支持移动浏览器，所有体积小，速度快。</p>
+        </li>
+        <li>
+          <h3>Lazy load</h3>
+          <p>对于移动网页来说，真正消耗流量部分应该是图片部分，因为图片通常都比较大，所以我们可以使用Lazy Load的方式只加载当前屏幕中的图片，因为用户很多时候只是看一下当前屏幕的内容就跳到下一页了，没有必要一次把所有图片都加载进来。</p>
+        </li>
+        <li>其它</li>
+        <p>为了提高性能和减少下载流量，我们可以压缩合并CSS，JS文件，对图片进行压缩处理，对图标进行合并等。</p>
       </ul>
-      <h2></h2>
+      <h2>HTML5 & CSS3</h2>
+      <p>移动设备上的浏览器都是比较新的浏览器，基本上都支持HMTL5和CSS3的新的功能，因此我们应该多使用它们。最起码我们可以使用CSS3的圆角效果来替换图片。下面列出一些非常实用的CSS3特性。</p>
+      <ul>
+        <li>
+          <h3>rem</h3>
+          <p>CSS常用px, pt作为字体单位，但是它们的缺点是它们是绝对值，百分比(%)和em作为字体单位时大小，它们的值是由它们的父元素的字体大小决定的，好处是它的值是动态变化的，缺点是因为每个元素的父元素的字体大小都不一样，因此各个em的大小也不一样，最终导致统一设置字体大小。</p>
+          <p>而rem相对于百分比和em来说，它是相对于root 元素的字体大小而不是父元素，这样任何一个元素使用rem作为单位时它的参考单位都是一样的。这样我们就统一控制整个页面的字体大小了。</p>
+          <p>请参考：<a href="http://www.w3cplus.com/css3/define-font-size-with-css3-rem" target="_blank">CSS3的REM设置字体大小</a></p>
+        </li>
+        <li>
+          <h3>动画</h3>
+          <p>我们通常用JS来实现动画，比如jQuery的animation()，但是JS的性能比较原生的CSS3动画要差很多，所以能用CSS3实现的动画就用CSS3实现。</p>
+        </li>
+      </ul>
+      <h2>参考文档</h2>
+      <ul>
+        <li><a href="http://blog.csdn.net/borishuai/article/details/18358741" target="_blank">响应式设计介绍</a></li>
+        <li><a href="http://www.w3cplus.com/css3/define-font-size-with-css3-rem" target="_blank">CSS3的REM设置字体大小</a></li>
+        <li><a href="http://www.w3cplus.com/css3/define-font-size-with-css3-rem" target="_blank">CSS3的REM设置字体大小</a></li>
+      </ul>
     </article>
   </body>
 </html>
