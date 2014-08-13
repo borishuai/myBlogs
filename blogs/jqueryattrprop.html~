@@ -1,0 +1,60 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>Mobile Web开发实践</h1>
+      <p>移动设备的快速发展给用户带来了很大的便利。用户使用Android、iPhone和其它移动设备很容易接入互联网。移动设备对网页的性能要求比较高，下面就说说Mobile Web开发的一些心得。</p>
+      
+      <h2>Viewport</h2>
+      <p>当你用iPhone访问一个没有面向移动设备优化过的网站时(最好选取960px宽度的网站)，你会发现iPhone上面刚好可以把整个页面显示出来，但是页面被缩小了非常多，字体非常小。这其实是Sarari默认把自己当成980px宽度来处理的，而所有iPhone(竖屏)的真实宽度为320px，事实上几乎所有的移动设备都有类似的情况，iPhone的请参考<a target="_blank" href="http://www.kylejlarson.com/blog/2012/iphone-5-web-design/">iPhone 5 Display Size and Web Design Tips</a>。这就牵扯到Viewport的概念了。</p>
+      <p>Viewport是浏览器的可视区域，也是浏览器的宽度，在PC上面问题比较简单，宽度是多少就多少，但是在移动设备上，浏览器尝试去把整个页面都显示出来，所以就会Viewport值不准确的情况，例如上面提到的Safari从iPhone那里获取到宽度是980px(浏览器只能从系统那里获取宽度)，所以我们要做第一件事就是要浏览器用真实的宽度去解析页面，代码如下：</p>
+      <pre><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></pre>
+      <p>"width=device-width"表示浏览器用它自己真实的宽度，如iPhone上面就是320px，initial-scale=1.0表示默认不进行缩放。关于Viewport更多请参考：<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag?redirectlocale=en-US&amp;redirectslug=Mobile%2FViewport_meta_tag">Using the viewport meta tag to control layout on mobile browsers</a></p>
+      <p>补充一下：设备像素不等于CSS像素，例如用户放大页面300%，CSS像素也跟着放大300%，但设备像素肯定不会有变化。很多设备为了保证良好浏览效果，通常会告诉浏览器一个假的分辨率，例如iPhone5s的设备分辨率是640x1136，但是却告诉浏览器它的分辨率是320x568(网站要加width=device-width，否则是980宽度)，否则真的以640x1136在那点屏幕上进行浏览页面肯定要近视了。</p>
+      
+      <h2>响应式设计</h2>
+      <p>移动设备的分辨率多种多样，这就要求我们要在所有设备上都能很好的展示，而响应式设计就是非常好的解决方案。<a href="http://www.getbootstrap.com/" target="_blank">BootStrap</a>等框架都号称移动优先，当然缺点是文件比较大，如果网站比较简单的话可以自己用百分比写写就可以了。更多响应式设计请参考：<a href="http://blog.csdn.net/borishuai/article/details/18358741" target="_blank">响应式设计介绍</a></p>
+      
+      <h2>图片精度</h2>
+      <p>现在新的手机配置都比较高，绝大部分手机的像素比例（devicePixeRatio）都超过1，iPhone的Retina屏幕的像素比例为2，Nexus5的像素比例为3。像素比例高的屏幕必须要有高清的图片，这样显示效果才好，比如iPhone5s的竖屏宽度为320px，但是只有使用640px宽度的图片才能完美显示。我们的开发经验是图片以iPhone5s为标准进行处理，就是在iPhone5s上面必须是高清显示，其它广大Anroid设备上自适应处理。可以参考：<a target="_blank" href="http://www.w3cplus.com/css/the-mobile-web-css-image-replacement-for-retina-display-devices.html">移动Web——CSS为Retina屏幕替换图片</a></p>
+      <h2>性能相关</h2>
+      <ul>
+        <li>
+          <h3>Zepto.js</h3>
+          <p>jQuery非常强大，但是它的体积比较大，即使是2.x的压缩版也有82KB。ZeptoJS号称迷你版jQuery，兼容大部分的jQuery API，它的大小只有24KB，因为它只支持移动浏览器，所有体积小，速度快。</p>
+        </li>
+        <li>
+          <h3>Lazy load</h3>
+          <p>对于移动网页来说，真正消耗流量部分应该是图片部分，因为图片通常都比较大，所以我们可以使用Lazy Load的方式只加载当前屏幕中的图片，因为用户很多时候只是看一下当前屏幕的内容就跳到下一页了，没有必要一次把所有图片都加载进来。</p>
+        </li>
+        <li>其它</li>
+        <p>为了提高性能和减少下载流量，我们可以压缩合并CSS，JS文件，对图片进行压缩处理，对图标进行合并等。</p>
+      </ul>
+      <h2>HTML5 & CSS3</h2>
+      <p>移动设备上的浏览器都是比较新的浏览器，基本上都支持HMTL5和CSS3的新的功能，因此我们应该多使用它们。最起码我们可以使用CSS3的圆角效果来替换图片。下面列出一些非常实用的CSS3特性。</p>
+      <ul>
+        <li>
+          <h3>rem</h3>
+          <p>CSS常用px, pt作为字体单位，但是它们的缺点是它们是绝对值，百分比(%)和em作为字体单位时大小，它们的值是由它们的父元素的字体大小决定的，好处是它的值是动态变化的，缺点是因为每个元素的父元素的字体大小都不一样，因此各个em的大小也不一样，最终导致统一设置字体大小。</p>
+          <p>而rem相对于百分比和em来说，它是相对于root 元素的字体大小而不是父元素，这样任何一个元素使用rem作为单位时它的参考单位都是一样的。这样我们就统一控制整个页面的字体大小了。</p>
+          <p>请参考：<a href="http://www.w3cplus.com/css3/define-font-size-with-css3-rem" target="_blank">CSS3的REM设置字体大小</a></p>
+        </li>
+        <li>
+          <h3>动画</h3>
+          <p>我们通常用JS来实现动画，比如jQuery的animation()，但是JS的性能比较原生的CSS3动画要差很多，所以能用CSS3实现的动画就用CSS3实现。</p>
+        </li>
+      </ul>
+      <h2>参考文档</h2>
+      <ul>
+        <li><a href="http://blog.csdn.net/borishuai/article/details/18358741" target="_blank">响应式设计介绍</a></li>
+        <li><a href="http://www.w3cplus.com/css3/define-font-size-with-css3-rem" target="_blank">CSS3的REM设置字体大小</a></li>
+        <li><a href="http://www.w3cplus.com/css3/define-font-size-with-css3-rem" target="_blank">CSS3的REM设置字体大小</a></li>
+      </ul>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!Doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/base.css" type="text/css">
+  </head>
+  
+  <body>
+    <article>
+      <h1>jQuery中attr和prop方法的区别</h1>
+      <p>相比attr，prop是1.6.1才新出来的，两者从中文意思理解，都是获取/设置属性的方法（attributes和properties）。只是，window或document中使用.attr()方法在jQuery1.6之前不能正常运行，因为window和document中不能有attributes。prop应运而生了。</p>
+<p>之前看网上对比两者的文章，更是列出一个表来区分什么标签下使用prop，什么标签下使用attr，原谅我是懒惰的人，最害怕要背的东西，所以只有自己想想办法了。</p>
+<p>既然我们想知道他们两的区别，最好就看看他们的源代码，不要被代码长度所吓到，我们只看关键的几句：</p>
+<p>attr方法代码（jQuery版本1.8.3）</p>
+<pre><code>attr: function( elem, name, value, pass ) {
+    var ret, hooks, notxml,
+        nType = elem.nodeType;
+
+    // don't get/set attributes on text, comment and attribute nodes
+    if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
+        return;
+    }
+
+    if ( pass &amp;&amp; jQuery.isFunction( jQuery.fn[ name ] ) ) {
+        return jQuery( elem )[ name ]( value );
+    }
+
+    // Fallback to prop when attributes are not supported
+    if ( typeof elem.getAttribute === "undefined" ) {
+        return jQuery.prop( elem, name, value );
+    }
+
+    notxml = nType !== 1 || !jQuery.isXMLDoc( elem );
+
+    // All attributes are lowercase
+    // Grab necessary hook if one is defined
+    if ( notxml ) {
+        name = name.toLowerCase();
+        hooks = jQuery.attrHooks[ name ] || ( rboolean.test( name ) ? boolHook : nodeHook );
+    }
+
+    if ( value !== undefined ) {
+
+        if ( value === null ) {
+            jQuery.removeAttr( elem, name );
+            return;
+
+        } else if ( hooks &amp;&amp; "set" in hooks &amp;&amp; notxml &amp;&amp; (ret = hooks.set( elem, value, name )) !== undefined ) {
+            return ret;
+
+        } else {
+            elem.setAttribute( name, value + "" );
+            return value;
+        }
+
+    } else if ( hooks &amp;&amp; "get" in hooks &amp;&amp; notxml &amp;&amp; (ret = hooks.get( elem, name )) !== null ) {
+        return ret;
+
+    } else {
+
+        ret = elem.getAttribute( name );
+
+        // Non-existent attributes return null, we normalize to undefined
+        return ret === null ?
+            undefined :
+            ret;
+    }
+}</code></pre>
+<p>prop方法代码（jQuery版本1.8.3）</p>
+<pre><code>prop: function( elem, name, value ) {
+    var ret, hooks, notxml,
+        nType = elem.nodeType;
+
+    // don't get/set properties on text, comment and attribute nodes
+    if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
+        return;
+    }
+
+    notxml = nType !== 1 || !jQuery.isXMLDoc( elem );
+
+    if ( notxml ) {
+        // Fix name and attach hooks
+        name = jQuery.propFix[ name ] || name;
+        hooks = jQuery.propHooks[ name ];
+    }
+
+    if ( value !== undefined ) {
+        if ( hooks &amp;&amp; "set" in hooks &amp;&amp; (ret = hooks.set( elem, value, name )) !== undefined ) {
+            return ret;
+
+        } else {
+            return ( elem[ name ] = value );
+        }
+
+    } else {
+        if ( hooks &amp;&amp; "get" in hooks &amp;&amp; (ret = hooks.get( elem, name )) !== null ) {
+            return ret;
+
+        } else {
+            return elem[ name ];
+        }
+    }
+}</code></pre>
+<p>attr方法里面，最关键的两行代码，elem.setAttribute( name, value + “” )和ret = elem.getAttribute( name )，很明显的看出来，使用的DOM的API setAttribute和getAttribute方法操作的<strong>属性元素节点</strong>。<br>
+而prop方法里面，最关键的两行代码，return ( elem[ name ] = value )和return elem[ name ]，你可以理解成这样document.getElementById(el)[name] = value，这是转化成JS对象的一个属性。</p>
+<p>既然明白了原理是这样，我们来看看一个例子：</p>
+<pre><code>&lt;input type="checkbox" id="test" abc="111" /&gt;</code></pre><
+<pre><code>$(function(){
+    el = $("#test");
+
+    console.log(el.attr("style"));  //undefined
+    console.log(el.prop("style"));  //CSSStyleDeclaration对象
+    console.log(document.getElementById("test").style); //CSSStyleDeclaration对象
+});
+</code></pre>
+<ol>
+<li>el.attr(“style”)输出undefined，因为attr是获取的这个对象属性节点的值，很显然此时没有这个属性节点，自然输出undefined</li>
+<li>el.prop(“style”)输出CSSStyleDeclaration对象，对于一个DOM对象，是具有原生的style对象属性的，所以输出了style对象</li>
+<li>至于document.getElementById(“test”).style和上面那条一样</li>
+</ol>
+<p>我们接着看：</p>
+<pre><code>el.attr("abc","111")
+console.log(el.attr("abc")); //111
+console.log(el.prop("abc")); //undefined
+</code></pre>
+<p>首先用attr方法给这个对象添加abc节点属性，值为111，可以看到html的结构也变了</p>
+<ol>
+<li>el.attr(“abc”)输出结果为111，再正常不过了</li>
+<li>el.prop(“abc”)输出undefined，因为abc是在这个的属性节点中，所以通过prop是取不到的</li>
+</ol>
+<p>我们再接着来：</p>
+<pre><code>el.prop("abc", "222");
+console.log(el.attr("abc")); //111
+console.log(el.prop("abc")); //222
+</code></pre>
+<p>我们再用prop方法给这个对象设置了abc属性，值为222，可以看到html的结构是没有变化的。输出的结果就不解释了。</p>
+<p>上面已经把原理讲清楚了，什么时候用什么就可以自己把握了。</p>
+<p>提一下，在遇到要获取或设置checked,selected,readonly和disabled等属性时，用prop方法显然更好，比如像下面这样：</p>
+<pre><code>&lt;input type="checkbox" id="test" checked="checked" /&gt;</code></pre>
+<pre><code>console.log(el.attr("checked")); //checked
+console.log(el.prop("checked")); //true
+console.log(el.attr("disabled")); //undefined
+console.log(el.prop("disabled"));  //false
+</code></pre>
+<p>显然，布尔值比字符串值让接下来的处理更合理。</p>
+<p>PS一下，如果你有JS性能洁癖的话，显然prop的性能更高，因为attr需要访问DOM属性节点，访问DOM是最耗时的。这种情况适用于多选项全选和反选的情况。
+</p>
+<div style="margin-top: 15px; font-style: italic">
+<p>转载自<a href="http://www.javascript100.com/">前端开发</a></p>
+<p><strong>本文链接地址:</strong> <a href="http://www.javascript100.com/?p=877">jQuery中attr和prop方法的区别</a></p>
+</div>
+    </article>
+  </body>
+</html>
